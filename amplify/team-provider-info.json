@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-bpr2-dev-125123-authRole",
+      "UnauthRoleArn": "arn:aws:iam::343061278635:role/amplify-bpr2-dev-125123-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::343061278635:role/amplify-bpr2-dev-125123-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-bpr2-dev-125123-deployment",
+      "UnauthRoleName": "amplify-bpr2-dev-125123-unauthRole",
+      "StackName": "amplify-bpr2-dev-125123",
+      "StackId": "arn:aws:cloudformation:eu-north-1:343061278635:stack/amplify-bpr2-dev-125123/a474b660-d2d6-11ed-8afc-0e6cb06eafe6",
+      "AmplifyAppId": "d3t35jh09ulopa"
+    },
+    "categories": {
+      "auth": {
+        "bpr2503ff6eb503ff6eb": {}
+      }
+    }
+  }
+}
