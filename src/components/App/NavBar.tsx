@@ -18,12 +18,12 @@ const NavBar: React.FC = () => {
                 {/* DropDown Menu */}
                 {isOpen && (
                     <div className="absolute top-20 left-14 mt-2 space-y-2 bg-white text-black rounded-md shadow-md" style={{ zIndex: '9999' }}>
-                        <a href="/" className="block px-4 py-2">Home</a>
-                        <a href="/edit" className="block px-4 py-2">Edit Profile</a>
-                        <a href="/adresses" className="block px-4 py-2">Start & End Adresses</a>
-                        <a href="/statistics" className="block px-4 py-2">Statistics</a>
-                        <a href="/settings" className="block px-4 py-2">Settings</a>
-                        <a href="/signout" className="block px-4 py-2">Sign Out</a>
+                        <Link to="/" className="block px-4 py-2">Home</Link>
+                        <Link to="/edit" className="block px-4 py-2">Edit Profile</Link>
+                        <Link to="/adresses" className="block px-4 py-2">Start & End Adresses</Link>
+                        <Link to="/statistics" className="block px-4 py-2">Statistics</Link>
+                        <Link to="/settings" className="block px-4 py-2">Settings</Link>
+                        <Link to="/signout" className="block px-4 py-2">Sign Out</Link>
                     </div>
                 )}
             </div>
