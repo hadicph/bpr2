@@ -1,16 +1,18 @@
 import { ReactElement } from "react";
 import RouteList from "../Routes/RouteList";
+import NavBar from "./NavBar";
 
 type HomeProps = {
-    children?: ReactElement;
-  };
+  children?: ReactElement;
+};
 
 const Home: React.FC<HomeProps> = ({ children }) => {
-    return(
-        <>
-        <RouteList/>
-        </>
-      );
+  return (
+    <>
+      <NavBar />
+      <RouteList />
+    </>
+  );
 }
 
 export default Home;

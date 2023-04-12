@@ -1,10 +1,13 @@
+import { Coordinates } from "./Coordinates";
+import { Delivery } from "./Delivery";
+
 export interface Route {
-    routeid: number;
+    id: string;
     routename: string;
-    start_address: string;
-    end_address: string;
-    userid: number;
-    deliveries: any[];
+    start_address: Coordinates;
+    end_address: Coordinates;
+    userid: string;
+    deliveries: Delivery[];
     status: string;
     optimized: boolean;
     created_at: string;
