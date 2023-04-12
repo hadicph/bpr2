@@ -1,0 +1,50 @@
+{
+    "routes": [
+      {
+        "routeid": 1,
+        "routename": "Route 1",
+        "start_address": "1234 Elm Street",
+        "end_address": "5678 Oak Street",
+        "userid": 1,
+        "deliveries": [],
+        "status": "active",
+        "optimized": true,
+        "created_at": "2022-04-10T08:30:00Z",
+        "updated_at": "2022-04-10T12:45:00Z",
+        "hasStarted": false,
+        "estimated_time": 60,
+        "estimated_distance": 10.5
+      },
+      {
+        "routeid": 2,
+        "routename": "Route 2",
+        "start_address": "9876 Pine Street",
+        "end_address": "5432 Cedar Street",
+        "userid": 2,
+        "deliveries": [],
+        "status": "completed",
+        "optimized": false,
+        "created_at": "2022-04-09T14:15:00Z",
+        "updated_at": "2022-04-09T18:30:00Z",
+        "hasStarted": true,
+        "estimated_time": 45,
+        "estimated_distance": 8.2
+      },
+      {
+        "routeid": 3,
+        "routename": "Route 3",
+        "start_address": "2468 Maple Street",
+        "end_address": "1357 Birch Street",
+        "userid": 3,
+        "deliveries": [],
+        "status": "completed",
+        "optimized": true,
+        "created_at": "2022-04-08T10:00:00Z",
+        "updated_at": "2022-04-08T15:30:00Z",
+        "hasStarted": false,
+        "estimated_time": 30,
+        "estimated_distance": 5.1
+      }
+    ]
+  }
+  

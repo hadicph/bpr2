@@ -4,6 +4,7 @@ import Home from "./Home";
 import RoutePage from "../Routes/RoutePage";
 import NewDelivery from "../Delivery/NewDelivery";
 import Map from "../Map/Map";
+import RouteList from "../Routes/RouteList";
 
 type RouterComponentProps = {
     children?: ReactElement;

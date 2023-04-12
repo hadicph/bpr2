@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import RouteList from "../Routes/RouteList";
 
 type HomeProps = {
     children?: ReactElement;
@@ -6,7 +7,9 @@ type HomeProps = {
 
 const Home: React.FC<HomeProps> = ({ children }) => {
     return(
-        <>Home Page</>
+        <>
+        <RouteList/>
+        </>
       );
 }
 
