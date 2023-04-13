@@ -1,0 +1,49 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type Coordinates {
+  longitude: Float!
+  latitude: Float!
+}
+
+type Delivery {
+  id: ID!
+  address: String!
+  status: String
+  phone_number: String
+  package_number: String
+  name: String
+  Created_At: AWSDate!
+  Updated_At: AWSDate!
+  point: Coordinates!
+}
+
+type Route
+  @model @auth(rules: [{ allow: owner, operations: [create, read, update, delete] }]) {
+  id: ID!
+  route_name: String!
+  deliveries: [Delivery]!
+  start_address: Coordinates
+  end_address: Coordinates
+  date: AWSDate!
+  optimized: Boolean! @default(value: "false")
+  Created_At: AWSDate!
+  Updated_At: AWSDate!
+  hasStarted: Boolean! @default(value: "false")
+  estimated_time: Int!
+  estimated_distance: Int!
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  type: String!
+    @index(
+      name: "routesByDate"
+      queryField: "routesByDate"
+      sortKeyFields: ["date"]
+    )
+    @default(value: "route")
+}
+
+type Mutation {
+  optimized(id: ID): Route @function(name: "routeOptimizationFunction-${env}")
+  startRoute(id: ID): Boolean @function(name: "startRouteFunction-${env}")
+}
