@@ -1,14 +1,46 @@
 import { API, graphqlOperation} from "aws-amplify";
 import {GraphQLResult} from "@aws-amplify/api";
-import { CreateRouteMutation, ModelSortDirection, Route, RoutesByDateQuery, RoutesByDateQueryVariables } from "../API";
+import { CreateRouteMutation, GetRouteQuery, ModelSortDirection, Route, RoutesByDateQuery, RoutesByDateQueryVariables } from "../API";
 import { createRoute } from "../graphql/mutations";
-import { routesByDate } from "../graphql/queries";
+import { getRoute, routesByDate } from "../graphql/queries";
 import { v4 as uuidv4 } from 'uuid';
 
+//Dummy Data
 const FakeCoordinates = {
-    longitude: 0,
-    latitude: 0,
+    longitude: 123,
+    latitude: 1234,
 }
+const FakeDeliveries = [
+  {
+    id: uuidv4(),
+    address: "Horsens 123",
+    status: "pending",
+    phone_number: "1234567890",
+    package_number: "1234567890",
+    name: "John Doe",
+    point: FakeCoordinates
+  },
+  {
+    id: uuidv4(),
+    address: "Aalborg 123",
+    status: "pending",
+    phone_number: "23674263423",
+    package_number: "28347632784623",
+    name: "John fran",
+    point: FakeCoordinates
+  },
+  {
+    id: uuidv4(),
+    address: "Copenhagen 123",
+    status: "pending",
+    phone_number: "1234567890",
+    package_number: "1234567890",
+    name: "John CPH",
+    point: FakeCoordinates
+  }
+]
+
+//
 const today: Date = new Date();
 const formattedDate: string = today.toLocaleDateString('en-CA', {year: 'numeric', month: '2-digit', day: '2-digit'}).replace(/\//g, '-');
 //Creating Route
@@ -22,15 +54,15 @@ const saveRoute = async (
           input: {
             id: uuidv4(),
             route_name,
-            deliveries: [],
+            deliveries: FakeDeliveries,
             start_address: FakeCoordinates,
             end_address: FakeCoordinates,
             date: formattedDate,
             optimized: false,
             status: "active",
             hasStarted: false,
-            estimated_time: 0,
-            estimated_distance: 0,
+            estimated_time: 2,
+            estimated_distance: 2,
             type: "route",
           },
         })
@@ -131,5 +163,19 @@ const getRoutes = async(future: boolean, nextToken?: string) => {
           throw err;
         }
       };
+      const getRouteById = async (id: string): Promise<Route | undefined> => {
+        try {
+          const operation = graphqlOperation(getRoute, { id: id });
+          const response = (await API.graphql(operation)) as GraphQLResult<GetRouteQuery>;
       
-  export {saveRoute,getRoutes}
+          const route = response.data?.getRoute;
+          if (!route) {
+            throw new Error("Route not found");  
+          }
+          return route;
+        } catch (err) {
+          console.log("Error with getting route by id: "+ err);
+          throw err;
+        }
+      };
+  export {saveRoute,getRoutes,getRouteById}

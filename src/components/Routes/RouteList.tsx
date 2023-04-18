@@ -16,6 +16,9 @@ const RouteList: React.FC<RouteListProps> = () => {
     const response = await getRoutes(true);
     setRoutesList(response.routes);
   }
+  const handleDeleteRoute = async (id: string) => {
+    console.log("Route Deleted: " + id)
+  }
   React.useEffect(() => {
     handleGetRoutes();
   }, []);
@@ -31,12 +34,12 @@ const RouteList: React.FC<RouteListProps> = () => {
 
   // Navigation to route page
   const handleRouteSelection = (route: Route) => {
-    navigate(`/${route.id}`, { state: { route } });
+    navigate(`/${route.id}`);
   };
-
-
+  
+  //Create Route and Navigate to Route Page
   const handleCreateRoute = async () => {
-    const response = await saveRoute("Test");
+    const response = await saveRoute("Test"+routesList.length);
     if (response && response.id) {
       navigate(`/${response.id}`);
     } else {
