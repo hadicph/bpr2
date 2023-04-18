@@ -14,8 +14,6 @@ export const getRoute = /* GraphQL */ `
         phone_number
         package_number
         name
-        Created_At
-        Updated_At
         point {
           longitude
           latitude
@@ -29,10 +27,9 @@ export const getRoute = /* GraphQL */ `
         longitude
         latitude
       }
+      status
       date
       optimized
-      Created_At
-      Updated_At
       hasStarted
       estimated_time
       estimated_distance
@@ -60,8 +57,6 @@ export const listRoutes = /* GraphQL */ `
           phone_number
           package_number
           name
-          Created_At
-          Updated_At
         }
         start_address {
           longitude
@@ -71,10 +66,9 @@ export const listRoutes = /* GraphQL */ `
           longitude
           latitude
         }
+        status
         date
         optimized
-        Created_At
-        Updated_At
         hasStarted
         estimated_time
         estimated_distance
@@ -114,8 +108,6 @@ export const routesByDate = /* GraphQL */ `
           phone_number
           package_number
           name
-          Created_At
-          Updated_At
         }
         start_address {
           longitude
@@ -125,10 +117,9 @@ export const routesByDate = /* GraphQL */ `
           longitude
           latitude
         }
+        status
         date
         optimized
-        Created_At
-        Updated_At
         hasStarted
         estimated_time
         estimated_distance

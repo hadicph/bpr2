@@ -14,8 +14,6 @@ type Delivery {
   phone_number: String
   package_number: String
   name: String
-  Created_At: AWSDate!
-  Updated_At: AWSDate!
   point: Coordinates!
 }
 
@@ -26,10 +24,9 @@ type Route
   deliveries: [Delivery]!
   start_address: Coordinates
   end_address: Coordinates
+  status: String! @default(value: "active")
   date: AWSDate!
   optimized: Boolean! @default(value: "false")
-  Created_At: AWSDate!
-  Updated_At: AWSDate!
   hasStarted: Boolean! @default(value: "false")
   estimated_time: Int!
   estimated_distance: Int!

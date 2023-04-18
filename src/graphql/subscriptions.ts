@@ -17,8 +17,6 @@ export const onCreateRoute = /* GraphQL */ `
         phone_number
         package_number
         name
-        Created_At
-        Updated_At
         point {
           longitude
           latitude
@@ -32,10 +30,9 @@ export const onCreateRoute = /* GraphQL */ `
         longitude
         latitude
       }
+      status
       date
       optimized
-      Created_At
-      Updated_At
       hasStarted
       estimated_time
       estimated_distance
@@ -61,8 +58,6 @@ export const onUpdateRoute = /* GraphQL */ `
         phone_number
         package_number
         name
-        Created_At
-        Updated_At
         point {
           longitude
           latitude
@@ -76,10 +71,9 @@ export const onUpdateRoute = /* GraphQL */ `
         longitude
         latitude
       }
+      status
       date
       optimized
-      Created_At
-      Updated_At
       hasStarted
       estimated_time
       estimated_distance
@@ -105,8 +99,6 @@ export const onDeleteRoute = /* GraphQL */ `
         phone_number
         package_number
         name
-        Created_At
-        Updated_At
         point {
           longitude
           latitude
@@ -120,10 +112,9 @@ export const onDeleteRoute = /* GraphQL */ `
         longitude
         latitude
       }
+      status
       date
       optimized
-      Created_At
-      Updated_At
       hasStarted
       estimated_time
       estimated_distance
