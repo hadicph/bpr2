@@ -27,12 +27,14 @@ const RouteList: React.FC<RouteListProps> = () => {
   }
   const handleDeleteRoute = async (id: string) => {
     const response = await deleteRouteById(id);
-    const newRouteList = routesList.filter(route => route.id !== id);
+    if (response) {
+      const newRouteList = routesList.filter(route => route.id !== id);
     setRoutesList(newRouteList);
-    console.log(response);
-    console.log(newRouteList);
+    } else {
+      console.error('Invalid response:', response);
+    }
   }
-  
+
   // Navigation to route page
   const handleRouteSelection = (route: Route) => {
     navigate(`/${route.id}`);
