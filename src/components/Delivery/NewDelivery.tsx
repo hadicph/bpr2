@@ -12,14 +12,16 @@ const NewDelivery: React.FC<NewDeliveryProps> = ({ children }) => {
   const route_name = "test";
 
   const handleSaveRoute = async () => {
-    saveRoute(
+    const response = await saveRoute(
       route_name
-    );
+    )
+    console.log(response);
   }
   const handleGetRoutes = async () => {
     const routes = await getRoutes(true);
     console.log(routes);
   }
+
 
     return(
 

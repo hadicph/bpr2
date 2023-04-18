@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import RouteItem from './RouteItem';
-import routesData from './data_temp.json';
 import { ReactElement } from "react";
-import { Route } from '../../types/Route';
 import { useNavigate } from 'react-router-dom';
+import { getRoutes, saveRoute} from '../../helpers/routesHelper';
+import { Route } from '../../API';
 
 type RouteListProps = {
   children?: ReactElement;
@@ -11,8 +10,15 @@ type RouteListProps = {
 
 const RouteList: React.FC<RouteListProps> = () => {
 
-  // ToDo call services to get the routes data
-  const routesList: Route[] = routesData.routes;
+  const [routesList, setRoutesList] = useState<Route[]>([]);
+  
+  const handleGetRoutes = async () => {
+    const response = await getRoutes(true);
+    setRoutesList(response.routes);
+  }
+  React.useEffect(() => {
+    handleGetRoutes();
+  }, []);
 
 
   const [showActiveOnly, setShowActiveOnly] = useState(false);
@@ -29,8 +35,13 @@ const RouteList: React.FC<RouteListProps> = () => {
   };
 
 
-  const handleCreateRoute = () => {
-    // ToDo Get new ID and Name and navigate to Route Page
+  const handleCreateRoute = async () => {
+    const response = await saveRoute("Test");
+    if (response && response.id) {
+      navigate(`/${response.id}`);
+    } else {
+      console.error('Invalid response:', response);
+    }
   }
 
 
@@ -69,7 +80,7 @@ const RouteList: React.FC<RouteListProps> = () => {
             {filteredRoutesList.map(route => (
 
               <tr key={route.id} className={route.status === "active" ? "active" : ""}>
-                <td onClick={() => handleRouteSelection(route)} >{route.routename}</td>
+                <td onClick={() => handleRouteSelection(route)} >{route.route_name}</td>
                 <td >
                   <button className="btn btn-red btn-xs ">Delete</button>
                 </td>
