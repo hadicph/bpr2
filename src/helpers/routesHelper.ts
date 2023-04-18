@@ -1,7 +1,7 @@
 import { API, graphqlOperation} from "aws-amplify";
 import {GraphQLResult} from "@aws-amplify/api";
-import { CreateRouteMutation, GetRouteQuery, ModelSortDirection, Route, RoutesByDateQuery, RoutesByDateQueryVariables } from "../API";
-import { createRoute } from "../graphql/mutations";
+import { CreateRouteMutation, DeleteRouteMutation, GetRouteQuery, ModelSortDirection, Route, RoutesByDateQuery, RoutesByDateQueryVariables } from "../API";
+import { createRoute, deleteRoute } from "../graphql/mutations";
 import { getRoute, routesByDate } from "../graphql/queries";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -178,4 +178,13 @@ const getRoutes = async(future: boolean, nextToken?: string) => {
           throw err;
         }
       };
-  export {saveRoute,getRoutes,getRouteById}
+      const deleteRouteById = async (id: string) => {
+        try {
+          const op = graphqlOperation(deleteRoute, { input: { id: id } });
+          return (await API.graphql(op)) as GraphQLResult<DeleteRouteMutation>;
+        } catch (err) {
+          console.log("Error with deleting route by id: "+ err);
+          throw err;
+        }
+      };
+  export {saveRoute,getRoutes,getRouteById,deleteRouteById}
