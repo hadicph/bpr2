@@ -18,6 +18,7 @@ export const getRoute = /* GraphQL */ `
           longitude
           latitude
         }
+        optimized
       }
       start_address {
         longitude
@@ -57,6 +58,7 @@ export const listRoutes = /* GraphQL */ `
           phone_number
           package_number
           name
+          optimized
         }
         start_address {
           longitude
@@ -108,6 +110,7 @@ export const routesByDate = /* GraphQL */ `
           phone_number
           package_number
           name
+          optimized
         }
         start_address {
           longitude

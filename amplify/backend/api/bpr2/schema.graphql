@@ -15,6 +15,7 @@ type Delivery {
   package_number: String
   name: String
   point: Coordinates!
+  optimized: Boolean!
 }
 
 type Route
@@ -43,4 +44,8 @@ type Route
 type Mutation {
   optimized(id: ID): Route @function(name: "routeOptimizationFunction-${env}")
   startRoute(id: ID): Boolean @function(name: "startRouteFunction-${env}")
+  setStartAddress(id: ID): Coordinates @function(name: "setStartAddressFunction-${env}")
+  setEndAddress(id: ID): Coordinates @function(name: "setEndAddressFunction-${env}")
+  setStartEndAddress(id: ID): Coordinates @function(name: "setStartEndAddressFunction-${env}")
+
 }

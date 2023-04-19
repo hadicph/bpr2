@@ -1,6 +1,6 @@
-import { API, graphqlOperation} from "aws-amplify";
+import { API, Geo, graphqlOperation} from "aws-amplify";
 import {GraphQLResult} from "@aws-amplify/api";
-import { CreateRouteMutation, DeleteRouteMutation, GetRouteQuery, ModelSortDirection, Route, RoutesByDateQuery, RoutesByDateQueryVariables } from "../API";
+import { Coordinates, CreateRouteMutation, DeleteRouteMutation, GetRouteQuery, ModelSortDirection, Route, RoutesByDateQuery, RoutesByDateQueryVariables } from "../API";
 import { createRoute, deleteRoute } from "../graphql/mutations";
 import { getRoute, routesByDate } from "../graphql/queries";
 import { v4 as uuidv4 } from 'uuid';
@@ -18,7 +18,8 @@ const FakeDeliveries = [
     phone_number: "1234567890",
     package_number: "1234567890",
     name: "John Doe",
-    point: FakeCoordinates
+    point: FakeCoordinates,
+    optimized: false
   },
   {
     id: uuidv4(),
@@ -27,7 +28,8 @@ const FakeDeliveries = [
     phone_number: "23674263423",
     package_number: "28347632784623",
     name: "John fran",
-    point: FakeCoordinates
+    point: FakeCoordinates,
+    optimized: false
   },
   {
     id: uuidv4(),
@@ -36,7 +38,8 @@ const FakeDeliveries = [
     phone_number: "1234567890",
     package_number: "1234567890",
     name: "John CPH",
-    point: FakeCoordinates
+    point: FakeCoordinates,
+    optimized: false
   }
 ]
 
@@ -187,4 +190,14 @@ const getRoutes = async(future: boolean, nextToken?: string) => {
           throw err;
         }
       };
-  export {saveRoute,getRoutes,getRouteById,deleteRouteById}
+      const getSuggestions = async (text: string, biasPosition: [number,number]) => {
+        if (text.trim() === "") return [];
+        const response = await Geo.searchByText(text, {
+          maxResults: 5,
+          biasPosition: biasPosition,
+        });
+      
+        return response;
+      };
+      
+  export {saveRoute,getRoutes,getRouteById,deleteRouteById,getSuggestions}

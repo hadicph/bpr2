@@ -17,7 +17,9 @@ const RouteList: React.FC<RouteListProps> = () => {
   React.useEffect(() => {
     handleGetRoutes();
   }, []);
+  React.useEffect(() => {
 
+  }, []);
   // Filter routes based on active status
   const filteredRoutesList: Route[] = showActiveOnly ? routesList.filter(route => route.status === "active") : routesList;
 

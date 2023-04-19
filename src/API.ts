@@ -30,6 +30,7 @@ export type Delivery = {
   package_number?: string | null,
   name?: string | null,
   point: Coordinates,
+  optimized: boolean,
 };
 
 export type Coordinates = {
@@ -62,6 +63,7 @@ export type DeliveryInput = {
   package_number?: string | null,
   name?: string | null,
   point: CoordinatesInput,
+  optimized: boolean,
 };
 
 export type CoordinatesInput = {
@@ -300,6 +302,7 @@ export type OptimizedMutation = {
         longitude: number,
         latitude: number,
       },
+      optimized: boolean,
     } | null >,
     start_address?:  {
       __typename: "Coordinates",
@@ -332,6 +335,42 @@ export type StartRouteMutation = {
   startRoute?: boolean | null,
 };
 
+export type SetStartAddressMutationVariables = {
+  id?: string | null,
+};
+
+export type SetStartAddressMutation = {
+  setStartAddress?:  {
+    __typename: "Coordinates",
+    longitude: number,
+    latitude: number,
+  } | null,
+};
+
+export type SetEndAddressMutationVariables = {
+  id?: string | null,
+};
+
+export type SetEndAddressMutation = {
+  setEndAddress?:  {
+    __typename: "Coordinates",
+    longitude: number,
+    latitude: number,
+  } | null,
+};
+
+export type SetStartEndAddressMutationVariables = {
+  id?: string | null,
+};
+
+export type SetStartEndAddressMutation = {
+  setStartEndAddress?:  {
+    __typename: "Coordinates",
+    longitude: number,
+    latitude: number,
+  } | null,
+};
+
 export type CreateRouteMutationVariables = {
   input: CreateRouteInput,
   condition?: ModelRouteConditionInput | null,
@@ -355,6 +394,7 @@ export type CreateRouteMutation = {
         longitude: number,
         latitude: number,
       },
+      optimized: boolean,
     } | null >,
     start_address?:  {
       __typename: "Coordinates",
@@ -402,6 +442,7 @@ export type UpdateRouteMutation = {
         longitude: number,
         latitude: number,
       },
+      optimized: boolean,
     } | null >,
     start_address?:  {
       __typename: "Coordinates",
@@ -449,6 +490,7 @@ export type DeleteRouteMutation = {
         longitude: number,
         latitude: number,
       },
+      optimized: boolean,
     } | null >,
     start_address?:  {
       __typename: "Coordinates",
@@ -495,6 +537,7 @@ export type GetRouteQuery = {
         longitude: number,
         latitude: number,
       },
+      optimized: boolean,
     } | null >,
     start_address?:  {
       __typename: "Coordinates",
@@ -540,6 +583,7 @@ export type ListRoutesQuery = {
         phone_number?: string | null,
         package_number?: string | null,
         name?: string | null,
+        optimized: boolean,
       } | null >,
       start_address?:  {
         __typename: "Coordinates",
@@ -590,6 +634,7 @@ export type RoutesByDateQuery = {
         phone_number?: string | null,
         package_number?: string | null,
         name?: string | null,
+        optimized: boolean,
       } | null >,
       start_address?:  {
         __typename: "Coordinates",
@@ -639,6 +684,7 @@ export type OnCreateRouteSubscription = {
         longitude: number,
         latitude: number,
       },
+      optimized: boolean,
     } | null >,
     start_address?:  {
       __typename: "Coordinates",
@@ -686,6 +732,7 @@ export type OnUpdateRouteSubscription = {
         longitude: number,
         latitude: number,
       },
+      optimized: boolean,
     } | null >,
     start_address?:  {
       __typename: "Coordinates",
@@ -733,6 +780,7 @@ export type OnDeleteRouteSubscription = {
         longitude: number,
         latitude: number,
       },
+      optimized: boolean,
     } | null >,
     start_address?:  {
       __typename: "Coordinates",
