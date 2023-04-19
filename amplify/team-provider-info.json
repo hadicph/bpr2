@@ -17,6 +17,16 @@
       },
       "api": {
         "bpr2": {}
+      },
+      "function": {
+        "startRouteFunction": {
+          "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
+          "s3Key": "amplify-builds/startRouteFunction-37343133743578736744-build.zip"
+        }
+      },
+      "geo": {
+        "map6bc62a21": {},
+        "placeIndexc1f75405": {}
       }
     }
   }

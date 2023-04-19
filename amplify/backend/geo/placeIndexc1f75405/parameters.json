@@ -1,0 +1,12 @@
+{
+  "authRoleName": {
+    "Ref": "AuthRoleName"
+  },
+  "unauthRoleName": {
+    "Ref": "UnauthRoleName"
+  },
+  "indexName": "placeIndexc1f75405",
+  "dataProvider": "Here",
+  "dataSourceIntendedUse": "Storage",
+  "isDefault": true
+}

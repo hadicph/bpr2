@@ -21,6 +21,7 @@ export const onCreateRoute = /* GraphQL */ `
           longitude
           latitude
         }
+        optimized
       }
       start_address {
         longitude
@@ -62,6 +63,7 @@ export const onUpdateRoute = /* GraphQL */ `
           longitude
           latitude
         }
+        optimized
       }
       start_address {
         longitude
@@ -103,6 +105,7 @@ export const onDeleteRoute = /* GraphQL */ `
           longitude
           latitude
         }
+        optimized
       }
       start_address {
         longitude
