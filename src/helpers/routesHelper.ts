@@ -1,7 +1,7 @@
 import { API, graphqlOperation} from "aws-amplify";
 import {GraphQLResult} from "@aws-amplify/api";
-import { Coordinates, CoordinatesInput, CreateRouteMutation, CreateUserPreferenceMutation, GetRouteQuery, ModelSortDirection, Route, RoutesByDateQuery, RoutesByDateQueryVariables, UpdateUserPreferenceMutation, UpdateUserPreferenceMutationVariables, UserPreference } from "../API";
-import { createRoute, createUserPreference, updateUserPreference } from "../graphql/mutations";
+import { Coordinates, CoordinatesInput, CreateRouteMutation, CreateUserPreferenceMutation, DeleteRouteMutation, GetRouteQuery, ModelSortDirection, Route, RoutesByDateQuery, RoutesByDateQueryVariables, UpdateUserPreferenceMutation, UpdateUserPreferenceMutationVariables, UserPreference } from "../API";
+import { createRoute, createUserPreference, deleteRoute, updateUserPreference } from "../graphql/mutations";
 import { getRoute, routesByDate } from "../graphql/queries";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -259,5 +259,23 @@ const updateUserPreferenceCustom = async (
     console.log("error updating user preference: ", err);
   }
 };
-      
-  export {saveRoute,getRoutes,getRouteById,saveUserPreferance,updateUserPreferenceCustom}
+const deleteRouteById = async (id: string) => {
+  try {
+    const op = graphqlOperation(deleteRoute, { input: { id: id } });
+    return (await API.graphql(op)) as GraphQLResult<DeleteRouteMutation>;
+  } catch (err) {
+    console.log("Error with deleting route by id: "+ err);
+    throw err;
+  }
+};
+/*const getSuggestions = async (text: string, biasPosition: [number,number]) => {
+  if (text.trim() === "") return [];
+  const response = await Geo.searchByText(text, {
+    maxResults: 5,
+    biasPosition: biasPosition,
+  });
+
+  return response;
+};
+*/
+  export {saveRoute,getRoutes,getRouteById,deleteRouteById,saveUserPreferance,updateUserPreferenceCustom};
