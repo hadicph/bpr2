@@ -14,7 +14,7 @@ const FakeDeliveries = [
   {
     id: uuidv4(),
     address: "Horsens 123",
-    status: "pending",
+    status: "completed",
     phone_number: "1234567890",
     package_number: "1234567890",
     name: "John Doe",
