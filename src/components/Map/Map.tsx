@@ -1,5 +1,6 @@
 import { ReactElement } from "react";
 
+
 type MapProps = {
     children?: ReactElement;
   };
@@ -7,7 +8,7 @@ type MapProps = {
 const Map: React.FC<MapProps> = ({ children }) => {
     return(
         <>
-       Map Page
+        Map Page
         </>
       );
 }

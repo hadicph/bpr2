@@ -15,5 +15,27 @@ export type AmplifyDependentResourcesAttributes = {
       "UserPoolId": "string",
       "UserPoolName": "string"
     }
+  },
+  "function": {
+    "startRouteFunction": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    }
+  },
+  "geo": {
+    "map6bc62a21": {
+      "Arn": "string",
+      "Name": "string",
+      "Region": "string",
+      "Style": "string"
+    },
+    "placeIndexc1f75405": {
+      "Arn": "string",
+      "Name": "string",
+      "Region": "string"
+    }
   }
 }

@@ -49,6 +49,30 @@ export const startRoute = /* GraphQL */ `
     startRoute(id: $id)
   }
 `;
+export const setStartAddress = /* GraphQL */ `
+  mutation SetStartAddress($id: ID) {
+    setStartAddress(id: $id) {
+      longitude
+      latitude
+    }
+  }
+`;
+export const setEndAddress = /* GraphQL */ `
+  mutation SetEndAddress($id: ID) {
+    setEndAddress(id: $id) {
+      longitude
+      latitude
+    }
+  }
+`;
+export const setStartEndAddress = /* GraphQL */ `
+  mutation SetStartEndAddress($id: ID) {
+    setStartEndAddress(id: $id) {
+      longitude
+      latitude
+    }
+  }
+`;
 export const createRoute = /* GraphQL */ `
   mutation CreateRoute(
     $input: CreateRouteInput!

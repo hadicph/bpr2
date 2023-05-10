@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ReactElement } from "react";
 import { useNavigate } from 'react-router-dom';
-import { getRoutes, saveRoute} from '../../helpers/routesHelper';
+import { deleteRouteById, getRoutes, saveRoute} from '../../helpers/routesHelper';
 import { Route } from '../../API';
 
 type RouteListProps = {
@@ -11,26 +11,29 @@ type RouteListProps = {
 const RouteList: React.FC<RouteListProps> = () => {
 
   const [routesList, setRoutesList] = useState<Route[]>([]);
+  const [showActiveOnly, setShowActiveOnly] = useState(false);
+  const navigate = useNavigate();
   
+  React.useEffect(() => {
+    handleGetRoutes();
+  }, []);
+  
+  // Filter routes based on active status
+  const filteredRoutesList: Route[] = showActiveOnly ? routesList.filter(route => route.status === "active") : routesList;
+
   const handleGetRoutes = async () => {
     const response = await getRoutes(true);
     setRoutesList(response.routes);
   }
   const handleDeleteRoute = async (id: string) => {
-    console.log("Route Deleted: " + id)
+    const response = await deleteRouteById(id);
+    if (response) {
+      const newRouteList = routesList.filter(route => route.id !== id);
+    setRoutesList(newRouteList);
+    } else {
+      console.error('Invalid response:', response);
+    }
   }
-  React.useEffect(() => {
-    handleGetRoutes();
-  }, []);
-
-
-  const [showActiveOnly, setShowActiveOnly] = useState(false);
-  const navigate = useNavigate();
-
-
-  // Filter routes based on active status
-  const filteredRoutesList: Route[] = showActiveOnly ? routesList.filter(route => route.status === "active") : routesList;
-
 
   // Navigation to route page
   const handleRouteSelection = (route: Route) => {
@@ -85,7 +88,7 @@ const RouteList: React.FC<RouteListProps> = () => {
               <tr key={route.id} className={route.status === "active" ? "active" : ""}>
                 <td onClick={() => handleRouteSelection(route)} >{route.route_name}</td>
                 <td >
-                  <button className="btn btn-red btn-xs ">Delete</button>
+                  <button className="btn btn-red btn-xs " onClick={() =>handleDeleteRoute(route.id)}>Delete</button>
                 </td>
               </tr>
             ))}
