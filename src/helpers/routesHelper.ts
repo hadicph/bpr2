@@ -1,7 +1,7 @@
 import { API, graphqlOperation} from "aws-amplify";
 import {GraphQLResult} from "@aws-amplify/api";
-import { CreateRouteMutation, GetRouteQuery, ModelSortDirection, Route, RoutesByDateQuery, RoutesByDateQueryVariables } from "../API";
-import { createRoute } from "../graphql/mutations";
+import { Coordinates, CoordinatesInput, CreateRouteMutation, CreateUserPreferenceMutation, GetRouteQuery, ModelSortDirection, Route, RoutesByDateQuery, RoutesByDateQueryVariables, UpdateUserPreferenceMutation, UpdateUserPreferenceMutationVariables, UserPreference } from "../API";
+import { createRoute, createUserPreference, updateUserPreference } from "../graphql/mutations";
 import { getRoute, routesByDate } from "../graphql/queries";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 const FakeCoordinates = {
     longitude: 123,
     latitude: 1234,
+    address: "Horsens 123"
 }
 const FakeDeliveries = [
   {
@@ -178,4 +179,85 @@ const getRoutes = async(future: boolean, nextToken?: string) => {
           throw err;
         }
       };
-  export {saveRoute,getRoutes,getRouteById}
+      const saveUserPreferance = async (
+      ): Promise<UserPreference| undefined> => {
+        try {
+          const res = (await API.graphql(
+            graphqlOperation(createUserPreference, {
+              input: {
+                start_address: FakeCoordinates,
+                end_address: FakeCoordinates,
+                theme: "light",
+              },
+            })
+          )) as GraphQLResult<CreateUserPreferenceMutation>;
+      
+          const newUserPreferance = res.data?.createUserPreference;
+      
+          return newUserPreferance as UserPreference;
+        } catch (err) {
+          console.log("error creating route: ", err);
+        }
+      };
+
+      const updateUserPreferenceCustom1 = async (
+        id: string,
+        //start_address: Coordinates, 
+        //end_address: Coordinates,
+        //theme: string
+      ): Promise<UserPreference | undefined> => {
+        try {
+          const res = (await API.graphql(
+            graphqlOperation(updateUserPreference, {
+              input: {
+                id: id,
+                start_address: FakeCoordinates,
+                end_address: FakeCoordinates,
+                theme: "dark",
+              },
+            })
+          )) as GraphQLResult<UpdateUserPreferenceMutation>;
+          
+          const newUserPreference = res.data?.updateUserPreference;
+
+          return newUserPreference as UserPreference;
+        } catch (err) {
+
+          console.log("error updating user preference: ", err);
+        }
+      };
+
+const updateUserPreferenceCustom = async (
+  id: string,
+  {
+    start_address,
+    end_address,
+    theme,
+  }: {
+    start_address?: CoordinatesInput;
+    end_address?: CoordinatesInput;
+    theme?: string;
+  }
+) => {
+  try {
+    if (!start_address && !end_address && !theme) return;
+    const variables: UpdateUserPreferenceMutationVariables = {
+      input: {
+        id: id,
+      },
+    };
+    if (start_address) variables.input.start_address = start_address;
+    if (end_address) variables.input.end_address = end_address;
+    if (theme) variables.input.theme = theme;
+    const op = graphqlOperation(updateUserPreference, variables);
+    const res = (await API.graphql(
+      op
+    )) as GraphQLResult<UpdateUserPreferenceMutation>;
+
+    return res.data?.updateUserPreference;
+  } catch (err) {
+    console.log("error updating user preference: ", err);
+  }
+};
+      
+  export {saveRoute,getRoutes,getRouteById,saveUserPreferance,updateUserPreferenceCustom}

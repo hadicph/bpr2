@@ -20,15 +20,19 @@ export const onCreateRoute = /* GraphQL */ `
         point {
           longitude
           latitude
+          address
         }
+        optimized
       }
       start_address {
         longitude
         latitude
+        address
       }
       end_address {
         longitude
         latitude
+        address
       }
       status
       date
@@ -61,15 +65,19 @@ export const onUpdateRoute = /* GraphQL */ `
         point {
           longitude
           latitude
+          address
         }
+        optimized
       }
       start_address {
         longitude
         latitude
+        address
       }
       end_address {
         longitude
         latitude
+        address
       }
       status
       date
@@ -102,15 +110,19 @@ export const onDeleteRoute = /* GraphQL */ `
         point {
           longitude
           latitude
+          address
         }
+        optimized
       }
       start_address {
         longitude
         latitude
+        address
       }
       end_address {
         longitude
         latitude
+        address
       }
       status
       date
@@ -120,6 +132,78 @@ export const onDeleteRoute = /* GraphQL */ `
       estimated_distance
       owner
       type
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateUserPreference = /* GraphQL */ `
+  subscription OnCreateUserPreference(
+    $filter: ModelSubscriptionUserPreferenceFilterInput
+    $owner: String
+  ) {
+    onCreateUserPreference(filter: $filter, owner: $owner) {
+      start_address {
+        longitude
+        latitude
+        address
+      }
+      end_address {
+        longitude
+        latitude
+        address
+      }
+      owner
+      theme
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateUserPreference = /* GraphQL */ `
+  subscription OnUpdateUserPreference(
+    $filter: ModelSubscriptionUserPreferenceFilterInput
+    $owner: String
+  ) {
+    onUpdateUserPreference(filter: $filter, owner: $owner) {
+      start_address {
+        longitude
+        latitude
+        address
+      }
+      end_address {
+        longitude
+        latitude
+        address
+      }
+      owner
+      theme
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteUserPreference = /* GraphQL */ `
+  subscription OnDeleteUserPreference(
+    $filter: ModelSubscriptionUserPreferenceFilterInput
+    $owner: String
+  ) {
+    onDeleteUserPreference(filter: $filter, owner: $owner) {
+      start_address {
+        longitude
+        latitude
+        address
+      }
+      end_address {
+        longitude
+        latitude
+        address
+      }
+      owner
+      theme
+      id
       createdAt
       updatedAt
     }

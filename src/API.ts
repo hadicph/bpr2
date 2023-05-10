@@ -30,12 +30,14 @@ export type Delivery = {
   package_number?: string | null,
   name?: string | null,
   point: Coordinates,
+  optimized?: boolean | null,
 };
 
 export type Coordinates = {
   __typename: "Coordinates",
   longitude: number,
   latitude: number,
+  address?: string | null,
 };
 
 export type CreateRouteInput = {
@@ -62,11 +64,13 @@ export type DeliveryInput = {
   package_number?: string | null,
   name?: string | null,
   point: CoordinatesInput,
+  optimized?: boolean | null,
 };
 
 export type CoordinatesInput = {
   longitude: number,
   latitude: number,
+  address?: string | null,
 };
 
 export type ModelRouteConditionInput = {
@@ -163,6 +167,45 @@ export type DeleteRouteInput = {
   id: string,
 };
 
+export type CreateUserPreferenceInput = {
+  start_address?: CoordinatesInput | null,
+  end_address?: CoordinatesInput | null,
+  owner?: string | null,
+  theme?: string | null,
+  id?: string | null,
+};
+
+export type ModelUserPreferenceConditionInput = {
+  owner?: ModelStringInput | null,
+  theme?: ModelStringInput | null,
+  and?: Array< ModelUserPreferenceConditionInput | null > | null,
+  or?: Array< ModelUserPreferenceConditionInput | null > | null,
+  not?: ModelUserPreferenceConditionInput | null,
+};
+
+export type UserPreference = {
+  __typename: "UserPreference",
+  start_address?: Coordinates | null,
+  end_address?: Coordinates | null,
+  owner?: string | null,
+  theme?: string | null,
+  id: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateUserPreferenceInput = {
+  start_address?: CoordinatesInput | null,
+  end_address?: CoordinatesInput | null,
+  owner?: string | null,
+  theme?: string | null,
+  id: string,
+};
+
+export type DeleteUserPreferenceInput = {
+  id: string,
+};
+
 export type ModelRouteFilterInput = {
   id?: ModelIDInput | null,
   route_name?: ModelStringInput | null,
@@ -198,6 +241,20 @@ export type ModelIDInput = {
 export type ModelRouteConnection = {
   __typename: "ModelRouteConnection",
   items:  Array<Route | null >,
+  nextToken?: string | null,
+};
+
+export type ModelUserPreferenceFilterInput = {
+  owner?: ModelStringInput | null,
+  theme?: ModelStringInput | null,
+  and?: Array< ModelUserPreferenceFilterInput | null > | null,
+  or?: Array< ModelUserPreferenceFilterInput | null > | null,
+  not?: ModelUserPreferenceFilterInput | null,
+};
+
+export type ModelUserPreferenceConnection = {
+  __typename: "ModelUserPreferenceConnection",
+  items:  Array<UserPreference | null >,
   nextToken?: string | null,
 };
 
@@ -278,6 +335,12 @@ export type ModelSubscriptionIntInput = {
   notIn?: Array< number | null > | null,
 };
 
+export type ModelSubscriptionUserPreferenceFilterInput = {
+  theme?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionUserPreferenceFilterInput | null > | null,
+  or?: Array< ModelSubscriptionUserPreferenceFilterInput | null > | null,
+};
+
 export type OptimizedMutationVariables = {
   id?: string | null,
 };
@@ -299,17 +362,21 @@ export type OptimizedMutation = {
         __typename: "Coordinates",
         longitude: number,
         latitude: number,
+        address?: string | null,
       },
+      optimized?: boolean | null,
     } | null >,
     start_address?:  {
       __typename: "Coordinates",
       longitude: number,
       latitude: number,
+      address?: string | null,
     } | null,
     end_address?:  {
       __typename: "Coordinates",
       longitude: number,
       latitude: number,
+      address?: string | null,
     } | null,
     status: string,
     date: string,
@@ -354,17 +421,21 @@ export type CreateRouteMutation = {
         __typename: "Coordinates",
         longitude: number,
         latitude: number,
+        address?: string | null,
       },
+      optimized?: boolean | null,
     } | null >,
     start_address?:  {
       __typename: "Coordinates",
       longitude: number,
       latitude: number,
+      address?: string | null,
     } | null,
     end_address?:  {
       __typename: "Coordinates",
       longitude: number,
       latitude: number,
+      address?: string | null,
     } | null,
     status: string,
     date: string,
@@ -401,17 +472,21 @@ export type UpdateRouteMutation = {
         __typename: "Coordinates",
         longitude: number,
         latitude: number,
+        address?: string | null,
       },
+      optimized?: boolean | null,
     } | null >,
     start_address?:  {
       __typename: "Coordinates",
       longitude: number,
       latitude: number,
+      address?: string | null,
     } | null,
     end_address?:  {
       __typename: "Coordinates",
       longitude: number,
       latitude: number,
+      address?: string | null,
     } | null,
     status: string,
     date: string,
@@ -448,17 +523,21 @@ export type DeleteRouteMutation = {
         __typename: "Coordinates",
         longitude: number,
         latitude: number,
+        address?: string | null,
       },
+      optimized?: boolean | null,
     } | null >,
     start_address?:  {
       __typename: "Coordinates",
       longitude: number,
       latitude: number,
+      address?: string | null,
     } | null,
     end_address?:  {
       __typename: "Coordinates",
       longitude: number,
       latitude: number,
+      address?: string | null,
     } | null,
     status: string,
     date: string,
@@ -468,6 +547,90 @@ export type DeleteRouteMutation = {
     estimated_distance: number,
     owner?: string | null,
     type: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateUserPreferenceMutationVariables = {
+  input: CreateUserPreferenceInput,
+  condition?: ModelUserPreferenceConditionInput | null,
+};
+
+export type CreateUserPreferenceMutation = {
+  createUserPreference?:  {
+    __typename: "UserPreference",
+    start_address?:  {
+      __typename: "Coordinates",
+      longitude: number,
+      latitude: number,
+      address?: string | null,
+    } | null,
+    end_address?:  {
+      __typename: "Coordinates",
+      longitude: number,
+      latitude: number,
+      address?: string | null,
+    } | null,
+    owner?: string | null,
+    theme?: string | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateUserPreferenceMutationVariables = {
+  input: UpdateUserPreferenceInput,
+  condition?: ModelUserPreferenceConditionInput | null,
+};
+
+export type UpdateUserPreferenceMutation = {
+  updateUserPreference?:  {
+    __typename: "UserPreference",
+    start_address?:  {
+      __typename: "Coordinates",
+      longitude: number,
+      latitude: number,
+      address?: string | null,
+    } | null,
+    end_address?:  {
+      __typename: "Coordinates",
+      longitude: number,
+      latitude: number,
+      address?: string | null,
+    } | null,
+    owner?: string | null,
+    theme?: string | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteUserPreferenceMutationVariables = {
+  input: DeleteUserPreferenceInput,
+  condition?: ModelUserPreferenceConditionInput | null,
+};
+
+export type DeleteUserPreferenceMutation = {
+  deleteUserPreference?:  {
+    __typename: "UserPreference",
+    start_address?:  {
+      __typename: "Coordinates",
+      longitude: number,
+      latitude: number,
+      address?: string | null,
+    } | null,
+    end_address?:  {
+      __typename: "Coordinates",
+      longitude: number,
+      latitude: number,
+      address?: string | null,
+    } | null,
+    owner?: string | null,
+    theme?: string | null,
+    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -494,17 +657,21 @@ export type GetRouteQuery = {
         __typename: "Coordinates",
         longitude: number,
         latitude: number,
+        address?: string | null,
       },
+      optimized?: boolean | null,
     } | null >,
     start_address?:  {
       __typename: "Coordinates",
       longitude: number,
       latitude: number,
+      address?: string | null,
     } | null,
     end_address?:  {
       __typename: "Coordinates",
       longitude: number,
       latitude: number,
+      address?: string | null,
     } | null,
     status: string,
     date: string,
@@ -540,16 +707,19 @@ export type ListRoutesQuery = {
         phone_number?: string | null,
         package_number?: string | null,
         name?: string | null,
+        optimized?: boolean | null,
       } | null >,
       start_address?:  {
         __typename: "Coordinates",
         longitude: number,
         latitude: number,
+        address?: string | null,
       } | null,
       end_address?:  {
         __typename: "Coordinates",
         longitude: number,
         latitude: number,
+        address?: string | null,
       } | null,
       status: string,
       date: string,
@@ -559,6 +729,66 @@ export type ListRoutesQuery = {
       estimated_distance: number,
       owner?: string | null,
       type: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetUserPreferenceQueryVariables = {
+  id: string,
+};
+
+export type GetUserPreferenceQuery = {
+  getUserPreference?:  {
+    __typename: "UserPreference",
+    start_address?:  {
+      __typename: "Coordinates",
+      longitude: number,
+      latitude: number,
+      address?: string | null,
+    } | null,
+    end_address?:  {
+      __typename: "Coordinates",
+      longitude: number,
+      latitude: number,
+      address?: string | null,
+    } | null,
+    owner?: string | null,
+    theme?: string | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListUserPreferencesQueryVariables = {
+  filter?: ModelUserPreferenceFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListUserPreferencesQuery = {
+  listUserPreferences?:  {
+    __typename: "ModelUserPreferenceConnection",
+    items:  Array< {
+      __typename: "UserPreference",
+      start_address?:  {
+        __typename: "Coordinates",
+        longitude: number,
+        latitude: number,
+        address?: string | null,
+      } | null,
+      end_address?:  {
+        __typename: "Coordinates",
+        longitude: number,
+        latitude: number,
+        address?: string | null,
+      } | null,
+      owner?: string | null,
+      theme?: string | null,
+      id: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -590,16 +820,19 @@ export type RoutesByDateQuery = {
         phone_number?: string | null,
         package_number?: string | null,
         name?: string | null,
+        optimized?: boolean | null,
       } | null >,
       start_address?:  {
         __typename: "Coordinates",
         longitude: number,
         latitude: number,
+        address?: string | null,
       } | null,
       end_address?:  {
         __typename: "Coordinates",
         longitude: number,
         latitude: number,
+        address?: string | null,
       } | null,
       status: string,
       date: string,
@@ -638,17 +871,21 @@ export type OnCreateRouteSubscription = {
         __typename: "Coordinates",
         longitude: number,
         latitude: number,
+        address?: string | null,
       },
+      optimized?: boolean | null,
     } | null >,
     start_address?:  {
       __typename: "Coordinates",
       longitude: number,
       latitude: number,
+      address?: string | null,
     } | null,
     end_address?:  {
       __typename: "Coordinates",
       longitude: number,
       latitude: number,
+      address?: string | null,
     } | null,
     status: string,
     date: string,
@@ -685,17 +922,21 @@ export type OnUpdateRouteSubscription = {
         __typename: "Coordinates",
         longitude: number,
         latitude: number,
+        address?: string | null,
       },
+      optimized?: boolean | null,
     } | null >,
     start_address?:  {
       __typename: "Coordinates",
       longitude: number,
       latitude: number,
+      address?: string | null,
     } | null,
     end_address?:  {
       __typename: "Coordinates",
       longitude: number,
       latitude: number,
+      address?: string | null,
     } | null,
     status: string,
     date: string,
@@ -732,17 +973,21 @@ export type OnDeleteRouteSubscription = {
         __typename: "Coordinates",
         longitude: number,
         latitude: number,
+        address?: string | null,
       },
+      optimized?: boolean | null,
     } | null >,
     start_address?:  {
       __typename: "Coordinates",
       longitude: number,
       latitude: number,
+      address?: string | null,
     } | null,
     end_address?:  {
       __typename: "Coordinates",
       longitude: number,
       latitude: number,
+      address?: string | null,
     } | null,
     status: string,
     date: string,
@@ -752,6 +997,90 @@ export type OnDeleteRouteSubscription = {
     estimated_distance: number,
     owner?: string | null,
     type: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateUserPreferenceSubscriptionVariables = {
+  filter?: ModelSubscriptionUserPreferenceFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateUserPreferenceSubscription = {
+  onCreateUserPreference?:  {
+    __typename: "UserPreference",
+    start_address?:  {
+      __typename: "Coordinates",
+      longitude: number,
+      latitude: number,
+      address?: string | null,
+    } | null,
+    end_address?:  {
+      __typename: "Coordinates",
+      longitude: number,
+      latitude: number,
+      address?: string | null,
+    } | null,
+    owner?: string | null,
+    theme?: string | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateUserPreferenceSubscriptionVariables = {
+  filter?: ModelSubscriptionUserPreferenceFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateUserPreferenceSubscription = {
+  onUpdateUserPreference?:  {
+    __typename: "UserPreference",
+    start_address?:  {
+      __typename: "Coordinates",
+      longitude: number,
+      latitude: number,
+      address?: string | null,
+    } | null,
+    end_address?:  {
+      __typename: "Coordinates",
+      longitude: number,
+      latitude: number,
+      address?: string | null,
+    } | null,
+    owner?: string | null,
+    theme?: string | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteUserPreferenceSubscriptionVariables = {
+  filter?: ModelSubscriptionUserPreferenceFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteUserPreferenceSubscription = {
+  onDeleteUserPreference?:  {
+    __typename: "UserPreference",
+    start_address?:  {
+      __typename: "Coordinates",
+      longitude: number,
+      latitude: number,
+      address?: string | null,
+    } | null,
+    end_address?:  {
+      __typename: "Coordinates",
+      longitude: number,
+      latitude: number,
+      address?: string | null,
+    } | null,
+    owner?: string | null,
+    theme?: string | null,
+    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,

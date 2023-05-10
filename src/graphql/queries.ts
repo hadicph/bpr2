@@ -17,15 +17,19 @@ export const getRoute = /* GraphQL */ `
         point {
           longitude
           latitude
+          address
         }
+        optimized
       }
       start_address {
         longitude
         latitude
+        address
       }
       end_address {
         longitude
         latitude
+        address
       }
       status
       date
@@ -57,14 +61,17 @@ export const listRoutes = /* GraphQL */ `
           phone_number
           package_number
           name
+          optimized
         }
         start_address {
           longitude
           latitude
+          address
         }
         end_address {
           longitude
           latitude
+          address
         }
         status
         date
@@ -74,6 +81,55 @@ export const listRoutes = /* GraphQL */ `
         estimated_distance
         owner
         type
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getUserPreference = /* GraphQL */ `
+  query GetUserPreference($id: ID!) {
+    getUserPreference(id: $id) {
+      start_address {
+        longitude
+        latitude
+        address
+      }
+      end_address {
+        longitude
+        latitude
+        address
+      }
+      owner
+      theme
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listUserPreferences = /* GraphQL */ `
+  query ListUserPreferences(
+    $filter: ModelUserPreferenceFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUserPreferences(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        start_address {
+          longitude
+          latitude
+          address
+        }
+        end_address {
+          longitude
+          latitude
+          address
+        }
+        owner
+        theme
+        id
         createdAt
         updatedAt
       }
@@ -108,14 +164,17 @@ export const routesByDate = /* GraphQL */ `
           phone_number
           package_number
           name
+          optimized
         }
         start_address {
           longitude
           latitude
+          address
         }
         end_address {
           longitude
           latitude
+          address
         }
         status
         date

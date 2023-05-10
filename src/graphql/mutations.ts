@@ -17,15 +17,19 @@ export const optimized = /* GraphQL */ `
         point {
           longitude
           latitude
+          address
         }
+        optimized
       }
       start_address {
         longitude
         latitude
+        address
       }
       end_address {
         longitude
         latitude
+        address
       }
       status
       date
@@ -63,15 +67,19 @@ export const createRoute = /* GraphQL */ `
         point {
           longitude
           latitude
+          address
         }
+        optimized
       }
       start_address {
         longitude
         latitude
+        address
       }
       end_address {
         longitude
         latitude
+        address
       }
       status
       date
@@ -104,15 +112,19 @@ export const updateRoute = /* GraphQL */ `
         point {
           longitude
           latitude
+          address
         }
+        optimized
       }
       start_address {
         longitude
         latitude
+        address
       }
       end_address {
         longitude
         latitude
+        address
       }
       status
       date
@@ -145,15 +157,19 @@ export const deleteRoute = /* GraphQL */ `
         point {
           longitude
           latitude
+          address
         }
+        optimized
       }
       start_address {
         longitude
         latitude
+        address
       }
       end_address {
         longitude
         latitude
+        address
       }
       status
       date
@@ -163,6 +179,78 @@ export const deleteRoute = /* GraphQL */ `
       estimated_distance
       owner
       type
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createUserPreference = /* GraphQL */ `
+  mutation CreateUserPreference(
+    $input: CreateUserPreferenceInput!
+    $condition: ModelUserPreferenceConditionInput
+  ) {
+    createUserPreference(input: $input, condition: $condition) {
+      start_address {
+        longitude
+        latitude
+        address
+      }
+      end_address {
+        longitude
+        latitude
+        address
+      }
+      owner
+      theme
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateUserPreference = /* GraphQL */ `
+  mutation UpdateUserPreference(
+    $input: UpdateUserPreferenceInput!
+    $condition: ModelUserPreferenceConditionInput
+  ) {
+    updateUserPreference(input: $input, condition: $condition) {
+      start_address {
+        longitude
+        latitude
+        address
+      }
+      end_address {
+        longitude
+        latitude
+        address
+      }
+      owner
+      theme
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteUserPreference = /* GraphQL */ `
+  mutation DeleteUserPreference(
+    $input: DeleteUserPreferenceInput!
+    $condition: ModelUserPreferenceConditionInput
+  ) {
+    deleteUserPreference(input: $input, condition: $condition) {
+      start_address {
+        longitude
+        latitude
+        address
+      }
+      end_address {
+        longitude
+        latitude
+        address
+      }
+      owner
+      theme
+      id
       createdAt
       updatedAt
     }
