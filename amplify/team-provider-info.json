@@ -10,24 +10,6 @@
       "StackName": "amplify-bpr2-dev-125123",
       "StackId": "arn:aws:cloudformation:eu-north-1:343061278635:stack/amplify-bpr2-dev-125123/a474b660-d2d6-11ed-8afc-0e6cb06eafe6",
       "AmplifyAppId": "d3t35jh09ulopa"
-    },
-    "categories": {
-      "auth": {
-        "bpr2503ff6eb503ff6eb": {}
-      },
-      "api": {
-        "bpr2": {}
-      },
-      "function": {
-        "startRouteFunction": {
-          "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
-          "s3Key": "amplify-builds/startRouteFunction-37343133743578736744-build.zip"
-        }
-      },
-      "geo": {
-        "map6bc62a21": {},
-        "placeIndexc1f75405": {}
-      }
     }
   }
 }

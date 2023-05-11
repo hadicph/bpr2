@@ -1,4 +1,4 @@
-import { API, graphqlOperation} from "aws-amplify";
+import { API, Geo, graphqlOperation} from "aws-amplify";
 import {GraphQLResult} from "@aws-amplify/api";
 import { Coordinates, CoordinatesInput, CreateRouteMutation, CreateUserPreferenceMutation, DeleteRouteMutation, GetRouteQuery, ModelSortDirection, Route, RoutesByDateQuery, RoutesByDateQueryVariables, UpdateUserPreferenceMutation, UpdateUserPreferenceMutationVariables, UserPreference } from "../API";
 import { createRoute, createUserPreference, deleteRoute, updateUserPreference } from "../graphql/mutations";
@@ -268,14 +268,14 @@ const deleteRouteById = async (id: string) => {
     throw err;
   }
 };
-/*const getSuggestions = async (text: string, biasPosition: [number,number]) => {
+
+const getSuggestions = async (text: string) => {
   if (text.trim() === "") return [];
   const response = await Geo.searchByText(text, {
     maxResults: 5,
-    biasPosition: biasPosition,
+    countries: ["DNK"],
   });
 
   return response;
 };
-*/
-  export {saveRoute,getRoutes,getRouteById,deleteRouteById,saveUserPreferance,updateUserPreferenceCustom};
+  export {saveRoute,getRoutes,getRouteById,deleteRouteById,saveUserPreferance,updateUserPreferenceCustom,getSuggestions};
