@@ -10,7 +10,6 @@ type Coordinates {
 
 type Delivery {
   id: ID!
-  address: String!
   status: String
   phone_number: String
   package_number: String
@@ -43,11 +42,16 @@ type Route
 }
 
 type UserPreference
-  @model @auth(rules: [{allow: owner, operations: [create, read, update, delete]}]){
+  @model @auth(rules: [{allow: owner, operations: [read, update]}]){
+  id: ID!
   start_address: Coordinates
   end_address: Coordinates
-  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  owner: String @auth(rules: [{ allow: owner, operations: [read] }])
   theme: String
+    @index(
+    name: "userPreferenceByOwner"
+    queryField: "userPreferenceByOwner"
+    sortKeyFields: ["owner"])
 }
 
 type Mutation {

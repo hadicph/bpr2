@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import {getRoutes, saveRoute, saveUserPreferance, updateUserPreferenceCustom} from "../../helpers/routesHelper";
+import {getRoutes, getSuggestions, renameRoute, saveRoute, saveUserPreference, setDefaultOptions, setStartAndEndAddress} from "../../helpers/routesHelper";
 import { Button } from "@aws-amplify/ui-react";
 
 
@@ -27,21 +27,44 @@ const GraphqlTesting: React.FC<GraphqlTestingProps> = ({ children }) => {
     const routes = await getRoutes(true);
     console.log(routes);
   }
-  const handleSaveUserPreferance = async () => {
-    const userPreferance = await saveUserPreferance();
+  //!!NON_FUNCTIONAL - Operation should be executed after successful registration
+  const handleSaveUserPreference = async () => {
+    const userPreferance = await saveUserPreference();
     console.log(userPreferance);
+  }
+  //!
+  const handleSuggestions = async () => {
+    const suggestions = await getSuggestions("horsensvej");
+    console.log(suggestions);
   }
 
-  const handleUpdateUserPreference = async () => {
-  const userPreferance = await updateUserPreferenceCustom("955aeb52-c658-45a5-bef4-73333317733e",{start_address: FakeCoordinates, end_address: FakeCoordinates, theme: "dark"});
-    console.log(userPreferance);
-  }
+  const handleSetStartAndEndAddress = async () => {
+    const response = await setStartAndEndAddress("bf094c57-1160-461b-a851-1e18d65de1c1",{start_address: FakeCoordinates, end_address: FakeCoordinates});
+    console.log(response);
+  };
+
+  const handleNameChange = async () => {
+    const response = await renameRoute("66729e6c-b538-47ca-9686-08a6a386a483", "ChangedName");
+    console.log(response);
+  };
+
+  const handleSetDefaultStartAndEndAddress = async () => {
+    const response = await setDefaultOptions("986bf916-5c4d-4987-aa2c-1962f8b72e99",{start_address: FakeCoordinates, end_address: FakeCoordinates});
+    console.log(response);
+  };
+  const handleSetDefaultTheme = async () => {
+    const response = await setDefaultOptions("986bf916-5c4d-4987-aa2c-1962f8b72e99",{theme: "switched"});
+    console.log(response);
+  };
     return(
         <>
         <Button onClick={handleSaveRoute}>Add Route</Button>
         <Button onClick={handleGetRoutes}>Get Routes</Button>
-        <Button onClick={handleSaveUserPreferance}>Save User Preferance</Button>
-        <Button onClick={handleUpdateUserPreference}>Update User Preference</Button>
+        <Button onClick={handleSuggestions}>Get Suggestions</Button>
+        <Button onClick={handleSetStartAndEndAddress}>Set Start and End address</Button>
+        <Button onClick={handleNameChange}>Change Name</Button>
+        <Button onClick={handleSetDefaultStartAndEndAddress}>Set Default Start and End address</Button>
+        <Button onClick={handleSetDefaultTheme}>Set Default Theme</Button>
         </>
       );
 }

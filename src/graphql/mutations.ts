@@ -9,7 +9,6 @@ export const optimized = /* GraphQL */ `
       route_name
       deliveries {
         id
-        address
         status
         phone_number
         package_number
@@ -49,30 +48,6 @@ export const startRoute = /* GraphQL */ `
     startRoute(id: $id)
   }
 `;
-export const setStartAddress = /* GraphQL */ `
-  mutation SetStartAddress($id: ID) {
-    setStartAddress(id: $id) {
-      longitude
-      latitude
-    }
-  }
-`;
-export const setEndAddress = /* GraphQL */ `
-  mutation SetEndAddress($id: ID) {
-    setEndAddress(id: $id) {
-      longitude
-      latitude
-    }
-  }
-`;
-export const setStartEndAddress = /* GraphQL */ `
-  mutation SetStartEndAddress($id: ID) {
-    setStartEndAddress(id: $id) {
-      longitude
-      latitude
-    }
-  }
-`;
 export const createRoute = /* GraphQL */ `
   mutation CreateRoute(
     $input: CreateRouteInput!
@@ -83,7 +58,6 @@ export const createRoute = /* GraphQL */ `
       route_name
       deliveries {
         id
-        address
         status
         phone_number
         package_number
@@ -128,7 +102,6 @@ export const updateRoute = /* GraphQL */ `
       route_name
       deliveries {
         id
-        address
         status
         phone_number
         package_number
@@ -173,7 +146,6 @@ export const deleteRoute = /* GraphQL */ `
       route_name
       deliveries {
         id
-        address
         status
         phone_number
         package_number
@@ -214,6 +186,7 @@ export const createUserPreference = /* GraphQL */ `
     $condition: ModelUserPreferenceConditionInput
   ) {
     createUserPreference(input: $input, condition: $condition) {
+      id
       start_address {
         longitude
         latitude
@@ -226,7 +199,6 @@ export const createUserPreference = /* GraphQL */ `
       }
       owner
       theme
-      id
       createdAt
       updatedAt
     }
@@ -238,6 +210,7 @@ export const updateUserPreference = /* GraphQL */ `
     $condition: ModelUserPreferenceConditionInput
   ) {
     updateUserPreference(input: $input, condition: $condition) {
+      id
       start_address {
         longitude
         latitude
@@ -250,7 +223,6 @@ export const updateUserPreference = /* GraphQL */ `
       }
       owner
       theme
-      id
       createdAt
       updatedAt
     }
@@ -262,6 +234,7 @@ export const deleteUserPreference = /* GraphQL */ `
     $condition: ModelUserPreferenceConditionInput
   ) {
     deleteUserPreference(input: $input, condition: $condition) {
+      id
       start_address {
         longitude
         latitude
@@ -274,7 +247,6 @@ export const deleteUserPreference = /* GraphQL */ `
       }
       owner
       theme
-      id
       createdAt
       updatedAt
     }

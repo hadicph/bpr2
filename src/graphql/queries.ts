@@ -9,7 +9,6 @@ export const getRoute = /* GraphQL */ `
       route_name
       deliveries {
         id
-        address
         status
         phone_number
         package_number
@@ -56,7 +55,6 @@ export const listRoutes = /* GraphQL */ `
         route_name
         deliveries {
           id
-          address
           status
           phone_number
           package_number
@@ -91,6 +89,7 @@ export const listRoutes = /* GraphQL */ `
 export const getUserPreference = /* GraphQL */ `
   query GetUserPreference($id: ID!) {
     getUserPreference(id: $id) {
+      id
       start_address {
         longitude
         latitude
@@ -103,7 +102,6 @@ export const getUserPreference = /* GraphQL */ `
       }
       owner
       theme
-      id
       createdAt
       updatedAt
     }
@@ -117,6 +115,7 @@ export const listUserPreferences = /* GraphQL */ `
   ) {
     listUserPreferences(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
+        id
         start_address {
           longitude
           latitude
@@ -129,7 +128,6 @@ export const listUserPreferences = /* GraphQL */ `
         }
         owner
         theme
-        id
         createdAt
         updatedAt
       }
@@ -159,7 +157,6 @@ export const routesByDate = /* GraphQL */ `
         route_name
         deliveries {
           id
-          address
           status
           phone_number
           package_number
@@ -184,6 +181,44 @@ export const routesByDate = /* GraphQL */ `
         estimated_distance
         owner
         type
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const userPreferenceByOwner = /* GraphQL */ `
+  query UserPreferenceByOwner(
+    $theme: String!
+    $owner: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserPreferenceFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    userPreferenceByOwner(
+      theme: $theme
+      owner: $owner
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        start_address {
+          longitude
+          latitude
+          address
+        }
+        end_address {
+          longitude
+          latitude
+          address
+        }
+        owner
+        theme
         createdAt
         updatedAt
       }

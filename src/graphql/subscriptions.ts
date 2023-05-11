@@ -12,7 +12,6 @@ export const onCreateRoute = /* GraphQL */ `
       route_name
       deliveries {
         id
-        address
         status
         phone_number
         package_number
@@ -57,7 +56,6 @@ export const onUpdateRoute = /* GraphQL */ `
       route_name
       deliveries {
         id
-        address
         status
         phone_number
         package_number
@@ -102,7 +100,6 @@ export const onDeleteRoute = /* GraphQL */ `
       route_name
       deliveries {
         id
-        address
         status
         phone_number
         package_number
@@ -143,6 +140,7 @@ export const onCreateUserPreference = /* GraphQL */ `
     $owner: String
   ) {
     onCreateUserPreference(filter: $filter, owner: $owner) {
+      id
       start_address {
         longitude
         latitude
@@ -155,7 +153,6 @@ export const onCreateUserPreference = /* GraphQL */ `
       }
       owner
       theme
-      id
       createdAt
       updatedAt
     }
@@ -167,6 +164,7 @@ export const onUpdateUserPreference = /* GraphQL */ `
     $owner: String
   ) {
     onUpdateUserPreference(filter: $filter, owner: $owner) {
+      id
       start_address {
         longitude
         latitude
@@ -179,7 +177,6 @@ export const onUpdateUserPreference = /* GraphQL */ `
       }
       owner
       theme
-      id
       createdAt
       updatedAt
     }
@@ -191,6 +188,7 @@ export const onDeleteUserPreference = /* GraphQL */ `
     $owner: String
   ) {
     onDeleteUserPreference(filter: $filter, owner: $owner) {
+      id
       start_address {
         longitude
         latitude
@@ -203,7 +201,6 @@ export const onDeleteUserPreference = /* GraphQL */ `
       }
       owner
       theme
-      id
       createdAt
       updatedAt
     }

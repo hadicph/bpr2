@@ -1,7 +1,9 @@
-import { API, graphqlOperation} from "aws-amplify";
+import { API, Geo, graphqlOperation} from "aws-amplify";
 import {GraphQLResult} from "@aws-amplify/api";
-import { Coordinates, CoordinatesInput, CreateRouteMutation, CreateUserPreferenceMutation, DeleteRouteMutation, GetRouteQuery, ModelSortDirection, Route, RoutesByDateQuery, RoutesByDateQueryVariables, UpdateUserPreferenceMutation, UpdateUserPreferenceMutationVariables, UserPreference } from "../API";
-import { createRoute, createUserPreference, deleteRoute, updateUserPreference } from "../graphql/mutations";
+import {CoordinatesInput, CreateRouteMutation, CreateUserPreferenceMutation, DeleteRouteMutation, GetRouteQuery, ModelSortDirection, Route,
+   RoutesByDateQuery, RoutesByDateQueryVariables, UpdateRouteMutation, UpdateRouteMutationVariables, 
+   UpdateUserPreferenceMutation, UpdateUserPreferenceMutationVariables, UserPreference } from "../API";
+import { createRoute, createUserPreference, deleteRoute, updateRoute, updateUserPreference } from "../graphql/mutations";
 import { getRoute, routesByDate } from "../graphql/queries";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -14,7 +16,6 @@ const FakeCoordinates = {
 const FakeDeliveries = [
   {
     id: uuidv4(),
-    address: "Horsens 123",
     status: "pending",
     phone_number: "1234567890",
     package_number: "1234567890",
@@ -23,7 +24,6 @@ const FakeDeliveries = [
   },
   {
     id: uuidv4(),
-    address: "Aalborg 123",
     status: "pending",
     phone_number: "23674263423",
     package_number: "28347632784623",
@@ -32,7 +32,6 @@ const FakeDeliveries = [
   },
   {
     id: uuidv4(),
-    address: "Copenhagen 123",
     status: "pending",
     phone_number: "1234567890",
     package_number: "1234567890",
@@ -164,7 +163,7 @@ const getRoutes = async(future: boolean, nextToken?: string) => {
           throw err;
         }
       };
-      const getRouteById = async (id: string): Promise<Route | undefined> => {
+const getRouteById = async (id: string): Promise<Route | undefined> => {
         try {
           const operation = graphqlOperation(getRoute, { id: id });
           const response = (await API.graphql(operation)) as GraphQLResult<GetRouteQuery>;
@@ -179,12 +178,13 @@ const getRoutes = async(future: boolean, nextToken?: string) => {
           throw err;
         }
       };
-      const saveUserPreferance = async (
+const saveUserPreference = async (
       ): Promise<UserPreference| undefined> => {
         try {
           const res = (await API.graphql(
             graphqlOperation(createUserPreference, {
               input: {
+                id: uuidv4(),
                 start_address: FakeCoordinates,
                 end_address: FakeCoordinates,
                 theme: "light",
@@ -192,73 +192,15 @@ const getRoutes = async(future: boolean, nextToken?: string) => {
             })
           )) as GraphQLResult<CreateUserPreferenceMutation>;
       
-          const newUserPreferance = res.data?.createUserPreference;
+          const newUserPreference = res.data?.createUserPreference;
       
-          return newUserPreferance as UserPreference;
+          return newUserPreference as UserPreference;
         } catch (err) {
           console.log("error creating route: ", err);
         }
       };
 
-      const updateUserPreferenceCustom1 = async (
-        id: string,
-        //start_address: Coordinates, 
-        //end_address: Coordinates,
-        //theme: string
-      ): Promise<UserPreference | undefined> => {
-        try {
-          const res = (await API.graphql(
-            graphqlOperation(updateUserPreference, {
-              input: {
-                id: id,
-                start_address: FakeCoordinates,
-                end_address: FakeCoordinates,
-                theme: "dark",
-              },
-            })
-          )) as GraphQLResult<UpdateUserPreferenceMutation>;
-          
-          const newUserPreference = res.data?.updateUserPreference;
 
-          return newUserPreference as UserPreference;
-        } catch (err) {
-
-          console.log("error updating user preference: ", err);
-        }
-      };
-
-const updateUserPreferenceCustom = async (
-  id: string,
-  {
-    start_address,
-    end_address,
-    theme,
-  }: {
-    start_address?: CoordinatesInput;
-    end_address?: CoordinatesInput;
-    theme?: string;
-  }
-) => {
-  try {
-    if (!start_address && !end_address && !theme) return;
-    const variables: UpdateUserPreferenceMutationVariables = {
-      input: {
-        id: id,
-      },
-    };
-    if (start_address) variables.input.start_address = start_address;
-    if (end_address) variables.input.end_address = end_address;
-    if (theme) variables.input.theme = theme;
-    const op = graphqlOperation(updateUserPreference, variables);
-    const res = (await API.graphql(
-      op
-    )) as GraphQLResult<UpdateUserPreferenceMutation>;
-
-    return res.data?.updateUserPreference;
-  } catch (err) {
-    console.log("error updating user preference: ", err);
-  }
-};
 const deleteRouteById = async (id: string) => {
   try {
     const op = graphqlOperation(deleteRoute, { input: { id: id } });
@@ -268,14 +210,108 @@ const deleteRouteById = async (id: string) => {
     throw err;
   }
 };
-/*const getSuggestions = async (text: string, biasPosition: [number,number]) => {
+const getSuggestions = async (text: string) => {
   if (text.trim() === "") return [];
   const response = await Geo.searchByText(text, {
     maxResults: 5,
-    biasPosition: biasPosition,
+    countries: ["DNK"],
   });
 
   return response;
 };
-*/
-  export {saveRoute,getRoutes,getRouteById,deleteRouteById,saveUserPreferance,updateUserPreferenceCustom};
+//TODO
+const optimizeRoute = async (routeId: string) => {
+  console.log("Optimizing route");
+};
+//TODO
+const setDeliveryToDelivered = async (routeId:string , deliveryId: string) => {
+  console.log("Setting delivery to delivered");
+};
+//TODO
+const createNewDelivery = async (routeId: string) => {
+  console.log("Creating new delivery");
+};
+
+const renameRoute = async (id: string, newName: string) => {
+  try {
+    if (!newName) return;
+    const variables: UpdateRouteMutationVariables = {
+      input: {
+        id: id,
+      },
+    };
+    if (newName) variables.input.route_name = newName;
+    const operation = graphqlOperation(updateRoute, variables);
+    const response = (await API.graphql(
+      operation
+    )) as GraphQLResult<UpdateRouteMutation>;
+
+    return response.data?.updateRoute;
+  } catch (err) {
+    console.log("error updating route: ", err);
+  }
+};
+
+const setStartAndEndAddress = async (
+  id: string,
+  {
+    start_address,
+    end_address,
+  }:{
+    start_address?: CoordinatesInput;
+    end_address?: CoordinatesInput;
+  }) => {
+    try {
+      if (!start_address && !end_address) return;
+      const variables: UpdateRouteMutationVariables = {
+        input: {
+          id: id,
+        },
+      };
+      if (start_address) variables.input.start_address = start_address;
+      if (end_address) variables.input.end_address = end_address;
+      const operation = graphqlOperation(updateRoute, variables);
+      const response = (await API.graphql(
+        operation
+      )) as GraphQLResult<UpdateRouteMutation>;
+  
+      return response.data?.updateRoute;
+    } catch (err) {
+      console.log("error updating route: ", err);
+    }
+};
+
+const setDefaultOptions = async (
+  id: string,
+  {
+    start_address,
+    end_address,
+    theme,
+  }:{
+    start_address?: CoordinatesInput;
+    end_address?: CoordinatesInput;
+    theme?: string;
+  }) => {
+    try {
+      if (!start_address && !end_address && !theme) return;
+      const variables: UpdateUserPreferenceMutationVariables = {
+        input: {
+          id: id,
+        },
+      };
+      if (start_address) variables.input.start_address = start_address;
+      if (end_address) variables.input.end_address = end_address;
+      if (theme) variables.input.theme = theme;
+      const operation = graphqlOperation(updateUserPreference, variables);
+      const response = (await API.graphql(
+        operation
+      )) as GraphQLResult<UpdateUserPreferenceMutation>;
+  
+      return response.data?.updateUserPreference;
+    } catch (err) {
+      console.log("error updating route: ", err);
+    }
+};
+
+export {saveRoute,getRoutes,getRouteById,deleteRouteById,saveUserPreference,optimizeRoute,setDeliveryToDelivered,createNewDelivery,
+  getSuggestions,renameRoute,setStartAndEndAddress,setDefaultOptions};
