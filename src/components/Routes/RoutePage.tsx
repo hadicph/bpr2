@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import NavBar from "../App/NavBar";
 import { getRouteById } from "../../helpers/routesHelper";
@@ -11,7 +11,6 @@ import { optimized } from "../../graphql/mutations";
 
 const RoutePage: React.FC = () => {
     const { id } = useParams();
-    const navigate = useNavigate();
     const [route, setRoute] = React.useState<Route>();
     const [deliveries, setDeliveries] = React.useState<Delivery[]>([]);
     const [showPendingOnly, setShowPendingOnly] = React.useState(false);
@@ -65,7 +64,6 @@ const RoutePage: React.FC = () => {
 
     function handleNewDelivery(): void {
         // TODO: Add new delivery to route
-        navigate(`/${id}/newdelivery`);
         console.log("Function not implemented. handleNewDelivery");
     }
 

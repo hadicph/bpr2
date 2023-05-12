@@ -1,5 +1,5 @@
 import './App.css';
-import { Amplify } from 'aws-amplify';
+import { Amplify} from 'aws-amplify';
 import awsconfig from './aws-exports';
 import '@aws-amplify/ui-react/styles.css';
 import AuthComponent from './components/App/AuthComponent';
@@ -9,11 +9,12 @@ Amplify.configure(awsconfig);
 
 
 
-const App: React.FC = () => {
-  return (
+const App: React.FC = () =>
+{
+  return(
     <AuthComponent>
       <BrowserRouter>
-        <RouterComponent />
+      <RouterComponent/>
       </BrowserRouter>
     </AuthComponent>
   );
