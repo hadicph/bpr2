@@ -1,9 +1,9 @@
 import { API, Geo, graphqlOperation} from "aws-amplify";
 import {GraphQLResult} from "@aws-amplify/api";
-import {CoordinatesInput, CreateRouteMutation, CreateUserPreferenceMutation, DeleteRouteMutation, DeliveryInput, GetRouteQuery, ListUserPreferencesQuery, ModelSortDirection, Route,
+import {CoordinatesInput, CreateRouteMutation, DeleteRouteMutation, DeliveryInput, GetRouteQuery, ListUserPreferencesQuery, ModelSortDirection, Route,
    RoutesByDateQuery, RoutesByDateQueryVariables, UpdateRouteMutation, UpdateRouteMutationVariables, 
    UpdateUserPreferenceMutation, UpdateUserPreferenceMutationVariables, UserPreference } from "../API";
-import { createRoute, createUserPreference, deleteRoute, updateRoute, updateUserPreference } from "../graphql/mutations";
+import { createRoute, deleteRoute, updateRoute, updateUserPreference } from "../graphql/mutations";
 import { getRoute, listUserPreferences, routesByDate } from "../graphql/queries";
 import { v4 as uuidv4 } from 'uuid';
 
