@@ -1,12 +1,15 @@
-import { ReactElement, useEffect } from "react";
+import { useEffect } from "react";
 import React, { useState } from "react";
-import { Delivery, Coordinates, DeliveryInput, CoordinatesInput } from '../../API';
+import { DeliveryInput, CoordinatesInput } from '../../API';
 import { useNavigate } from "react-router-dom";
 import AddressInput from "./AddressInput";
+import { useLocation } from "react-router-dom";
 
-type NewDeliveryProps = { children?: ReactElement; };
+type NewDeliveryProps = {};
 
-const NewDelivery: React.FC<NewDeliveryProps> = ({ children }) => {
+const NewDelivery: React.FC<NewDeliveryProps> = ({ }) => {
+  const location = useLocation();
+  const { route } = location.state || {};
   const [coordinate, setCoordinate] = React.useState<CoordinatesInput>({
     longitude: 0,
     latitude: 0,
@@ -30,9 +33,12 @@ const NewDelivery: React.FC<NewDeliveryProps> = ({ children }) => {
       optimized: null,
     };
 
+    let updatedRoute = { ...route };
+    updatedRoute.deliveries.push(newDelivery);
 
 
-    console.log(newDelivery);
+
+    console.log(updatedRoute);
 
     // TODO Handle the submission of a new delivery
     // TODO Redirect to the delivery list page
@@ -43,11 +49,6 @@ const NewDelivery: React.FC<NewDeliveryProps> = ({ children }) => {
   };
 
 
-
-  // TODO: Delete this useEffect
-  useEffect(() => {
-    console.log(coordinate);
-  }, [coordinate]);
 
   return (
     <div className="p-4">

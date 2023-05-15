@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { ReactElement } from "react";
 import { useNavigate } from 'react-router-dom';
-import { deleteRouteById, getRoutes, saveRoute} from '../../helpers/routesHelper';
-import { Route } from '../../API';
+import { deleteRouteById, getRoutes, listUserPreference, saveRoute } from '../../helpers/routesHelper';
+import { Route, UserPreference } from '../../API';
 
 type RouteListProps = {
   children?: ReactElement;
@@ -12,12 +12,14 @@ const RouteList: React.FC<RouteListProps> = () => {
 
   const [routesList, setRoutesList] = useState<Route[]>([]);
   const [showActiveOnly, setShowActiveOnly] = useState(false);
+  const [userPreferences, setUserPreferences] = useState<UserPreference>();
   const navigate = useNavigate();
-  
+
   React.useEffect(() => {
     handleGetRoutes();
+    handleListUserPreferences();
   }, []);
-  
+
   // Filter routes based on active status
   const filteredRoutesList: Route[] = showActiveOnly ? routesList.filter(route => route.status === "active") : routesList;
 
@@ -29,7 +31,7 @@ const RouteList: React.FC<RouteListProps> = () => {
     const response = await deleteRouteById(id);
     if (response) {
       const newRouteList = routesList.filter(route => route.id !== id);
-    setRoutesList(newRouteList);
+      setRoutesList(newRouteList);
     } else {
       console.error('Invalid response:', response);
     }
@@ -39,16 +41,29 @@ const RouteList: React.FC<RouteListProps> = () => {
   const handleRouteSelection = (route: Route) => {
     navigate(`/${route.id}`);
   };
-  
+
   //Create Route and Navigate to Route Page
   const handleCreateRoute = async () => {
-    const response = await saveRoute("Test"+routesList.length);
-    if (response && response.id) {
-      navigate(`/${response.id}`);
-    } else {
-      console.error('Invalid response:', response);
+    if (userPreferences?.start_address && userPreferences?.end_address) {
+      const response = await saveRoute("Test" + routesList.length);
+      if (response && response.id) {
+        navigate(`/${response.id}`);
+      } else {
+        console.error('Invalid response:', response);
+      }
     }
+    else {
+      // TODO make a popup maybe?
+      navigate(`/default-address`);
+    }
+
+
   }
+
+  const handleListUserPreferences = async () => {
+    const response = await listUserPreference();
+    setUserPreferences(response[0]);
+  };
 
 
   return (
@@ -88,7 +103,7 @@ const RouteList: React.FC<RouteListProps> = () => {
               <tr key={route.id} className={route.status === "active" ? "active" : ""}>
                 <td onClick={() => handleRouteSelection(route)} >{route.route_name}</td>
                 <td >
-                  <button className="btn btn-red btn-xs " onClick={() =>handleDeleteRoute(route.id)}>Delete</button>
+                  <button className="btn btn-red btn-xs " onClick={() => handleDeleteRoute(route.id)}>Delete</button>
                 </td>
               </tr>
             ))}

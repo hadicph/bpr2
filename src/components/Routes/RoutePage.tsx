@@ -6,7 +6,6 @@ import { getRouteById } from "../../helpers/routesHelper";
 import { Coordinates, Route } from "../../API";
 import { Delivery } from "../../API";
 import DeliveryList from '../Delivery/DeliveryList';
-import { optimized } from "../../graphql/mutations";
 import AddressItem from "../Delivery/AddressItem";
 
 
@@ -69,8 +68,8 @@ const RoutePage: React.FC = () => {
 
     function handleNewDelivery(): void {
         // TODO: Add new delivery to route
-        navigate(`/${id}/newdelivery`);
-        console.log("Function not implemented. handleNewDelivery");
+
+        navigate(`/${id}/newdelivery`, { state: { route } });
     }
 
     function handleOptimize(): void {
