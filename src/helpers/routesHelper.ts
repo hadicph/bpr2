@@ -1,6 +1,6 @@
 import { API, Geo, graphqlOperation} from "aws-amplify";
 import {GraphQLResult} from "@aws-amplify/api";
-import {CoordinatesInput, CreateRouteMutation, CreateUserPreferenceMutation, DeleteRouteMutation, GetRouteQuery, ListUserPreferencesQuery, ModelSortDirection, Route,
+import {CoordinatesInput, CreateRouteMutation, CreateUserPreferenceMutation, DeleteRouteMutation, DeliveryInput, GetRouteQuery, ListUserPreferencesQuery, ModelSortDirection, Route,
    RoutesByDateQuery, RoutesByDateQueryVariables, UpdateRouteMutation, UpdateRouteMutationVariables, 
    UpdateUserPreferenceMutation, UpdateUserPreferenceMutationVariables, UserPreference } from "../API";
 import { createRoute, createUserPreference, deleteRoute, updateRoute, updateUserPreference } from "../graphql/mutations";
@@ -331,6 +331,30 @@ const listUserPreference = async (): Promise<UserPreference[]> => {
   }
 };
 
-
+const updateRouteDeliveries = async (
+  id: string,
+  {
+    deliveries,
+  }:{
+    deliveries?: DeliveryInput[];
+  }) => {
+    try {
+      if (!deliveries) return;
+      const variables: UpdateRouteMutationVariables = {
+        input: {
+          id: id,
+        },
+      };
+      if (deliveries) variables.input.deliveries = deliveries;
+      const operation = graphqlOperation(updateRoute, variables);
+      const response = (await API.graphql(
+        operation
+      )) as GraphQLResult<UpdateRouteMutation>;
+  
+      return response.data?.updateRoute;
+    } catch (err) {
+      console.log("error updating route: ", err);
+    }
+  };
 export {saveRoute,getRoutes,getRouteById,deleteRouteById,saveUserPreference,optimizeRoute,setDeliveryToDelivered,createNewDelivery,
-  getSuggestions,renameRoute,setStartAndEndAddress,setDefaultOptions,listUserPreference};
+  getSuggestions,renameRoute,setStartAndEndAddress,setDefaultOptions,listUserPreference,updateRouteDeliveries};

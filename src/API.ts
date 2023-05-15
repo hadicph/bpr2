@@ -58,7 +58,6 @@ export type CreateRouteInput = {
 
 export type DeliveryInput = {
   id?: string | null,
-  address: string,
   status?: string | null,
   phone_number?: string | null,
   package_number?: string | null,

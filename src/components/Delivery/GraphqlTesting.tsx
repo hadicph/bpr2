@@ -1,8 +1,8 @@
 import { ReactElement } from "react";
-import {getRoutes, getSuggestions, listUserPreference, renameRoute, saveRoute, saveUserPreference, setDefaultOptions, setStartAndEndAddress} from "../../helpers/routesHelper";
+import {getRoutes, getSuggestions, listUserPreference, renameRoute, saveRoute, saveUserPreference, setDefaultOptions, setStartAndEndAddress, updateRouteDeliveries} from "../../helpers/routesHelper";
 import { Button } from "@aws-amplify/ui-react";
-
-
+import { DeliveryInput } from "../../API";
+import { v4 as uuidv4 } from 'uuid';
 
 type GraphqlTestingProps = {
     children?: ReactElement;
@@ -10,6 +10,29 @@ type GraphqlTestingProps = {
 
 const GraphqlTesting: React.FC<GraphqlTestingProps> = ({ children }) => {
   const route_name = "test";
+
+  function fakeDeliveryGenerator () {
+    const fakeDelivery: DeliveryInput = {
+      id: uuidv4(),
+      status: "test",
+      phone_number: "test",
+      package_number: "test",
+      name: "test",
+      point: {
+        latitude: 1,
+        longitude: 1,
+        address: "test"
+      },
+      optimized: false
+    };
+    return fakeDelivery;
+  }
+
+  const FakeDeliveries:DeliveryInput[] = [
+    fakeDeliveryGenerator(),
+    fakeDeliveryGenerator(),
+    fakeDeliveryGenerator(),
+  ];
 
   const FakeCoordinates=
     {
@@ -60,6 +83,10 @@ const GraphqlTesting: React.FC<GraphqlTestingProps> = ({ children }) => {
     const response = await listUserPreference();
     console.log(response);
   };
+  const handleUpdateRouteDeliveries = async () => {
+    const response = await updateRouteDeliveries("66729e6c-b538-47ca-9686-08a6a386a483",{deliveries: FakeDeliveries})
+    console.log(response);
+  };
 
     return(
         <>
@@ -71,8 +98,10 @@ const GraphqlTesting: React.FC<GraphqlTestingProps> = ({ children }) => {
         <Button onClick={handleSetDefaultStartAndEndAddress}>Set Default Start and End address</Button>
         <Button onClick={handleSetDefaultTheme}>Set Default Theme</Button>
         <Button onClick={handleListUserPreferences}>List User Preferences</Button>
+        <Button onClick={handleUpdateRouteDeliveries}>Update Route Deliveries</Button>
         </>
       );
 }
 
 export default GraphqlTesting;
+

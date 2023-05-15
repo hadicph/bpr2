@@ -23,7 +23,6 @@ const NewDelivery: React.FC<NewDeliveryProps> = ({ children }) => {
     e.preventDefault();
 
     const newDelivery: DeliveryInput = {
-      address: coordinate.address || "",
       phone_number: phoneNumber || null,
       package_number: packageNumber || null,
       name: name || null,
