@@ -4,6 +4,8 @@ import { DeliveryInput, CoordinatesInput } from '../../API';
 import { useNavigate } from "react-router-dom";
 import AddressInput from "./AddressInput";
 import { useLocation } from "react-router-dom";
+import { updateRouteDeliveries } from "../../helpers/routesHelper";
+import { v4 as uuidv4 } from 'uuid';
 
 type NewDeliveryProps = {};
 
@@ -22,27 +24,32 @@ const NewDelivery: React.FC<NewDeliveryProps> = ({ }) => {
 
 
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const newDelivery: DeliveryInput = {
+      id: uuidv4(),
       phone_number: phoneNumber || null,
       package_number: packageNumber || null,
       name: name || null,
       point: coordinate,
-      optimized: null,
+      optimized: false,
+      status: "pending",
     };
 
     let updatedRoute = { ...route };
     updatedRoute.deliveries.push(newDelivery);
 
+    const response = await updateRouteDeliveries(updatedRoute.id, { deliveries: updatedRoute.deliveries }).then((response) => { handleGoBack() });
 
 
-    console.log(updatedRoute);
+
 
     // TODO Handle the submission of a new delivery
     // TODO Redirect to the delivery list page
   };
+
+
 
   const handleGoBack = () => {
     navigate(-1); // Go back to the previous page (route page)
