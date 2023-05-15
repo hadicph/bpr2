@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import {getRoutes, getSuggestions, renameRoute, saveRoute, saveUserPreference, setDefaultOptions, setStartAndEndAddress} from "../../helpers/routesHelper";
+import {getRoutes, getSuggestions, listUserPreference, renameRoute, saveRoute, saveUserPreference, setDefaultOptions, setStartAndEndAddress} from "../../helpers/routesHelper";
 import { Button } from "@aws-amplify/ui-react";
 
 
@@ -56,6 +56,11 @@ const GraphqlTesting: React.FC<GraphqlTestingProps> = ({ children }) => {
     const response = await setDefaultOptions("986bf916-5c4d-4987-aa2c-1962f8b72e99",{theme: "switched"});
     console.log(response);
   };
+  const handleListUserPreferences = async () => {
+    const response = await listUserPreference();
+    console.log(response);
+  };
+
     return(
         <>
         <Button onClick={handleSaveRoute}>Add Route</Button>
@@ -65,6 +70,7 @@ const GraphqlTesting: React.FC<GraphqlTestingProps> = ({ children }) => {
         <Button onClick={handleNameChange}>Change Name</Button>
         <Button onClick={handleSetDefaultStartAndEndAddress}>Set Default Start and End address</Button>
         <Button onClick={handleSetDefaultTheme}>Set Default Theme</Button>
+        <Button onClick={handleListUserPreferences}>List User Preferences</Button>
         </>
       );
 }

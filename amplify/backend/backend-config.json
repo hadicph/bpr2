@@ -85,23 +85,6 @@
       "providerPlugin": "awscloudformation",
       "service": "Map"
     },
-    "placeIndex9e619d57": {
-      "accessType": "AuthorizedUsers",
-      "dataProvider": "Here",
-      "dataSourceIntendedUse": "Storage",
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "bpr2503ff6eb503ff6eb"
-        }
-      ],
-      "isDefault": true,
-      "providerPlugin": "awscloudformation",
-      "service": "PlaceIndex"
-    },
     "placeIndexc1f75405": {
       "accessType": "AuthorizedUsers",
       "dataProvider": "Here",

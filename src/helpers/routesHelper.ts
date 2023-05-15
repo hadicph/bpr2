@@ -1,10 +1,10 @@
 import { API, Geo, graphqlOperation} from "aws-amplify";
 import {GraphQLResult} from "@aws-amplify/api";
-import {CoordinatesInput, CreateRouteMutation, CreateUserPreferenceMutation, DeleteRouteMutation, GetRouteQuery, ModelSortDirection, Route,
+import {CoordinatesInput, CreateRouteMutation, CreateUserPreferenceMutation, DeleteRouteMutation, GetRouteQuery, ListUserPreferencesQuery, ModelSortDirection, Route,
    RoutesByDateQuery, RoutesByDateQueryVariables, UpdateRouteMutation, UpdateRouteMutationVariables, 
    UpdateUserPreferenceMutation, UpdateUserPreferenceMutationVariables, UserPreference } from "../API";
 import { createRoute, createUserPreference, deleteRoute, updateRoute, updateUserPreference } from "../graphql/mutations";
-import { getRoute, routesByDate } from "../graphql/queries";
+import { getRoute, listUserPreferences, routesByDate } from "../graphql/queries";
 import { v4 as uuidv4 } from 'uuid';
 
 //Dummy Data
@@ -313,5 +313,24 @@ const setDefaultOptions = async (
     }
 };
 
+const listUserPreference = async (): Promise<UserPreference[]> => {
+  try {
+    const operation = graphqlOperation(listUserPreferences);
+    const response = (await API.graphql(
+      operation
+    )) as GraphQLResult<ListUserPreferencesQuery>;
+    
+    const userPreferences = response.data?.listUserPreferences?.items;
+    if (!userPreferences) {
+      throw new Error("User preferences not found");
+    }
+    return userPreferences as UserPreference[];
+  } catch (err) {
+    console.log("Error with getting user preferences: "+ err);
+    throw err;
+  }
+};
+
+
 export {saveRoute,getRoutes,getRouteById,deleteRouteById,saveUserPreference,optimizeRoute,setDeliveryToDelivered,createNewDelivery,
-  getSuggestions,renameRoute,setStartAndEndAddress,setDefaultOptions};
+  getSuggestions,renameRoute,setStartAndEndAddress,setDefaultOptions,listUserPreference};

@@ -102,6 +102,7 @@ export const getUserPreference = /* GraphQL */ `
       }
       owner
       theme
+      type
       createdAt
       updatedAt
     }
@@ -128,6 +129,7 @@ export const listUserPreferences = /* GraphQL */ `
         }
         owner
         theme
+        type
         createdAt
         updatedAt
       }
@@ -190,7 +192,7 @@ export const routesByDate = /* GraphQL */ `
 `;
 export const userPreferenceByOwner = /* GraphQL */ `
   query UserPreferenceByOwner(
-    $theme: String!
+    $type: String!
     $owner: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelUserPreferenceFilterInput
@@ -198,7 +200,7 @@ export const userPreferenceByOwner = /* GraphQL */ `
     $nextToken: String
   ) {
     userPreferenceByOwner(
-      theme: $theme
+      type: $type
       owner: $owner
       sortDirection: $sortDirection
       filter: $filter
@@ -219,6 +221,7 @@ export const userPreferenceByOwner = /* GraphQL */ `
         }
         owner
         theme
+        type
         createdAt
         updatedAt
       }

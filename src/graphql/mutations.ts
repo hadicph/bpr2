@@ -199,6 +199,7 @@ export const createUserPreference = /* GraphQL */ `
       }
       owner
       theme
+      type
       createdAt
       updatedAt
     }
@@ -223,6 +224,7 @@ export const updateUserPreference = /* GraphQL */ `
       }
       owner
       theme
+      type
       createdAt
       updatedAt
     }
@@ -247,6 +249,7 @@ export const deleteUserPreference = /* GraphQL */ `
       }
       owner
       theme
+      type
       createdAt
       updatedAt
     }
