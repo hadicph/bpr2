@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactElement } from "react";
-import { Coordinates, CoordinatesInput, UserPreference } from "../../API";
+import { CoordinatesInput } from "../../API";
 import AddressInput from "../Delivery/AddressInput";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
