@@ -1,15 +1,18 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import NavBar from "../App/NavBar";
 import { getRouteById } from "../../helpers/routesHelper";
-import { Route } from "../../API";
+import { Coordinates, Route } from "../../API";
 import { Delivery } from "../../API";
 import DeliveryList from '../Delivery/DeliveryList';
+import { optimized } from "../../graphql/mutations";
+import AddressItem from "../Delivery/AddressItem";
 
 
 const RoutePage: React.FC = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [route, setRoute] = React.useState<Route>();
     const [deliveries, setDeliveries] = React.useState<Delivery[]>([]);
     const [showPendingOnly, setShowPendingOnly] = React.useState(false);
@@ -23,8 +26,11 @@ const RoutePage: React.FC = () => {
     React.useEffect(() => {
         if (id) {
             handleGetRouteById(id);
+
+
         }
     }, []);
+
 
     // Get route by id and set state for route and delivery list
     const handleGetRouteById = async (id: string) => {
@@ -63,6 +69,7 @@ const RoutePage: React.FC = () => {
 
     function handleNewDelivery(): void {
         // TODO: Add new delivery to route
+        navigate(`/${id}/newdelivery`);
         console.log("Function not implemented. handleNewDelivery");
     }
 
@@ -141,7 +148,7 @@ const RoutePage: React.FC = () => {
 
 
                 {/* Buttons and checkbox */}
-                <div className="grid grid-cols-2 gap-4 pb-4">
+                <div className="grid grid-cols-2 gap-4 pb-2">
                     <div className="form-control">
                         <label className="label cursor-pointer">
                             <span className="label-text">Only Pending</span>
@@ -162,20 +169,30 @@ const RoutePage: React.FC = () => {
                 {/* Unoptimized deliveries */}
                 {unoptimizedDeliveries.length > 0 && (
                     <>
+                        <div className="flex flex-col w-full border-opacity-50">
+                            <div className="divider"></div>
+                        </div>
+
                         <div className="text-center mx-10">
-                            <span className="text-lg font-bold">Click Optimize button to add them to the route</span>
+                            <span className="text-lg font-bold">Click Optimize button to add new addresses to the route</span>
                         </div>
 
                         <DeliveryList
                             deliveries={unoptimizedDeliveries}
                             bgColor="bg-secondary"
                         />
+
+                        <div className="flex flex-col w-full border-opacity-50">
+                            <div className="divider"></div>
+                        </div>
                     </>
                 )}
 
 
+
+
                 {/* Table Header */}
-                <div className="rounded bg-accent text-primary-content flex justify-between p-4 pt-1 pb-1">
+                <div className="rounded bg-info text-primary-content flex justify-between p-4 pt-1 pb-1">
                     <div className="flex justify-start">Address</div>
                     <div className="flex justify-center">Status</div>
                     <div className="flex justify-end"> </div>
@@ -188,11 +205,22 @@ const RoutePage: React.FC = () => {
                     <div className="flex justify-end">{route?.estimated_distance} km</div>
                 </div>
 
-
+                {/* Start address */}
+                <AddressItem
+                    coordinate={route?.start_address as Coordinates}
+                    bgColor="btn"
+                />
 
                 {/* Optimized deliveries */}
                 <DeliveryList
                     deliveries={deliveries}
+                />
+
+                {/* End address */}
+                <AddressItem
+                    coordinate={route?.end_address as Coordinates}
+                    bgColor="btn"
+                    startAddress={false}
                 />
             </div>
         </>

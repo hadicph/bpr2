@@ -51,7 +51,7 @@ const DeliveryList: React.FC<Props> = ({
                             if (delivery?.id) handleCollapseClick(delivery?.id);
                         }}
                     >
-                        <div className="flex justify-start">{delivery?.address}</div>
+                        <div className="flex justify-start">{delivery?.point.address}</div>
                         <div className="flex justify-center">
                             {delivery?.status === 'pending' && 'Pending'}
                             {delivery?.status === 'completed' && 'Complete'}
@@ -65,7 +65,7 @@ const DeliveryList: React.FC<Props> = ({
                         className={`collapse-content bg-transparent peer-checked:bg-transparent ${openCollapseId === delivery?.id ? 'open' : ''
                             }`}
                     >
-                        <p className="pt-1">Adress: {delivery?.address}</p>
+                        <p className="pt-1">Adress: {delivery?.point.address}</p>
                         {/* They will be printed only if object has them */}
                         {delivery?.name && <p>Name: {delivery?.name}</p>}
                         {delivery?.phone_number && <p>Phone: {delivery?.phone_number}</p>}
