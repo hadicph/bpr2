@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-bpr2-dev-125123-unauthRole",
       "StackName": "amplify-bpr2-dev-125123",
       "StackId": "arn:aws:cloudformation:eu-north-1:343061278635:stack/amplify-bpr2-dev-125123/a474b660-d2d6-11ed-8afc-0e6cb06eafe6",
-      "AmplifyAppId": "d3t35jh09ulopa"
+      "AmplifyAppId": "d3t35jh09ulopa",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-bpr2-dev-125123-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
@@ -22,6 +23,10 @@
         "startRouteFunction": {
           "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
           "s3Key": "amplify-builds/startRouteFunction-37343133743578736744-build.zip"
+        },
+        "bpr2503ff6eb503ff6ebPostConfirmation": {
+          "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
+          "s3Key": "amplify-builds/bpr2503ff6eb503ff6ebPostConfirmation-7746744763682f367476-build.zip"
         }
       },
       "geo": {

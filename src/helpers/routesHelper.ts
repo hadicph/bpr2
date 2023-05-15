@@ -7,46 +7,17 @@ import { createRoute, createUserPreference, deleteRoute, updateRoute, updateUser
 import { getRoute, listUserPreferences, routesByDate } from "../graphql/queries";
 import { v4 as uuidv4 } from 'uuid';
 
-//Dummy Data
-const FakeCoordinates = {
-    longitude: 123,
-    latitude: 1234,
-    address: "Horsens 123"
-}
-const FakeDeliveries = [
-  {
-    id: uuidv4(),
-    status: "pending",
-    phone_number: "1234567890",
-    package_number: "1234567890",
-    name: "John Doe",
-    point: FakeCoordinates
-  },
-  {
-    id: uuidv4(),
-    status: "pending",
-    phone_number: "23674263423",
-    package_number: "28347632784623",
-    name: "John fran",
-    point: FakeCoordinates
-  },
-  {
-    id: uuidv4(),
-    status: "pending",
-    phone_number: "1234567890",
-    package_number: "1234567890",
-    name: "John CPH",
-    point: FakeCoordinates
-  }
-]
 
-//
+
 const today: Date = new Date();
 const formattedDate: string = today.toLocaleDateString('en-CA', {year: 'numeric', month: '2-digit', day: '2-digit'}).replace(/\//g, '-');
+
 //Creating Route
 const saveRoute = async (
     route_name: string,
-    // date: string
+    start_address: CoordinatesInput,
+    end_address: CoordinatesInput,
+    
   ): Promise<Route | undefined> => {
     try {
       const res = (await API.graphql(
@@ -54,9 +25,9 @@ const saveRoute = async (
           input: {
             id: uuidv4(),
             route_name,
-            deliveries: FakeDeliveries,
-            start_address: FakeCoordinates,
-            end_address: FakeCoordinates,
+            deliveries: [],
+            start_address: start_address,
+            end_address: end_address,
             date: formattedDate,
             optimized: false,
             status: "active",
@@ -178,28 +149,6 @@ const getRouteById = async (id: string): Promise<Route | undefined> => {
           throw err;
         }
       };
-const saveUserPreference = async (
-      ): Promise<UserPreference| undefined> => {
-        try {
-          const res = (await API.graphql(
-            graphqlOperation(createUserPreference, {
-              input: {
-                id: uuidv4(),
-                start_address: FakeCoordinates,
-                end_address: FakeCoordinates,
-                theme: "light",
-              },
-            })
-          )) as GraphQLResult<CreateUserPreferenceMutation>;
-      
-          const newUserPreference = res.data?.createUserPreference;
-      
-          return newUserPreference as UserPreference;
-        } catch (err) {
-          console.log("error creating route: ", err);
-        }
-      };
-
 
 const deleteRouteById = async (id: string) => {
   try {
@@ -226,10 +175,6 @@ const optimizeRoute = async (routeId: string) => {
 //TODO
 const setDeliveryToDelivered = async (routeId:string , deliveryId: string) => {
   console.log("Setting delivery to delivered");
-};
-//TODO
-const createNewDelivery = async (routeId: string) => {
-  console.log("Creating new delivery");
 };
 
 const renameRoute = async (id: string, newName: string) => {
@@ -356,5 +301,5 @@ const updateRouteDeliveries = async (
       console.log("error updating route: ", err);
     }
   };
-export {saveRoute,getRoutes,getRouteById,deleteRouteById,saveUserPreference,optimizeRoute,setDeliveryToDelivered,createNewDelivery,
+export {saveRoute,getRoutes,getRouteById,deleteRouteById,optimizeRoute,setDeliveryToDelivered,
   getSuggestions,renameRoute,setStartAndEndAddress,setDefaultOptions,listUserPreference,updateRouteDeliveries};

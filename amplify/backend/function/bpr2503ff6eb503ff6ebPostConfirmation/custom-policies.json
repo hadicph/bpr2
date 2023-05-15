@@ -1,0 +1,6 @@
+[
+  {
+    "Action": ["dynamodb:PutItem"],
+    "Resource": ["arn:aws:dynamodb:eu-north-1:343061278635:table/UserPreference-hpi5bhpsu5gobkntneedlwykp4-dev"]
+  }
+]
