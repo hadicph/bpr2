@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import {getRoutes, getSuggestions, listUserPreference, renameRoute, saveRoute, saveUserPreference, setDefaultOptions, setStartAndEndAddress, updateRouteDeliveries} from "../../helpers/routesHelper";
+import {getRoutes, getSuggestions, listUserPreference, renameRoute, saveRoute, setDefaultOptions, setStartAndEndAddress, updateRouteDeliveries} from "../../helpers/routesHelper";
 import { Button } from "@aws-amplify/ui-react";
 import { DeliveryInput } from "../../API";
 import { v4 as uuidv4 } from 'uuid';
@@ -42,7 +42,9 @@ const GraphqlTesting: React.FC<GraphqlTestingProps> = ({ children }) => {
     };
   const handleSaveRoute = async () => {
     const response = await saveRoute(
-      route_name
+      route_name,
+      FakeCoordinates,
+      FakeCoordinates,
     )
     console.log(response);
   }
@@ -50,12 +52,6 @@ const GraphqlTesting: React.FC<GraphqlTestingProps> = ({ children }) => {
     const routes = await getRoutes(true);
     console.log(routes);
   }
-  //!!NON_FUNCTIONAL - Operation should be executed after successful registration
-  const handleSaveUserPreference = async () => {
-    const userPreferance = await saveUserPreference();
-    console.log(userPreferance);
-  }
-  //!
   const handleSuggestions = async () => {
     const suggestions = await getSuggestions("horsensvej");
     console.log(suggestions);

@@ -28,7 +28,17 @@
   "auth": {
     "bpr2503ff6eb503ff6eb": {
       "customAuth": false,
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "bpr2503ff6eb503ff6ebPostConfirmation",
+          "triggerProvider": "Cognito"
+        }
+      ],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
         "mfaTypes": [
@@ -53,6 +63,11 @@
     }
   },
   "function": {
+    "bpr2503ff6eb503ff6ebPostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "startRouteFunction": {
       "build": true,
       "dependsOn": [
@@ -104,6 +119,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_bpr2503ff6eb503ff6ebPostConfirmation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "bpr2503ff6eb503ff6ebPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_bpr2503ff6eb503ff6ebPostConfirmation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "bpr2503ff6eb503ff6ebPostConfirmation"
+        }
+      ]
+    },
     "AMPLIFY_function_startRouteFunction_deploymentBucketName": {
       "usedBy": [
         {
