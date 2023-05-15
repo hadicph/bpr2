@@ -32,26 +32,6 @@ const RoutePage: React.FC = () => {
     }, []);
 
 
-    // TODO call the api to get the default addresses
-    // TODO delete this when the api is ready
-    const coordinate1: Coordinates = {
-        __typename: "Coordinates",
-        longitude: 123.456,
-        latitude: 78.9,
-        address: "Vejlevei 24",
-    };
-
-    const coordinate2: Coordinates = {
-        __typename: "Coordinates",
-        longitude: -45.678,
-        latitude: 10.1112,
-        address: "Aarhusvej 56",
-    };
-
-
-
-
-
     // Get route by id and set state for route and delivery list
     const handleGetRouteById = async (id: string) => {
         const response = await getRouteById(id);
@@ -227,7 +207,7 @@ const RoutePage: React.FC = () => {
 
                 {/* Start address */}
                 <AddressItem
-                    coordinate={coordinate1}
+                    coordinate={route?.start_address as Coordinates}
                     bgColor="btn"
                 />
 
@@ -238,7 +218,7 @@ const RoutePage: React.FC = () => {
 
                 {/* End address */}
                 <AddressItem
-                    coordinate={coordinate2}
+                    coordinate={route?.end_address as Coordinates}
                     bgColor="btn"
                     startAddress={false}
                 />
