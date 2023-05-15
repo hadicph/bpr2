@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import React, { useState } from "react";
 import { DeliveryInput, CoordinatesInput } from '../../API';
 import { useNavigate } from "react-router-dom";
@@ -9,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 type NewDeliveryProps = {};
 
-const NewDelivery: React.FC<NewDeliveryProps> = ({ }) => {
+const NewDelivery: React.FC<NewDeliveryProps> = () => {
   const location = useLocation();
   const { route } = location.state || {};
   const [coordinate, setCoordinate] = React.useState<CoordinatesInput>({
@@ -22,8 +21,7 @@ const NewDelivery: React.FC<NewDeliveryProps> = ({ }) => {
   const [name, setName] = useState("");
   const navigate = useNavigate();
 
-
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -41,14 +39,7 @@ const NewDelivery: React.FC<NewDeliveryProps> = ({ }) => {
     updatedRoute.deliveries.push(newDelivery);
 
     const response = await updateRouteDeliveries(updatedRoute.id, { deliveries: updatedRoute.deliveries }).then((response) => { handleGoBack() });
-
-
-
-
-    // TODO Handle the submission of a new delivery
-    // TODO Redirect to the delivery list page
   };
-
 
 
   const handleGoBack = () => {

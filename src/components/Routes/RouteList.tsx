@@ -14,6 +14,7 @@ const RouteList: React.FC<RouteListProps> = () => {
   const [showActiveOnly, setShowActiveOnly] = useState(false);
   const [userPreferences, setUserPreferences] = useState<UserPreference>();
   const navigate = useNavigate();
+  
 
   React.useEffect(() => {
     handleGetRoutes();
@@ -37,10 +38,12 @@ const RouteList: React.FC<RouteListProps> = () => {
     }
   }
 
+
   // Navigation to route page
   const handleRouteSelection = (route: Route) => {
     navigate(`/${route.id}`);
   };
+
 
   //Create Route and Navigate to Route Page
   const handleCreateRoute = async () => {
@@ -58,9 +61,8 @@ const RouteList: React.FC<RouteListProps> = () => {
       // TODO make a popup maybe?
       navigate(`/default-address`);
     }
-
-
   }
+
 
   const handleListUserPreferences = async () => {
     const response = await listUserPreference();

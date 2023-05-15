@@ -11,7 +11,6 @@ type AddressInputProps = {
 const AddressInput: React.FC<AddressInputProps> = ({
     setCoordinate,
 }) => {
-
     const [address, setAddress] = React.useState("");
     const [coordinates, setCoordinates] = React.useState<CoordinatesInput[]>([]);
     const [selectedCoordinate, setSelectedCoordinate] = React.useState<CoordinatesInput | null>(null);
@@ -34,7 +33,6 @@ const AddressInput: React.FC<AddressInputProps> = ({
         setAddress(selected.address || '')
         setCoordinates([])
     };
-
 
 
     return (

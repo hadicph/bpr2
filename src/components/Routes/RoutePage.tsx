@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import NavBar from "../App/NavBar";
-import { getRouteById } from "../../helpers/routesHelper";
+import { getRouteById, renameRoute } from "../../helpers/routesHelper";
 import { Coordinates, Route } from "../../API";
 import { Delivery } from "../../API";
 import DeliveryList from '../Delivery/DeliveryList';
@@ -15,7 +15,6 @@ const RoutePage: React.FC = () => {
     const [route, setRoute] = React.useState<Route>();
     const [deliveries, setDeliveries] = React.useState<Delivery[]>([]);
     const [showPendingOnly, setShowPendingOnly] = React.useState(false);
-
     const [routeName, setRouteName] = React.useState<string>('');
     const [editingRouteName, setEditingRouteName] = React.useState(false);
     const [unoptimizedDeliveries, setUnoptimizedDeliveries] = React.useState<Delivery[]>([]);
@@ -25,8 +24,6 @@ const RoutePage: React.FC = () => {
     React.useEffect(() => {
         if (id) {
             handleGetRouteById(id);
-
-
         }
     }, []);
 
@@ -49,9 +46,6 @@ const RoutePage: React.FC = () => {
     };
 
 
-
-
-
     // Filter deliveries based on pending status
     function handleShowPendingOnly(): void {
         setShowPendingOnly(!showPendingOnly);
@@ -63,19 +57,19 @@ const RoutePage: React.FC = () => {
     }
 
 
-
-
-
     function handleNewDelivery(): void {
         // TODO: Add new delivery to route
 
         navigate(`/${id}/newdelivery`, { state: { route } });
     }
 
+
     function handleOptimize(): void {
         //TODO: Optimize route
         console.log("Function not implemented. handleOptimize");
     }
+
+
     function handleShowMapRoute(): void {
         //TODO: Show map with route
         console.log("Function not implemented. handleShowMapRoute");
@@ -90,13 +84,14 @@ const RoutePage: React.FC = () => {
         }
     };
 
-    const handleSaveRouteName = () => {
-        //TODO: Save route name to database
 
-
-        // update the route name in the Route object
-        const updatedRoute = { ...route, route_name: routeName };
-        setEditingRouteName(false);
+    const handleSaveRouteName = async () => {
+        if (id) {
+            const response = await renameRoute(id, routeName);
+            // update the route name in the Route object
+            const updatedRoute = { ...route, route_name: routeName };
+            setEditingRouteName(false);
+        }
     };
 
     const handleEditRouteName = () => {
