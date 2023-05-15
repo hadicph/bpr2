@@ -25,12 +25,9 @@ const AddressStartEnd: React.FC<AddressStartEndProps> = ({ children }) => {
 
     const navigate = useNavigate();
 
-    const handleSubmit = async () => {
-        // Handle the submission of startCoordinate and endCoordinate
-        //TODO delete console.log
-        console.log("Start Coordinate:", startCoordinate);
-        console.log("End Coordinate:", endCoordinate);
 
+    // Handle the submission of startCoordinate and endCoordinate
+    const handleSubmit = async () => {
         try {
             const response = await setDefaultOptions("986bf916-5c4d-4987-aa2c-1962f8b72e99", { start_address: startCoordinate, end_address: endCoordinate });
             console.log(response);
