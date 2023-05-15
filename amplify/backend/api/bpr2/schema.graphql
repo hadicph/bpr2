@@ -48,6 +48,7 @@ type UserPreference
   end_address: Coordinates
   owner: String @auth(rules: [{ allow: owner, operations: [read] }])
   theme: String
+  type: String!
     @index(
     name: "userPreferenceByOwner"
     queryField: "userPreferenceByOwner"
@@ -57,4 +58,5 @@ type UserPreference
 type Mutation {
   optimized(id: ID): Route @function(name: "routeOptimizationFunction-${env}")
   startRoute(id: ID): Boolean @function(name: "startRouteFunction-${env}")
+  addDelivery(routeId: ID!, input: DeliveryInput): Delivery @function(name: "addDeliveryFunction-${env}")
 }

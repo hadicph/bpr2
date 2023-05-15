@@ -6,7 +6,6 @@ import { getRouteById } from "../../helpers/routesHelper";
 import { Route } from "../../API";
 import { Delivery } from "../../API";
 import DeliveryList from '../Delivery/DeliveryList';
-import { optimized } from "../../graphql/mutations";
 
 
 const RoutePage: React.FC = () => {
