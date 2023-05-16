@@ -100,7 +100,7 @@
       "providerPlugin": "awscloudformation",
       "service": "Map"
     },
-    "placeIndexc1f75405": {
+    "placeIndexbf27a83e": {
       "accessType": "AuthorizedUsers",
       "dataProvider": "Here",
       "dataSourceIntendedUse": "Storage",
