@@ -25,11 +25,10 @@ exports.handler = async (event, context) => {
         latitude: 0.0, 
         address: '', 
       },
-      owner: userAttributes.sub + '::' + userAttributes.name, 
+      owner: userAttributes.sub,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       theme: 'light',
-      type: 'UserPreference',
     };
 
     const params = {

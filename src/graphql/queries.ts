@@ -100,9 +100,8 @@ export const getUserPreference = /* GraphQL */ `
         latitude
         address
       }
-      owner
       theme
-      type
+      owner
       createdAt
       updatedAt
     }
@@ -127,9 +126,8 @@ export const listUserPreferences = /* GraphQL */ `
           latitude
           address
         }
-        owner
         theme
-        type
+        owner
         createdAt
         updatedAt
       }
@@ -182,45 +180,6 @@ export const routesByDate = /* GraphQL */ `
         estimated_time
         estimated_distance
         owner
-        type
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const userPreferenceByOwner = /* GraphQL */ `
-  query UserPreferenceByOwner(
-    $type: String!
-    $owner: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelUserPreferenceFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    userPreferenceByOwner(
-      type: $type
-      owner: $owner
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        start_address {
-          longitude
-          latitude
-          address
-        }
-        end_address {
-          longitude
-          latitude
-          address
-        }
-        owner
-        theme
         type
         createdAt
         updatedAt

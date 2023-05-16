@@ -24,7 +24,6 @@ export type Route = {
 export type Delivery = {
   __typename: "Delivery",
   id: string,
-  address: string,
   status?: string | null,
   phone_number?: string | null,
   package_number?: string | null,
@@ -167,16 +166,16 @@ export type DeleteRouteInput = {
 };
 
 export type CreateUserPreferenceInput = {
+  id?: string | null,
   start_address?: CoordinatesInput | null,
   end_address?: CoordinatesInput | null,
-  owner?: string | null,
   theme?: string | null,
-  id?: string | null,
+  owner?: string | null,
 };
 
 export type ModelUserPreferenceConditionInput = {
-  owner?: ModelStringInput | null,
   theme?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelUserPreferenceConditionInput | null > | null,
   or?: Array< ModelUserPreferenceConditionInput | null > | null,
   not?: ModelUserPreferenceConditionInput | null,
@@ -184,21 +183,21 @@ export type ModelUserPreferenceConditionInput = {
 
 export type UserPreference = {
   __typename: "UserPreference",
+  id: string,
   start_address?: Coordinates | null,
   end_address?: Coordinates | null,
-  owner?: string | null,
   theme?: string | null,
-  id: string,
+  owner?: string | null,
   createdAt: string,
   updatedAt: string,
 };
 
 export type UpdateUserPreferenceInput = {
+  id: string,
   start_address?: CoordinatesInput | null,
   end_address?: CoordinatesInput | null,
-  owner?: string | null,
   theme?: string | null,
-  id: string,
+  owner?: string | null,
 };
 
 export type DeleteUserPreferenceInput = {
@@ -244,8 +243,9 @@ export type ModelRouteConnection = {
 };
 
 export type ModelUserPreferenceFilterInput = {
-  owner?: ModelStringInput | null,
+  id?: ModelIDInput | null,
   theme?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
   and?: Array< ModelUserPreferenceFilterInput | null > | null,
   or?: Array< ModelUserPreferenceFilterInput | null > | null,
   not?: ModelUserPreferenceFilterInput | null,
@@ -335,6 +335,7 @@ export type ModelSubscriptionIntInput = {
 };
 
 export type ModelSubscriptionUserPreferenceFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
   theme?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserPreferenceFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserPreferenceFilterInput | null > | null,
@@ -352,7 +353,6 @@ export type OptimizedMutation = {
     deliveries:  Array< {
       __typename: "Delivery",
       id: string,
-      address: string,
       status?: string | null,
       phone_number?: string | null,
       package_number?: string | null,
@@ -411,7 +411,6 @@ export type CreateRouteMutation = {
     deliveries:  Array< {
       __typename: "Delivery",
       id: string,
-      address: string,
       status?: string | null,
       phone_number?: string | null,
       package_number?: string | null,
@@ -462,7 +461,6 @@ export type UpdateRouteMutation = {
     deliveries:  Array< {
       __typename: "Delivery",
       id: string,
-      address: string,
       status?: string | null,
       phone_number?: string | null,
       package_number?: string | null,
@@ -513,7 +511,6 @@ export type DeleteRouteMutation = {
     deliveries:  Array< {
       __typename: "Delivery",
       id: string,
-      address: string,
       status?: string | null,
       phone_number?: string | null,
       package_number?: string | null,
@@ -559,6 +556,7 @@ export type CreateUserPreferenceMutationVariables = {
 export type CreateUserPreferenceMutation = {
   createUserPreference?:  {
     __typename: "UserPreference",
+    id: string,
     start_address?:  {
       __typename: "Coordinates",
       longitude: number,
@@ -571,9 +569,8 @@ export type CreateUserPreferenceMutation = {
       latitude: number,
       address?: string | null,
     } | null,
-    owner?: string | null,
     theme?: string | null,
-    id: string,
+    owner?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -587,6 +584,7 @@ export type UpdateUserPreferenceMutationVariables = {
 export type UpdateUserPreferenceMutation = {
   updateUserPreference?:  {
     __typename: "UserPreference",
+    id: string,
     start_address?:  {
       __typename: "Coordinates",
       longitude: number,
@@ -599,9 +597,8 @@ export type UpdateUserPreferenceMutation = {
       latitude: number,
       address?: string | null,
     } | null,
-    owner?: string | null,
     theme?: string | null,
-    id: string,
+    owner?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -615,6 +612,7 @@ export type DeleteUserPreferenceMutationVariables = {
 export type DeleteUserPreferenceMutation = {
   deleteUserPreference?:  {
     __typename: "UserPreference",
+    id: string,
     start_address?:  {
       __typename: "Coordinates",
       longitude: number,
@@ -627,9 +625,8 @@ export type DeleteUserPreferenceMutation = {
       latitude: number,
       address?: string | null,
     } | null,
-    owner?: string | null,
     theme?: string | null,
-    id: string,
+    owner?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -647,7 +644,6 @@ export type GetRouteQuery = {
     deliveries:  Array< {
       __typename: "Delivery",
       id: string,
-      address: string,
       status?: string | null,
       phone_number?: string | null,
       package_number?: string | null,
@@ -701,7 +697,6 @@ export type ListRoutesQuery = {
       deliveries:  Array< {
         __typename: "Delivery",
         id: string,
-        address: string,
         status?: string | null,
         phone_number?: string | null,
         package_number?: string | null,
@@ -742,6 +737,7 @@ export type GetUserPreferenceQueryVariables = {
 export type GetUserPreferenceQuery = {
   getUserPreference?:  {
     __typename: "UserPreference",
+    id: string,
     start_address?:  {
       __typename: "Coordinates",
       longitude: number,
@@ -754,9 +750,8 @@ export type GetUserPreferenceQuery = {
       latitude: number,
       address?: string | null,
     } | null,
-    owner?: string | null,
     theme?: string | null,
-    id: string,
+    owner?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -773,6 +768,7 @@ export type ListUserPreferencesQuery = {
     __typename: "ModelUserPreferenceConnection",
     items:  Array< {
       __typename: "UserPreference",
+      id: string,
       start_address?:  {
         __typename: "Coordinates",
         longitude: number,
@@ -785,9 +781,8 @@ export type ListUserPreferencesQuery = {
         latitude: number,
         address?: string | null,
       } | null,
-      owner?: string | null,
       theme?: string | null,
-      id: string,
+      owner?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -814,7 +809,6 @@ export type RoutesByDateQuery = {
       deliveries:  Array< {
         __typename: "Delivery",
         id: string,
-        address: string,
         status?: string | null,
         phone_number?: string | null,
         package_number?: string | null,
@@ -861,7 +855,6 @@ export type OnCreateRouteSubscription = {
     deliveries:  Array< {
       __typename: "Delivery",
       id: string,
-      address: string,
       status?: string | null,
       phone_number?: string | null,
       package_number?: string | null,
@@ -912,7 +905,6 @@ export type OnUpdateRouteSubscription = {
     deliveries:  Array< {
       __typename: "Delivery",
       id: string,
-      address: string,
       status?: string | null,
       phone_number?: string | null,
       package_number?: string | null,
@@ -963,7 +955,6 @@ export type OnDeleteRouteSubscription = {
     deliveries:  Array< {
       __typename: "Delivery",
       id: string,
-      address: string,
       status?: string | null,
       phone_number?: string | null,
       package_number?: string | null,
@@ -1009,6 +1000,7 @@ export type OnCreateUserPreferenceSubscriptionVariables = {
 export type OnCreateUserPreferenceSubscription = {
   onCreateUserPreference?:  {
     __typename: "UserPreference",
+    id: string,
     start_address?:  {
       __typename: "Coordinates",
       longitude: number,
@@ -1021,9 +1013,8 @@ export type OnCreateUserPreferenceSubscription = {
       latitude: number,
       address?: string | null,
     } | null,
-    owner?: string | null,
     theme?: string | null,
-    id: string,
+    owner?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1037,6 +1028,7 @@ export type OnUpdateUserPreferenceSubscriptionVariables = {
 export type OnUpdateUserPreferenceSubscription = {
   onUpdateUserPreference?:  {
     __typename: "UserPreference",
+    id: string,
     start_address?:  {
       __typename: "Coordinates",
       longitude: number,
@@ -1049,9 +1041,8 @@ export type OnUpdateUserPreferenceSubscription = {
       latitude: number,
       address?: string | null,
     } | null,
-    owner?: string | null,
     theme?: string | null,
-    id: string,
+    owner?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1065,6 +1056,7 @@ export type OnDeleteUserPreferenceSubscriptionVariables = {
 export type OnDeleteUserPreferenceSubscription = {
   onDeleteUserPreference?:  {
     __typename: "UserPreference",
+    id: string,
     start_address?:  {
       __typename: "Coordinates",
       longitude: number,
@@ -1077,9 +1069,8 @@ export type OnDeleteUserPreferenceSubscription = {
       latitude: number,
       address?: string | null,
     } | null,
-    owner?: string | null,
     theme?: string | null,
-    id: string,
+    owner?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,

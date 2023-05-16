@@ -26,7 +26,7 @@
         },
         "bpr2503ff6eb503ff6ebPostConfirmation": {
           "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
-          "s3Key": "amplify-builds/bpr2503ff6eb503ff6ebPostConfirmation-7746744763682f367476-build.zip"
+          "s3Key": "amplify-builds/bpr2503ff6eb503ff6ebPostConfirmation-754f4d566c7767423372-build.zip"
         }
       },
       "geo": {

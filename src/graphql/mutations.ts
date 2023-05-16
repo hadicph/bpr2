@@ -197,9 +197,8 @@ export const createUserPreference = /* GraphQL */ `
         latitude
         address
       }
-      owner
       theme
-      type
+      owner
       createdAt
       updatedAt
     }
@@ -222,9 +221,8 @@ export const updateUserPreference = /* GraphQL */ `
         latitude
         address
       }
-      owner
       theme
-      type
+      owner
       createdAt
       updatedAt
     }
@@ -247,9 +245,8 @@ export const deleteUserPreference = /* GraphQL */ `
         latitude
         address
       }
-      owner
       theme
-      type
+      owner
       createdAt
       updatedAt
     }

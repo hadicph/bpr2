@@ -42,17 +42,12 @@ type Route
 }
 
 type UserPreference
-  @model @auth(rules: [{allow: owner, operations: [read, update]}]){
-  id: ID!
+  @model @auth(rules: [{allow: owner, identityClaim:"sub",operations: [read, update]}]){
+  id: ID! @auth(rules: [{ allow: owner, identityClaim:"sub", operations: [read, update] }])
   start_address: Coordinates
   end_address: Coordinates
-  owner: String @auth(rules: [{ allow: owner, operations: [read] }])
   theme: String
-  type: String!
-    @index(
-    name: "userPreferenceByOwner"
-    queryField: "userPreferenceByOwner"
-    sortKeyFields: ["owner"])
+  owner: String @auth(rules: [{ allow: owner, identityClaim:"sub", operations: [read] }])
 }
 
 type Mutation {
