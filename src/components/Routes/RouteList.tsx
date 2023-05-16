@@ -47,7 +47,8 @@ const RouteList: React.FC<RouteListProps> = () => {
 
   //Create Route and Navigate to Route Page
   const handleCreateRoute = async () => {
-    if (userPreferences?.start_address && userPreferences?.end_address) {
+    if (userPreferences?.start_address && userPreferences?.end_address
+      && userPreferences?.end_address?.address !== "" && userPreferences?.start_address?.address !== "") {
       const response = await saveRoute("Test" + routesList.length, userPreferences?.start_address, userPreferences?.end_address);
       if (response && response.id) {
         navigate(`/${response.id}`);

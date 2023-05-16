@@ -22,14 +22,20 @@ const AddressStartEnd: React.FC<AddressStartEndProps> = ({ children }) => {
         address: null,
     });
 
+    const [userPreferences, setUserPreferences] = React.useState<UserPreference>();
+
     React.useEffect(() => {
         handleListUserPreferences();
     }, []);
 
 
-    const [userPreferences, setUserPreferences] = React.useState<UserPreference>();
     const handleListUserPreferences = async () => {
         const response = await listUserPreference().then((response) => setUserPreferences(response[0]));
+        if (userPreferences?.start_address && userPreferences?.end_address) {
+            setStartCoordinate(userPreferences?.start_address);
+            setEndCoordinate(userPreferences?.end_address);
+        }
+
 
     };
 

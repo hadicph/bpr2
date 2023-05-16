@@ -6,6 +6,7 @@ import { getSuggestions } from "../../helpers/routesHelper";
 type AddressInputProps = {
 
     setCoordinate: React.Dispatch<React.SetStateAction<CoordinatesInput>>;
+    
 };
 
 const AddressInput: React.FC<AddressInputProps> = ({
