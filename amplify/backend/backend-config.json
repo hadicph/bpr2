@@ -134,22 +134,6 @@
           "resourceName": "bpr2503ff6eb503ff6ebPostConfirmation"
         }
       ]
-    },
-    "AMPLIFY_function_startRouteFunction_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "startRouteFunction"
-        }
-      ]
-    },
-    "AMPLIFY_function_startRouteFunction_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "startRouteFunction"
-        }
-      ]
     }
   },
   "storage": {}
