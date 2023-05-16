@@ -1,10 +1,10 @@
 import React from "react";
 import { ReactElement } from "react";
-import { CoordinatesInput } from "../../API";
+import { CoordinatesInput, UserPreference } from "../../API";
 import AddressInput from "../Delivery/AddressInput";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
-import { setDefaultOptions } from "../../helpers/routesHelper";
+import { listUserPreference, setDefaultOptions } from "../../helpers/routesHelper";
 
 type AddressStartEndProps = {
     children?: ReactElement;
@@ -16,12 +16,22 @@ const AddressStartEnd: React.FC<AddressStartEndProps> = ({ children }) => {
         latitude: 0,
         address: null,
     });
-
     const [endCoordinate, setEndCoordinate] = React.useState<CoordinatesInput>({
         longitude: 0,
         latitude: 0,
         address: null,
     });
+
+    React.useEffect(() => {
+        handleListUserPreferences();
+    }, []);
+
+
+    const [userPreferences, setUserPreferences] = React.useState<UserPreference>();
+    const handleListUserPreferences = async () => {
+        const response = await listUserPreference().then((response) => setUserPreferences(response[0]));
+
+    };
 
     const navigate = useNavigate();
 
@@ -29,17 +39,21 @@ const AddressStartEnd: React.FC<AddressStartEndProps> = ({ children }) => {
     // Handle the submission of startCoordinate and endCoordinate
     const handleSubmit = async () => {
         try {
-            const response = await setDefaultOptions("535277e8-8f8a-48da-988f-b9f642cd4660", { start_address: startCoordinate, end_address: endCoordinate });
-            console.log(response);
-
-            // Check for positive response here
-            if (response) {
-                navigate("/");
+            if (userPreferences?.id) {
+                const response = await setDefaultOptions(userPreferences.id, {
+                    start_address: startCoordinate,
+                    end_address: endCoordinate,
+                });
+                // Check for positive response here
+                if (response) {
+                    navigate("/");
+                }
             }
         } catch (error) {
             console.error(error);
         }
     };
+
 
     const handleGoBack = () => {
         navigate('/');
