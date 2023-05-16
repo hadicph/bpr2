@@ -1,0 +1,161 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-bpr2-dev-125123-authRole",
+      "UnauthRoleArn": "arn:aws:iam::343061278635:role/amplify-bpr2-dev-125123-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::343061278635:role/amplify-bpr2-dev-125123-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-bpr2-dev-125123-deployment",
+      "UnauthRoleName": "amplify-bpr2-dev-125123-unauthRole",
+      "StackName": "amplify-bpr2-dev-125123",
+      "StackId": "arn:aws:cloudformation:eu-north-1:343061278635:stack/amplify-bpr2-dev-125123/a474b660-d2d6-11ed-8afc-0e6cb06eafe6",
+      "AmplifyAppId": "d3t35jh09ulopa",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-bpr2-dev-125123-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    }
+  },
+  "auth": {
+    "bpr2503ff6eb503ff6eb": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "bpr2503ff6eb503ff6ebPostConfirmation",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        }
+      ],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "signupAttributes": [
+          "EMAIL",
+          "NAME"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-bpr2-dev-125123-deployment/amplify-cfn-templates/auth/bpr2503ff6eb503ff6eb-cloudformation-template.json",
+        "logicalId": "authbpr2503ff6eb503ff6eb"
+      },
+      "lastPushTimeStamp": "2023-05-16T10:34:01.432Z",
+      "output": {
+        "UserPoolId": "eu-north-1_TJU3cfnV7",
+        "AppClientIDWeb": "20v8uqa12vdc02m33dlhi8kjnc",
+        "AppClientID": "7off0cjpktavg03jugatl9escv",
+        "IdentityPoolId": "eu-north-1:71f110d4-b37c-4b68-ac86-df12bc651ff2",
+        "UserPoolArn": "arn:aws:cognito-idp:eu-north-1:343061278635:userpool/eu-north-1_TJU3cfnV7",
+        "IdentityPoolName": "bpr2503ff6eb_identitypool_503ff6eb__dev",
+        "UserPoolName": "bpr2503ff6eb_userpool_503ff6eb"
+      },
+      "lastPushDirHash": "TXsKuIgVCofQFLxVuE2+mlwrenQ="
+    }
+  },
+  "storage": {},
+  "api": {
+    "bpr2": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "bpr2503ff6eb503ff6eb",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authbpr2503ff6eb503ff6eb"
+            }
+          },
+          "additionalAuthenticationProviders": []
+        },
+        "GraphQLAPIIdOutput": "hpi5bhpsu5gobkntneedlwykp4",
+        "GraphQLAPIEndpointOutput": "https://h7zclk3bvvd4heisyofn6ajcum.appsync-api.eu-north-1.amazonaws.com/graphql"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-bpr2-dev-125123-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apibpr2"
+      },
+      "lastPushTimeStamp": "2023-05-16T10:34:01.437Z",
+      "lastPushDirHash": "0jJ+BpnPoowb5CNDyfxB4nmgMVg="
+    }
+  },
+  "geo": {
+    "placeIndex9e619d57": {
+      "isDefault": true,
+      "providerPlugin": "awscloudformation",
+      "service": "PlaceIndex",
+      "dataProvider": "Here",
+      "dataSourceIntendedUse": "Storage",
+      "accessType": "AuthorizedUsers",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "bpr2503ff6eb503ff6eb",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-bpr2-dev-125123-deployment/amplify-cfn-templates/geo/placeIndex9e619d57-cloudformation-template.json",
+        "logicalId": "geoplaceIndex9e619d57"
+      },
+      "lastPushTimeStamp": "2023-05-16T10:34:01.446Z",
+      "output": {
+        "Region": "eu-north-1",
+        "Arn": "arn:aws:geo:eu-north-1:343061278635:place-index/placeIndex9e619d57-dev",
+        "Name": "placeIndex9e619d57-dev"
+      },
+      "lastPushDirHash": "Ia2nLT9LhA6N88SU0ZOdKR0VW4Y="
+    }
+  },
+  "function": {
+    "bpr2503ff6eb503ff6ebPostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "lastBuildTimeStamp": "2023-05-16T10:32:25.736Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2023-05-16T10:32:26.588Z",
+      "distZipFilename": "bpr2503ff6eb503ff6ebPostConfirmation-754f4d566c7767423372-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
+        "s3Key": "amplify-builds/bpr2503ff6eb503ff6ebPostConfirmation-754f4d566c7767423372-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-bpr2-dev-125123-deployment/amplify-cfn-templates/function/bpr2503ff6eb503ff6ebPostConfirmation-cloudformation-template.json",
+        "logicalId": "functionbpr2503ff6eb503ff6ebPostConfirmation"
+      },
+      "lastPushTimeStamp": "2023-05-16T10:34:01.822Z",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::343061278635:role/bpr2503ff6eb503ff6ebPostConfirmation-dev",
+        "Region": "eu-north-1",
+        "Arn": "arn:aws:lambda:eu-north-1:343061278635:function:bpr2503ff6eb503ff6ebPostConfirmation-dev",
+        "Name": "bpr2503ff6eb503ff6ebPostConfirmation-dev",
+        "LambdaExecutionRole": "bpr2503ff6eb503ff6ebPostConfirmation-dev"
+      },
+      "lastPushDirHash": "5zUkCHdWBza0kTAU1k9rmGuOJLU="
+    }
+  }
+}
