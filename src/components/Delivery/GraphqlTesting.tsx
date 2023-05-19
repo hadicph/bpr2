@@ -1,8 +1,9 @@
 import { ReactElement } from "react";
-import {getRoutes, getSuggestions, listUserPreference, renameRoute, saveRoute, setDefaultOptions, setStartAndEndAddress, updateRouteDeliveries} from "../../helpers/routesHelper";
+import {getRouteById, getRoutes, getSuggestions, listUserPreference, optimizeRoute, renameRoute, saveRoute, setDefaultOptions, setStartAndEndAddress, updateRouteDeliveries} from "../../helpers/routesHelper";
 import { Button } from "@aws-amplify/ui-react";
 import { DeliveryInput } from "../../API";
 import { v4 as uuidv4 } from 'uuid';
+import Map from "../Map/Map";
 
 type GraphqlTestingProps = {
     children?: ReactElement;
@@ -83,6 +84,16 @@ const GraphqlTesting: React.FC<GraphqlTestingProps> = ({ children }) => {
     const response = await updateRouteDeliveries("66729e6c-b538-47ca-9686-08a6a386a483",{deliveries: FakeDeliveries})
     console.log(response);
   };
+  const handleGetRouteById = async () => {
+  const repsonse = await getRouteById("46644678-8ff7-4a83-a9dd-3dbf2139a8f5");
+  console.log(repsonse);
+  };
+  const handleOptimizeRoute= async () => {
+    const response = await optimizeRoute("46644678-8ff7-4a83-a9dd-3dbf2139a8f5")
+    console.log(response);
+  }
+
+  
 
     return(
         <>
@@ -95,6 +106,8 @@ const GraphqlTesting: React.FC<GraphqlTestingProps> = ({ children }) => {
         <Button onClick={handleSetDefaultTheme}>Set Default Theme</Button>
         <Button onClick={handleListUserPreferences}>List User Preferences</Button>
         <Button onClick={handleUpdateRouteDeliveries}>Update Route Deliveries</Button>
+        <Button onClick={handleGetRouteById}>Get Route By Id</Button>
+        <Button onClick={handleOptimizeRoute}>Optimize Route</Button>
         </>
       );
 }

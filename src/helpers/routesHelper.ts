@@ -2,8 +2,8 @@ import { API, Geo, graphqlOperation} from "aws-amplify";
 import {GraphQLResult} from "@aws-amplify/api";
 import {CoordinatesInput, CreateRouteMutation, DeleteRouteMutation, DeliveryInput, GetRouteQuery, ListUserPreferencesQuery, ModelSortDirection, Route,
    RoutesByDateQuery, RoutesByDateQueryVariables, UpdateRouteMutation, UpdateRouteMutationVariables, 
-   UpdateUserPreferenceMutation, UpdateUserPreferenceMutationVariables, UserPreference } from "../API";
-import { createRoute, deleteRoute, updateRoute, updateUserPreference } from "../graphql/mutations";
+   UpdateUserPreferenceMutation, UpdateUserPreferenceMutationVariables, UserPreference,OptimizedMutation } from "../API";
+import { createRoute, deleteRoute, optimized, updateRoute, updateUserPreference } from "../graphql/mutations";
 import { getRoute, listUserPreferences, routesByDate } from "../graphql/queries";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -168,10 +168,7 @@ const getSuggestions = async (text: string) => {
 
   return response;
 };
-//TODO
-const optimizeRoute = async (routeId: string) => {
-  console.log("Optimizing route");
-};
+
 //TODO
 const setDeliveryToDelivered = async (routeId:string , deliveryId: string) => {
   console.log("Setting delivery to delivered");
@@ -301,5 +298,22 @@ const updateRouteDeliveries = async (
       console.log("error updating route: ", err);
     }
   };
+
+  const optimizeRoute = async (routeId: string) => {
+    try {
+      const operation = graphqlOperation(optimized, { id: routeId });
+      const response = (await API.graphql(operation)) as GraphQLResult<OptimizedMutation>;
+
+      const route = response.data;
+      if (!route) {
+        throw new Error("Route not found");
+      }
+      return route;
+    } catch (err) {
+      console.log("Error with optimizing route: "+ err);
+      throw err;
+    }
+  };
+
 export {saveRoute,getRoutes,getRouteById,deleteRouteById,optimizeRoute,setDeliveryToDelivered,
   getSuggestions,renameRoute,setStartAndEndAddress,setDefaultOptions,listUserPreference,updateRouteDeliveries};

@@ -51,12 +51,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "startRouteFunction",
+            "routeOptimizationFunction",
             {
               "Fn::Join": [
                 "",
                 [
-                  "startRouteFunction",
+                  "routeOptimizationFunction",
                   "-",
                   {
                     "Ref": "env"
@@ -122,12 +122,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "bpr2LambdaRoled7d56d98",
+            "bpr2LambdaRoleae1f0f8d",
             {
               "Fn::Join": [
                 "",
                 [
-                  "bpr2LambdaRoled7d56d98",
+                  "bpr2LambdaRoleae1f0f8d",
                   "-",
                   {
                     "Ref": "env"
@@ -197,6 +197,35 @@
           ]
         }
       }
+    },
+    "CustomLambdaExecutionPolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "custom-lambda-execution-policy",
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Action": [
+                "dynamodb:GetItem",
+                "dynamodb:Query",
+                "dynamodb:Scan",
+                "dynamodb:UpdateItem"
+              ],
+              "Resource": [
+                "arn:aws:dynamodb:eu-north-1:343061278635:table/Route-hpi5bhpsu5gobkntneedlwykp4-dev"
+              ],
+              "Effect": "Allow"
+            }
+          ]
+        },
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ]
+      },
+      "DependsOn": "LambdaExecutionRole"
     },
     "AmplifyResourcesPolicy": {
       "DependsOn": [

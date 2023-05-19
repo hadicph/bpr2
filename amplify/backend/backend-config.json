@@ -68,7 +68,7 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "startRouteFunction": {
+    "routeOptimizationFunction": {
       "build": true,
       "dependsOn": [
         {
@@ -84,7 +84,7 @@
     }
   },
   "geo": {
-    "map6bc62a21": {
+    "mapc2ed672c": {
       "accessType": "AuthorizedUsers",
       "dependsOn": [
         {
@@ -96,7 +96,7 @@
         }
       ],
       "isDefault": true,
-      "mapStyle": "VectorEsriStreets",
+      "mapStyle": "VectorOpenDataStandardLight",
       "providerPlugin": "awscloudformation",
       "service": "Map"
     },
@@ -132,6 +132,22 @@
         {
           "category": "function",
           "resourceName": "bpr2503ff6eb503ff6ebPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_routeOptimizationFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "routeOptimizationFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_routeOptimizationFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "routeOptimizationFunction"
         }
       ]
     }

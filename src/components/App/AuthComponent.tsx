@@ -1,7 +1,8 @@
 import { ReactElement } from "react";
 import {Authenticator, Text} from '@aws-amplify/ui-react';
 import React from "react";
-import { Auth } from "aws-amplify";
+import { Auth, Hub } from "aws-amplify";
+import Header from "./Header";
 
 type AuthProps = {
     children?: ReactElement;
@@ -14,12 +15,43 @@ type AuthProps = {
     }
   }
 const AuthComponent: React.FC<AuthProps> = ({ children }) => {
-        const [user, setUser] = React.useState<User | null>(null);;
-  React.useEffect(() => {
+  const [user, setUser] = React.useState<User | null>(null);
+  const [authenticated, setAuthenticated] = React.useState<boolean>(false);
+  /*React.useEffect(() => {
     Auth.currentAuthenticatedUser()
       .then(user => setUser(user as User))
       .catch(() => console.log('Not signed in'));
   }, []);
+*/
+
+React.useEffect(() => {
+  checkUser();
+  Hub.listen("auth", ({
+    payload: {
+      event,
+      data
+    }
+  }) => {
+    if (event === "signIn") {
+      checkUser();
+    } else if (event === "signOut") {
+      setUser(null);
+    }
+  });
+}, []);
+
+  async function checkUser() {
+    Auth.currentAuthenticatedUser()
+      .then(user => {
+        setUser(user as User);
+        setAuthenticated(true);
+      })
+      .catch(() => {
+        console.log('Not signed in');
+        setAuthenticated(false);
+      });
+  };
+  
   async function signOut() {
     try {
       await Auth.signOut();
@@ -28,12 +60,15 @@ const AuthComponent: React.FC<AuthProps> = ({ children }) => {
       console.log('error signing out: ', error);
     }
   }
-  return (
-    <Authenticator>
-      <main>
+  /*
+  <main>
           <Text>Hello {user?.username}</Text>
           <button onClick={signOut}>Sign out</button>
         </main>
+  */
+  return (
+    <Authenticator >
+        <Header username={user?.username} signOut={signOut}/>
         {children}
         </Authenticator>
   );

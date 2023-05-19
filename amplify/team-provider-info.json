@@ -21,13 +21,10 @@
           "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
           "s3Key": "amplify-builds/bpr2503ff6eb503ff6ebPostConfirmation-754f4d566c7767423372-build.zip"
         },
-        "startRouteFunction": {}
-      },
-      "api": {
-        "bpr2": {}
-      },
-      "geo": {
-        "placeIndexbf27a83e": {}
+        "routeOptimizationFunction": {
+          "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
+          "s3Key": "amplify-builds/routeOptimizationFunction-6c3278796778394f4b57-build.zip"
+        }
       }
     }
   }
