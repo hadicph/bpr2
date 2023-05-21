@@ -13,24 +13,24 @@ Amplify Params - DO NOT EDIT */
 const AWS = require('aws-sdk');
 const axios = require('axios');
 
+
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
 
 exports.handler = async (event) => {
-
+console.log(event);
   const dynamoDbquery = {
     TableName: process.env.API_BPR2_ROUTETABLE_NAME,
     Key: {
-      id: "46644678-8ff7-4a83-a9dd-3dbf2139a8f5",
+      id: event.arguments.id,
     },
   };
   const getRoute = async () => {
     try {
       let route = null;
       const data = await dynamodb.get(dynamoDbquery).promise();
-      //const userAttributes = event.request.userAttributes;
-      //const requestOwner = userAttributes.sub+"::"+userAttributes.userName;
-      const requestOwner = '513aec5b-625f-4ad5-97a2-e9d1e16df141::hadi';
+      const userAttributes = event.identity.claims;
+      const requestOwner = userAttributes.sub+"::"+userAttributes.username;
       if (data.Item && data.Item.owner === requestOwner) {
         route = data.Item;
         return route;
@@ -93,7 +93,7 @@ exports.handler = async (event) => {
     const params = {
       TableName: process.env.API_BPR2_ROUTETABLE_NAME,
       Key: {
-        id: "46644678-8ff7-4a83-a9dd-3dbf2139a8f5",
+        id: event.arguments.id,
       },
       UpdateExpression: 'SET deliveries = :deliveries, optimized = :optimized',
       ExpressionAttributeValues: {
@@ -103,47 +103,27 @@ exports.handler = async (event) => {
       ReturnValues: 'ALL_NEW'
     }
     const result = await dynamodb.update(params).promise();
-     const body = {
-        optimized:{
-            __typename: 'Route',
-        id: result.Attributes.id,
-        route_name: result.Attributes.route_name,
-        deliveries: result.Attributes.deliveries,
-        start_address: result.Attributes.start_address,
-        end_address: result.Attributes.end_address,
-        status: result.Attributes.status,
-        date: result.Attributes.date,
-        optimized: result.Attributes.optimized,
-        hasStarted: result.Attributes.hasStarted,
-        estimated_time: result.Attributes.estimated_time,
-        estimated_distance: result.Attributes.estimated_distance,
-        owner: result.Attributes.owner,
-        type: result.Attributes.type,
-        createdAt: result.Attributes.createdAt,
-        updatedAt: result.Attributes.updatedAt,
-          }};
-      console.log(body);
+    console.log(result);
     // Return the optimized route
     return {
       statusCode: 200,
-        optimized:{
-            __typename: 'Route',
-        id: result.Attributes.id,
-        route_name: result.Attributes.route_name,
-        deliveries: result.Attributes.deliveries,
-        start_address: result.Attributes.start_address,
-        end_address: result.Attributes.end_address,
-        status: result.Attributes.status,
-        date: result.Attributes.date,
-        optimized: result.Attributes.optimized,
-        hasStarted: result.Attributes.hasStarted,
-        estimated_time: result.Attributes.estimated_time,
-        estimated_distance: result.Attributes.estimated_distance,
-        owner: result.Attributes.owner,
-        type: result.Attributes.type,
-        createdAt: result.Attributes.createdAt,
-        updatedAt: result.Attributes.updatedAt,
-          },
+         __typename: 'Route',
+        id: route.id,
+        route_name: route.route_name,
+        deliveries: route.deliveries,
+        start_address: route.start_address,
+        end_address: route.end_address,
+        status: route.status,
+        date: route.date,
+        optimized: route.optimized,
+        hasStarted: route.hasStarted,
+        estimated_time: route.estimated_time,
+        estimated_distance: route.estimated_distance,
+        owner: route.owner,
+        type: route.type,
+        createdAt: route.createdAt,
+        updatedAt: route.updatedAt,
+      
     };
   } catch (error) {
     console.error('Error optimizing routes:', error);
