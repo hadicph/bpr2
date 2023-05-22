@@ -1,9 +1,10 @@
 import { ReactElement } from "react";
-import {getRouteById, getRoutes, getSuggestions, listUserPreference, optimizeRoute, renameRoute, saveRoute, setDefaultOptions, setStartAndEndAddress, updateRouteDeliveries} from "../../helpers/routesHelper";
+import { getRouteById, getRoutes, getSuggestions, listUserPreference, optimizeRoute, renameRoute
+  , saveRoute, setDefaultOptions, setStartAndEndAddress, updateRouteDeliveries} from "../../helpers/routesHelper";
 import { Button } from "@aws-amplify/ui-react";
 import { DeliveryInput } from "../../API";
 import { v4 as uuidv4 } from 'uuid';
-import Map from "../Map/Map";
+
 
 type GraphqlTestingProps = {
     children?: ReactElement;
@@ -50,7 +51,7 @@ const GraphqlTesting: React.FC<GraphqlTestingProps> = ({ children }) => {
     console.log(response);
   }
   const handleGetRoutes = async () => {
-    const routes = await getRoutes(true);
+    const routes = await getRoutes(false);
     console.log(routes);
   }
   const handleSuggestions = async () => {
@@ -91,7 +92,18 @@ const GraphqlTesting: React.FC<GraphqlTestingProps> = ({ children }) => {
   const handleOptimizeRoute= async () => {
     const response = await optimizeRoute("1fd87fa6-fef1-4847-ba15-8d3f11eb815f")
     console.log(response);
-  }
+  };
+  /*
+  const handleDeleteDelivery = async () => {
+    const getRouteForTesting = await getRouteById("1fd87fa6-fef1-4847-ba15-8d3f11eb815f");
+    if(getRouteForTesting!==undefined){
+    const response = await deleteDelivery(getRouteForTesting?.deliveries
+      , getRouteForTesting.deliveries[0]?.id, getRouteForTesting?.id)
+    console.log(response);
+  };
+  };
+  */
+
 
   
 
@@ -108,6 +120,8 @@ const GraphqlTesting: React.FC<GraphqlTestingProps> = ({ children }) => {
         <Button onClick={handleUpdateRouteDeliveries}>Update Route Deliveries</Button>
         <Button onClick={handleGetRouteById}>Get Route By Id</Button>
         <Button onClick={handleOptimizeRoute}>Optimize Route</Button>
+        
+
         </>
       );
 }

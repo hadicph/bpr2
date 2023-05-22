@@ -52,5 +52,5 @@ type UserPreference
 
 type Mutation {
   optimized(id: ID): Route @function(name: "routeOptimizationFunction-${env}")
-  startRoute(id: ID): Boolean @function(name: "startRouteFunction-${env}")
+  deleteDelivery(id: ID, routeId: ID): Boolean @function(name: "deleteDeliveryFunction-${env}")
 }

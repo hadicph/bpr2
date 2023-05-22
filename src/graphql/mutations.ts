@@ -43,9 +43,9 @@ export const optimized = /* GraphQL */ `
     }
   }
 `;
-export const startRoute = /* GraphQL */ `
-  mutation StartRoute($id: ID) {
-    startRoute(id: $id)
+export const deleteDelivery = /* GraphQL */ `
+  mutation DeleteDelivery($id: ID, $routeId: ID) {
+    deleteDelivery(id: $id, routeId: $routeId)
   }
 `;
 export const createRoute = /* GraphQL */ `

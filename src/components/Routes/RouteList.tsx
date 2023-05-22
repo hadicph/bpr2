@@ -25,8 +25,9 @@ const RouteList: React.FC<RouteListProps> = () => {
   const filteredRoutesList: Route[] = showActiveOnly ? routesList.filter(route => route.status === "active") : routesList;
 
   const handleGetRoutes = async () => {
-    const response = await getRoutes(true);
-    setRoutesList(response.routes);
+    const response = await getRoutes(false);
+    if (response)
+    setRoutesList(response);
   }
   const handleDeleteRoute = async (id: string) => {
     const response = await deleteRouteById(id);
