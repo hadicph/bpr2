@@ -200,6 +200,7 @@ const RoutePage: React.FC = () => {
                 <AddressItem
                     coordinate={route?.start_address as Coordinates}
                     bgColor="btn"
+                    route={route}
                 />
 
                 {/* Optimized deliveries */}
@@ -213,6 +214,7 @@ const RoutePage: React.FC = () => {
                     coordinate={route?.end_address as Coordinates}
                     bgColor="btn"
                     startAddress={false}
+                    route={route}
                 />
             </div>
         </>

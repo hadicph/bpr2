@@ -1,20 +1,29 @@
 import React from 'react';
-import { Coordinates } from '../../API';
+import { Coordinates, Route } from '../../API';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
     coordinate: Coordinates;
     bgColor?: string;
     startAddress?: boolean;
+    route?: Route;
 };
 
-const AddressItem: React.FC<Props> = ({ coordinate, bgColor = 'bg-primary', startAddress = true }) => {
+const AddressItem: React.FC<Props> = ({ coordinate, bgColor = 'bg-primary', startAddress = true, route }) => {
+
+    const navigate = useNavigate();
+
     function handleShowMapDelivery(): void {
         // TODO: Show map with delivery
         console.log('Function not implemented. handleShowMapDelivery');
     }
 
     function handleEdit(coordinate: Coordinates): void {
-        console.log('edit address');
+        if (route) {
+            navigate(`/${route.id}/edit-address`, { state: { route } });
+        } else {
+            console.error('Route not provided');
+        }
     }
 
     return coordinate && coordinate.address ? (
