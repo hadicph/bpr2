@@ -68,7 +68,49 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "deleteDeliveryFunction": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput"
+          ],
+          "category": "api",
+          "resourceName": "bpr2"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "editDeliveryFunction": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput"
+          ],
+          "category": "api",
+          "resourceName": "bpr2"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "routeOptimizationFunction": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput"
+          ],
+          "category": "api",
+          "resourceName": "bpr2"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "setDeliveryToDeliveredFunction": {
       "build": true,
       "dependsOn": [
         {
@@ -135,6 +177,38 @@
         }
       ]
     },
+    "AMPLIFY_function_deleteDeliveryFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteDeliveryFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteDeliveryFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteDeliveryFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_editDeliveryFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "editDeliveryFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_editDeliveryFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "editDeliveryFunction"
+        }
+      ]
+    },
     "AMPLIFY_function_routeOptimizationFunction_deploymentBucketName": {
       "usedBy": [
         {
@@ -148,6 +222,22 @@
         {
           "category": "function",
           "resourceName": "routeOptimizationFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_setDeliveryToDeliveredFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "setDeliveryToDeliveredFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_setDeliveryToDeliveredFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "setDeliveryToDeliveredFunction"
         }
       ]
     }

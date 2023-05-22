@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
-import { getRouteById, getRoutes, getSuggestions, listUserPreference, optimizeRoute, renameRoute
-  , saveRoute, setDefaultOptions, setStartAndEndAddress, updateRouteDeliveries} from "../../helpers/routesHelper";
+import { deleteDeliveryById, getRouteById, getRoutes, getSuggestions, listUserPreference, optimizeRoute, renameRoute
+  , saveRoute, setDefaultOptions, setDeliveryToDeliveredHelper, setRouteStatus, setStartAndEndAddress, updateRouteDeliveries} from "../../helpers/routesHelper";
 import { Button } from "@aws-amplify/ui-react";
 import { DeliveryInput } from "../../API";
 import { v4 as uuidv4 } from 'uuid';
@@ -103,10 +103,18 @@ const GraphqlTesting: React.FC<GraphqlTestingProps> = ({ children }) => {
   };
   };
   */
-
-
-  
-
+ const handleDeleteDelivery = async () => {
+  const response = await deleteDeliveryById("daf98c4a-1396-4766-947b-39a74b2b7997", "1fd87fa6-fef1-4847-ba15-8d3f11eb815f")
+  console.log(response);
+};
+const handleSetRouteStatus = async () => {
+  const response = await setRouteStatus("1fd87fa6-fef1-4847-ba15-8d3f11eb815f", "finished")
+  console.log(response);
+};
+const handleSetDeliveryToDelivered = async () => {
+  const reponse = await setDeliveryToDeliveredHelper("daf98c4a-1396-4766-947b-39a74b2b7997","1fd87fa6-fef1-4847-ba15-8d3f11eb815f")
+  console.log(reponse);
+};
     return(
         <>
         <Button onClick={handleSaveRoute}>Add Route</Button>
@@ -120,8 +128,9 @@ const GraphqlTesting: React.FC<GraphqlTestingProps> = ({ children }) => {
         <Button onClick={handleUpdateRouteDeliveries}>Update Route Deliveries</Button>
         <Button onClick={handleGetRouteById}>Get Route By Id</Button>
         <Button onClick={handleOptimizeRoute}>Optimize Route</Button>
-        
-
+        <Button onClick={handleDeleteDelivery}>Delete Delivery</Button>
+        <Button onClick={handleSetRouteStatus}>Set Route To Finished</Button>
+        <Button onClick={handleSetDeliveryToDelivered}>Set Delivery To delivered</Button>
         </>
       );
 }

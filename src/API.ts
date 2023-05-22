@@ -399,6 +399,15 @@ export type DeleteDeliveryMutation = {
   deleteDelivery?: boolean | null,
 };
 
+export type SetDeliveryToDeliveredMutationVariables = {
+  id?: string | null,
+  routeId?: string | null,
+};
+
+export type SetDeliveryToDeliveredMutation = {
+  setDeliveryToDelivered?: boolean | null,
+};
+
 export type CreateRouteMutationVariables = {
   input: CreateRouteInput,
   condition?: ModelRouteConditionInput | null,

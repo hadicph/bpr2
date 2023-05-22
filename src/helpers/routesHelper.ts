@@ -2,8 +2,8 @@ import { API, Geo, graphqlOperation} from "aws-amplify";
 import {GraphQLResult} from "@aws-amplify/api";
 import {CoordinatesInput, CreateRouteMutation, DeleteRouteMutation, DeliveryInput, GetRouteQuery, ListUserPreferencesQuery, ModelSortDirection, Route,
    RoutesByDateQuery, UpdateRouteMutation, UpdateRouteMutationVariables, 
-   UpdateUserPreferenceMutation, UpdateUserPreferenceMutationVariables, UserPreference,OptimizedMutation} from "../API";
-import { createRoute, deleteRoute, optimized, updateRoute, updateUserPreference } from "../graphql/mutations";
+   UpdateUserPreferenceMutation, UpdateUserPreferenceMutationVariables, UserPreference,OptimizedMutation, DeleteDeliveryMutation, SetDeliveryToDeliveredMutation} from "../API";
+import { createRoute, deleteDelivery, deleteRoute, optimized, setDeliveryToDelivered, updateRoute, updateUserPreference } from "../graphql/mutations";
 import { getRoute, listUserPreferences, routesByDate } from "../graphql/queries";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -115,11 +115,6 @@ const getSuggestions = async (text: string) => {
   });
 
   return response;
-};
-
-//TODO
-const setDeliveryToDelivered = async (routeId:string , deliveryId: string) => {
-  console.log("Setting delivery to delivered");
 };
 //Renaming Route by id and new name
 const renameRoute = async (id: string, newName: string) => {
@@ -277,8 +272,61 @@ const updateRouteDeliveries = async (
       throw err;
     }
   };
+  //Deleting delivery by id
+  //This method will use GraphQL mutation to call a lambda function to delete the delivery
+  //For more thorough explanation of the lambda function, please refer to the lambda function
+  //Lambda Function Name: deleteDeliveryFunction-env where env is the environment(dev,production)
+  const deleteDeliveryById = async (deliveryId: string, routeId: string) => {
+    try {
+      const operation = graphqlOperation(deleteDelivery, { id: deliveryId, routeId: routeId });
+      const response = (await API.graphql(operation)) as GraphQLResult<DeleteDeliveryMutation>;
+      const data = response.data;
+      if (!data) {
+        throw new Error("Delivery not found");
+      }
+      return data;
+    } catch (error) {
+      console.log("Error with deleting delivery: "+ error);
+      throw error;
+    }
+  };
+  //Setting Route Status
+  const setRouteStatus = async (routeId: string,status:string) => {
+    try {
+      const variables: UpdateRouteMutationVariables = {
+        //set the id and status to finished
+        input: {
+          id: routeId,
+          status: status,
+        },
+      };
+      const operation = graphqlOperation(updateRoute, variables);
+      const response = (await API.graphql(
+        operation
+      )) as GraphQLResult<UpdateRouteMutation>;
+      //Get the updated route from the response
+      return response.data?.updateRoute;
+    } catch (error) {
+      console.log("Error with setting route to finished: "+ error);
+      throw error;
+    }
+  };
+const setDeliveryToDeliveredHelper = async (deliveryId: string,routeId:string) => {
+  try {
+    const operation = graphqlOperation(setDeliveryToDelivered, { id: deliveryId, routeId: routeId });
+    const response = (await API.graphql(operation)) as GraphQLResult<SetDeliveryToDeliveredMutation>;
+    const data = response.data;
+    if (!data) {
+      throw new Error("Delivery not found");
+    }
+    return data;
+  } catch (error) {
+    console.log("Error with deleting delivery: "+ error);
+    throw error;
+  }
+};
 
   //Exporting all the methods to be used in other files
-export {saveRoute,getRoutes,getRouteById,deleteRouteById,optimizeRoute,setDeliveryToDelivered,
+export {saveRoute,getRoutes,getRouteById,deleteRouteById,optimizeRoute,setDeliveryToDeliveredHelper,
   getSuggestions,renameRoute,setStartAndEndAddress,setDefaultOptions,listUserPreference,
-  updateRouteDeliveries};
+  updateRouteDeliveries,deleteDeliveryById,setRouteStatus};
