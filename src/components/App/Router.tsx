@@ -6,6 +6,7 @@ import NewDelivery from "../Delivery/NewDelivery";
 import Map from "../Map/Map";
 import GraphqlTesting from "../Delivery/GraphqlTesting";
 import AddressStartEnd from "./AddressStartEnd";
+import EditDelivery from "../Delivery/EditDelivery";
 
 type RouterComponentProps = {
   children?: ReactElement;
@@ -21,6 +22,7 @@ const RouterComponent: React.FC<RouterComponentProps> = ({ children }) => {
       <Route path="/:id/newdelivery" element={<NewDelivery />} />
       <Route path="/testing" element={<GraphqlTesting />} />
       <Route path="/default-address" element={<AddressStartEnd />} />
+      <Route path="/:id/edit-delivery" element={<EditDelivery />} />
     </Routes>
   );
 }

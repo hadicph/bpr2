@@ -1,18 +1,23 @@
 import React from 'react';
 import { Delivery } from '../../API';
+import { useNavigate } from 'react-router-dom';
+import { setDeliveryToDelivered } from '../../helpers/routesHelper';
 
 type Props = {
     deliveries: Delivery[];
     bgColor?: string;
+    routeId?: string;
 };
 
 const DeliveryList: React.FC<Props> = ({
     deliveries,
     bgColor = 'bg-primary',
+    routeId = '',
 }) => {
 
 
     const [openCollapseId, setOpenCollapseId] = React.useState<string | null>(null);
+    const navigate = useNavigate();
 
     // Closes previous collapsibl and opens the one that was clicked
     const handleCollapseClick = React.useCallback((id: string) => {
@@ -24,9 +29,25 @@ const DeliveryList: React.FC<Props> = ({
         console.log("Function not implemented. handleShowMapDelivery");
     }
 
-    function handleDelivered(id: string): void {
-        //  TODO: Update delivery status to delivered
-        console.log("Function not implemented. handleDelivered");
+    async function handleDelivered(deliveryId: string): Promise<void> {
+        try {
+            await setDeliveryToDelivered(routeId, deliveryId);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    function handleDelete(deliveryId: string): void {
+        // TODO: Delete delivery
+        console.log(`Delete delivery with ID: ${deliveryId}`);
+    }
+
+    function handleEdit(delivery: Delivery): void {
+        navigate(`/${delivery.id}/edit-delivery`, { state: { delivery } });
+    }
+
+    function handleMarkUndelivered(deliveryId: string): void {
+        // TODO: Mark as undelivered
     }
 
 
@@ -51,11 +72,23 @@ const DeliveryList: React.FC<Props> = ({
                             if (delivery?.id) handleCollapseClick(delivery?.id);
                         }}
                     >
-                        <div className="flex justify-start">{delivery?.point.address}</div>
+                        <div className="flex justify-start">
+                            {delivery?.point.address ? (delivery.point.address.length > 10
+                                ? `${delivery.point.address.slice(0, 10)}...`
+                                : delivery?.point.address ?? "") : ""}
+
+                        </div>
                         <div className="flex justify-center">
-                            {delivery?.status === 'pending' && 'Pending'}
-                            {delivery?.status === 'completed' && 'Complete'}
-                            {delivery?.status === 'undelivered' && 'Undelivered'}
+                            {!delivery?.optimized ? (
+                                'Unoptimized'
+                            ) : (
+                                <>
+                                    {delivery?.status === 'pending' && 'Pending'}
+                                    {delivery?.status === 'completed' && 'Complete'}
+                                    {delivery?.status === 'undelivered' && 'Undelivered'}
+                                </>
+                            )}
+
                         </div>
                         <div className="flex justify-end">...</div>
                     </div>
@@ -83,13 +116,39 @@ const DeliveryList: React.FC<Props> = ({
 
                             {/* If delivery is pending, show delivered button */}
                             {delivery?.status === 'pending' && (
-                                <button
-                                    className="btn btn-primary"
-                                    onClick={() => handleDelivered(delivery.id)}
-                                >
-                                    Delivered
-                                </button>
+                                <div className="grid grid-cols-1 gap-1 ">
+                                    <button
+                                        className="btn btn-primary"
+                                        onClick={() => handleDelivered(delivery.id)}
+                                    >
+                                        Delivered
+                                    </button>
+                                    <div className='grid grid-cols-1 gap-1 px-10'>
+                                        <button
+                                            className="btn btn-primary"
+                                            onClick={() => handleMarkUndelivered(delivery.id)}
+                                        >
+                                            Undelivered
+                                        </button>
+
+                                        <button
+                                            className="btn btn-primary "
+                                            onClick={() => handleEdit(delivery)}
+                                        >
+                                            Edit
+                                        </button>
+
+                                        <button
+                                            className="btn btn-primary"
+                                            onClick={() => handleDelete(delivery.id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
                             )}
+
+
                         </div>
                     </div>
                 </div>

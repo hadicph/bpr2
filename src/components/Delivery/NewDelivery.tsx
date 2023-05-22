@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { DeliveryInput, CoordinatesInput } from '../../API';
 import { useNavigate } from "react-router-dom";
 import AddressInput from "./AddressInput";
 import { useLocation } from "react-router-dom";
 import { updateRouteDeliveries } from "../../helpers/routesHelper";
 import { v4 as uuidv4 } from 'uuid';
+import { toast } from "react-toastify";
 
 type NewDeliveryProps = {};
 
@@ -18,10 +19,10 @@ const NewDelivery: React.FC<NewDeliveryProps> = () => {
   });
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [packageNumber, setPackageNumber] = React.useState("");
-  const [name, setName] = useState("");
+  const [name, setName] = React.useState("");
   const navigate = useNavigate();
 
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -35,12 +36,18 @@ const NewDelivery: React.FC<NewDeliveryProps> = () => {
       status: "pending",
     };
 
-    let updatedRoute = { ...route };
-    updatedRoute.deliveries.push(newDelivery);
+    try {
+      let updatedRoute = { ...route };
+      updatedRoute.deliveries.push(newDelivery);
 
-    const response = await updateRouteDeliveries(updatedRoute.id, { deliveries: updatedRoute.deliveries }).then((response) => { handleGoBack() });
+      await updateRouteDeliveries(updatedRoute.id, { deliveries: updatedRoute.deliveries });
+      toast.success("Delivery added successfully");
+      navigate(-1);
+
+    } catch (error) {
+      toast.error("Error adding delivery");
+    }
   };
-
 
   const handleGoBack = () => {
     navigate(-1); // Go back to the previous page (route page)

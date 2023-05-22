@@ -58,8 +58,6 @@ const RoutePage: React.FC = () => {
 
 
     function handleNewDelivery(): void {
-        // TODO: Add new delivery to route
-
         navigate(`/${id}/newdelivery`, { state: { route } });
     }
 
@@ -100,7 +98,6 @@ const RoutePage: React.FC = () => {
 
     // To focus on input when editing route name
     const inputRef = React.useRef<HTMLInputElement>(null);
-
     React.useEffect(() => {
         if (editingRouteName && inputRef.current) {
             inputRef.current.focus();
@@ -111,7 +108,6 @@ const RoutePage: React.FC = () => {
     return (
         <>
             <NavBar />
-
             <div className="p-2">
 
                 {/* Route name */}
@@ -174,6 +170,7 @@ const RoutePage: React.FC = () => {
                         <DeliveryList
                             deliveries={unoptimizedDeliveries}
                             bgColor="bg-secondary"
+                            routeId={route?.id}
                         />
 
                         <div className="flex flex-col w-full border-opacity-50">
@@ -208,6 +205,7 @@ const RoutePage: React.FC = () => {
                 {/* Optimized deliveries */}
                 <DeliveryList
                     deliveries={deliveries}
+                    routeId={route?.id}
                 />
 
                 {/* End address */}

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ReactElement } from "react";
 import { CoordinatesInput, UserPreference } from "../../API";
 import AddressInput from "../Delivery/AddressInput";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import { listUserPreference, setDefaultOptions } from "../../helpers/routesHelper";
+import { toast } from "react-toastify";
 
 type AddressStartEndProps = {
     children?: ReactElement;
@@ -14,12 +15,12 @@ const AddressStartEnd: React.FC<AddressStartEndProps> = ({ children }) => {
     const [startCoordinate, setStartCoordinate] = React.useState<CoordinatesInput>({
         longitude: 0,
         latitude: 0,
-        address: null,
+        address: "",
     });
     const [endCoordinate, setEndCoordinate] = React.useState<CoordinatesInput>({
         longitude: 0,
         latitude: 0,
-        address: null,
+        address: "",
     });
 
     const [userPreferences, setUserPreferences] = React.useState<UserPreference>();
@@ -28,19 +29,24 @@ const AddressStartEnd: React.FC<AddressStartEndProps> = ({ children }) => {
         handleListUserPreferences();
     }, []);
 
-
     const handleListUserPreferences = async () => {
-        const response = await listUserPreference().then((response) => setUserPreferences(response[0]));
-        if (userPreferences?.start_address && userPreferences?.end_address) {
-            setStartCoordinate(userPreferences?.start_address);
-            setEndCoordinate(userPreferences?.end_address);
+        try {
+            const response = await listUserPreference();
+            if (response?.length) {
+                setUserPreferences(response[0]);
+                if (response[0]?.start_address && response[0]?.end_address) {
+                    setStartCoordinate(response[0].start_address);
+                    setEndCoordinate(response[0].end_address);
+                }
+            }
+        } catch (error) {
+            console.error('Error listing user preferences:', error);
+            toast.error('Error listing user preferences');
         }
-
-
     };
 
-    const navigate = useNavigate();
 
+    const navigate = useNavigate();
 
     // Handle the submission of startCoordinate and endCoordinate
     const handleSubmit = async () => {
@@ -50,9 +56,9 @@ const AddressStartEnd: React.FC<AddressStartEndProps> = ({ children }) => {
                     start_address: startCoordinate,
                     end_address: endCoordinate,
                 });
-                // Check for positive response here
                 if (response) {
-                    navigate("/");
+                    toast.success('Preferences updated successfully');
+                    navigate('/');
                 }
             }
         } catch (error) {
@@ -60,9 +66,8 @@ const AddressStartEnd: React.FC<AddressStartEndProps> = ({ children }) => {
         }
     };
 
-
     const handleGoBack = () => {
-        navigate('/');
+        navigate("/");
     };
 
     return (
@@ -73,12 +78,12 @@ const AddressStartEnd: React.FC<AddressStartEndProps> = ({ children }) => {
 
                 <div className="mt-8">
                     <h2 className="text-lg font-bold">Start Address</h2>
-                    <AddressInput setCoordinate={setStartCoordinate} />
+                    <AddressInput setCoordinate={setStartCoordinate} addressText={startCoordinate.address} />
                 </div>
 
                 <div className="mt-8">
                     <h2 className="text-lg font-bold">End Address</h2>
-                    <AddressInput setCoordinate={setEndCoordinate} />
+                    <AddressInput setCoordinate={setEndCoordinate} addressText={endCoordinate.address} />
                 </div>
 
                 <div className="mt-8">
@@ -86,15 +91,14 @@ const AddressStartEnd: React.FC<AddressStartEndProps> = ({ children }) => {
                         <button
                             type="button"
                             className="btn btn-secondary"
-                            onClick={handleGoBack}
-                        >
+                            onClick={handleGoBack}>
                             Go Back
                         </button>
+
                         <button
                             type="submit"
                             className="btn btn-primary"
-                            onClick={handleSubmit}
-                        >
+                            onClick={handleSubmit}>
                             Submit
                         </button>
                     </div>
