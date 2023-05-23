@@ -390,12 +390,22 @@ export type OptimizedMutation = {
   } | null,
 };
 
-export type StartRouteMutationVariables = {
+export type DeleteDeliveryMutationVariables = {
   id?: string | null,
+  routeId?: string | null,
 };
 
-export type StartRouteMutation = {
-  startRoute?: boolean | null,
+export type DeleteDeliveryMutation = {
+  deleteDelivery?: boolean | null,
+};
+
+export type SetDeliveryToDeliveredMutationVariables = {
+  id?: string | null,
+  routeId?: string | null,
+};
+
+export type SetDeliveryToDeliveredMutation = {
+  setDeliveryToDelivered?: boolean | null,
 };
 
 export type CreateRouteMutationVariables = {

@@ -1,4 +1,6 @@
+import { MapView } from "@aws-amplify/ui-react";
 import { ReactElement } from "react";
+import { NavigationControl } from "react-map-gl";
 
 
 type MapProps = {
@@ -8,7 +10,9 @@ type MapProps = {
 const Map: React.FC<MapProps> = ({ children }) => {
     return(
         <>
-        Map Page
+        <MapView>
+          <NavigationControl position="top-left"/>
+        </MapView>
         </>
       );
 }

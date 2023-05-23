@@ -1,0 +1,11 @@
+{
+  "lambdaLayers": [],
+  "permissions": {
+    "storage": {
+      "Route:@model(appsync)": [
+        "read",
+        "update"
+      ]
+    }
+  }
+}
