@@ -23,19 +23,19 @@
         },
         "routeOptimizationFunction": {
           "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
-          "s3Key": "amplify-builds/routeOptimizationFunction-4f466c3968574d597962-build.zip"
+          "s3Key": "amplify-builds/routeOptimizationFunction-2b474d2f5562322f644b-build.zip"
         },
         "deleteDeliveryFunction": {
           "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
-          "s3Key": "amplify-builds/deleteDeliveryFunction-657530685062336f4965-build.zip"
+          "s3Key": "amplify-builds/deleteDeliveryFunction-74585270417270336169-build.zip"
         },
         "setDeliveryToDeliveredFunction": {
           "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
-          "s3Key": "amplify-builds/setDeliveryToDeliveredFunction-61487278354d46516e68-build.zip"
+          "s3Key": "amplify-builds/setDeliveryToDeliveredFunction-594d45536847565a4637-build.zip"
         },
         "editDeliveryFunction": {
           "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
-          "s3Key": "amplify-builds/editDeliveryFunction-4566647558464c77446d-build.zip"
+          "s3Key": "amplify-builds/editDeliveryFunction-747344612b553552692b-build.zip"
         }
       },
       "api": {
