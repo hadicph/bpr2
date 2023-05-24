@@ -110,7 +110,7 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "setDeliveryToDeliveredFunction": {
+    "setDeliveryStatusFunction": {
       "build": true,
       "dependsOn": [
         {
@@ -225,19 +225,19 @@
         }
       ]
     },
-    "AMPLIFY_function_setDeliveryToDeliveredFunction_deploymentBucketName": {
+    "AMPLIFY_function_setDeliveryStatusFunction_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "setDeliveryToDeliveredFunction"
+          "resourceName": "setDeliveryStatusFunction"
         }
       ]
     },
-    "AMPLIFY_function_setDeliveryToDeliveredFunction_s3Key": {
+    "AMPLIFY_function_setDeliveryStatusFunction_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "setDeliveryToDeliveredFunction"
+          "resourceName": "setDeliveryStatusFunction"
         }
       ]
     }

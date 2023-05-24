@@ -2,8 +2,8 @@ import { API, Geo, graphqlOperation} from "aws-amplify";
 import {GraphQLResult} from "@aws-amplify/api";
 import {CoordinatesInput, CreateRouteMutation, DeleteRouteMutation, DeliveryInput, GetRouteQuery, ListUserPreferencesQuery, ModelSortDirection, Route,
    RoutesByDateQuery, UpdateRouteMutation, UpdateRouteMutationVariables, 
-   UpdateUserPreferenceMutation, UpdateUserPreferenceMutationVariables, UserPreference,OptimizedMutation, DeleteDeliveryMutation, SetDeliveryToDeliveredMutation} from "../API";
-import { createRoute, deleteDelivery, deleteRoute, optimized, setDeliveryToDelivered, updateRoute, updateUserPreference } from "../graphql/mutations";
+   UpdateUserPreferenceMutation, UpdateUserPreferenceMutationVariables, UserPreference,OptimizedMutation, DeleteDeliveryMutation, SetDeliveryStatusMutation} from "../API";
+import { createRoute, deleteDelivery, deleteRoute, optimized, setDeliveryStatus, updateRoute, updateUserPreference } from "../graphql/mutations";
 import { getRoute, listUserPreferences, routesByDate } from "../graphql/queries";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -311,10 +311,10 @@ const updateRouteDeliveries = async (
       throw error;
     }
   };
-const setDeliveryToDeliveredHelper = async (deliveryId: string,routeId:string) => {
+const setDeliveryStatusHelper = async (deliveryId: string,routeId:string,status:string) => {
   try {
-    const operation = graphqlOperation(setDeliveryToDelivered, { id: deliveryId, routeId: routeId });
-    const response = (await API.graphql(operation)) as GraphQLResult<SetDeliveryToDeliveredMutation>;
+    const operation = graphqlOperation(setDeliveryStatus, { id: deliveryId, routeId: routeId,status:status });
+    const response = (await API.graphql(operation)) as GraphQLResult<SetDeliveryStatusMutation>;
     const data = response.data;
     if (!data) {
       throw new Error("Delivery not found");
@@ -328,6 +328,6 @@ const setDeliveryToDeliveredHelper = async (deliveryId: string,routeId:string) =
 
 
   //Exporting all the methods to be used in other files
-export {saveRoute,getRoutes,getRouteById,deleteRouteById,optimizeRoute,setDeliveryToDeliveredHelper,
+export {saveRoute,getRoutes,getRouteById,deleteRouteById,optimizeRoute,setDeliveryStatusHelper,
   getSuggestions,renameRoute,setStartAndEndAddress,setDefaultOptions,listUserPreference,
   updateRouteDeliveries,deleteDeliveryById,setRouteStatus};

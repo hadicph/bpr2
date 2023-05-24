@@ -399,13 +399,14 @@ export type DeleteDeliveryMutation = {
   deleteDelivery?: boolean | null,
 };
 
-export type SetDeliveryToDeliveredMutationVariables = {
+export type SetDeliveryStatusMutationVariables = {
   id?: string | null,
   routeId?: string | null,
+  status?: string | null,
 };
 
-export type SetDeliveryToDeliveredMutation = {
-  setDeliveryToDelivered?: boolean | null,
+export type SetDeliveryStatusMutation = {
+  setDeliveryStatus?: boolean | null,
 };
 
 export type CreateRouteMutationVariables = {

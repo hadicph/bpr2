@@ -48,9 +48,9 @@ export const deleteDelivery = /* GraphQL */ `
     deleteDelivery(id: $id, routeId: $routeId)
   }
 `;
-export const setDeliveryToDelivered = /* GraphQL */ `
-  mutation SetDeliveryToDelivered($id: ID, $routeId: ID) {
-    setDeliveryToDelivered(id: $id, routeId: $routeId)
+export const setDeliveryStatus = /* GraphQL */ `
+  mutation SetDeliveryStatus($id: ID, $routeId: ID, $status: String) {
+    setDeliveryStatus(id: $id, routeId: $routeId, status: $status)
   }
 `;
 export const createRoute = /* GraphQL */ `

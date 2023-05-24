@@ -47,7 +47,7 @@ exports.handler = async (event) => {
     const updatedDeliveries = route.deliveries.map((delivery) => {
          //If delivery is found skip it
         if (delivery.id === event.arguments.id) {
-            delivery.status = "DELIVERED";
+            delivery.status = event.arguments.status;
             return delivery;
         }
         return delivery;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Delivery } from '../../API';
 import { useNavigate } from 'react-router-dom';
-import { setDeliveryToDeliveredHelper } from '../../helpers/routesHelper';
+import { setDeliveryStatusHelper } from '../../helpers/routesHelper';
 
 type Props = {
     deliveries: Delivery[];
@@ -31,7 +31,7 @@ const DeliveryList: React.FC<Props> = ({
 
     async function handleDelivered(deliveryId: string): Promise<void> {
         try {
-            await setDeliveryToDeliveredHelper(routeId, deliveryId);
+            await setDeliveryStatusHelper(routeId, deliveryId,"DELIVERED");
         } catch (error) {
             console.error(error);
         }

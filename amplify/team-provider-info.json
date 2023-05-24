@@ -29,13 +29,13 @@
           "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
           "s3Key": "amplify-builds/deleteDeliveryFunction-74585270417270336169-build.zip"
         },
-        "setDeliveryToDeliveredFunction": {
-          "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
-          "s3Key": "amplify-builds/setDeliveryToDeliveredFunction-594d45536847565a4637-build.zip"
-        },
         "editDeliveryFunction": {
           "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
           "s3Key": "amplify-builds/editDeliveryFunction-747344612b553552692b-build.zip"
+        },
+        "setDeliveryStatusFunction": {
+          "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
+          "s3Key": "amplify-builds/setDeliveryStatusFunction-546e665239776b554a69-build.zip"
         }
       },
       "api": {

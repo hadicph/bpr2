@@ -51,12 +51,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "setDeliveryToDeliveredFunction",
+            "setDeliveryStatusFunction",
             {
               "Fn::Join": [
                 "",
                 [
-                  "setDeliveryToDeliveredFunction",
+                  "setDeliveryStatusFunction",
                   "-",
                   {
                     "Ref": "env"
@@ -122,12 +122,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "bpr2LambdaRole39bd0e1e",
+            "bpr2LambdaRole89a555f4",
             {
               "Fn::Join": [
                 "",
                 [
-                  "bpr2LambdaRole39bd0e1e",
+                  "bpr2LambdaRole89a555f4",
                   "-",
                   {
                     "Ref": "env"
