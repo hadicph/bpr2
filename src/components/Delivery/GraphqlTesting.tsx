@@ -136,4 +136,3 @@ const handleSetDeliveryToDelivered = async () => {
 }
 
 export default GraphqlTesting;
-

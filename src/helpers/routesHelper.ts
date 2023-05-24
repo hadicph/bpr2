@@ -7,7 +7,6 @@ import { createRoute, deleteDelivery, deleteRoute, optimized, setDeliveryToDeliv
 import { getRoute, listUserPreferences, routesByDate } from "../graphql/queries";
 import { v4 as uuidv4 } from 'uuid';
 
-
 //Getting todays date
 const today: Date = new Date();
 //Formatting the date to be in the format of yyyy-mm-dd
@@ -240,6 +239,7 @@ const updateRouteDeliveries = async (
         input: {
           id: id,
           deliveries: deliveries,
+          optimized: false,
         },
       };
       //update the route
@@ -325,6 +325,7 @@ const setDeliveryToDeliveredHelper = async (deliveryId: string,routeId:string) =
     throw error;
   }
 };
+
 
   //Exporting all the methods to be used in other files
 export {saveRoute,getRoutes,getRouteById,deleteRouteById,optimizeRoute,setDeliveryToDeliveredHelper,

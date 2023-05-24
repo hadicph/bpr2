@@ -2,11 +2,12 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import NavBar from "../App/NavBar";
-import { getRouteById, renameRoute } from "../../helpers/routesHelper";
+import { getRouteById, optimizeRoute, renameRoute } from "../../helpers/routesHelper";
 import { Coordinates, Route } from "../../API";
 import { Delivery } from "../../API";
 import DeliveryList from '../Delivery/DeliveryList';
 import AddressItem from "../Delivery/AddressItem";
+
 
 
 const RoutePage: React.FC = () => {
@@ -30,19 +31,25 @@ const RoutePage: React.FC = () => {
 
     // Get route by id and set state for route and delivery list
     const handleGetRouteById = async (id: string) => {
-        const response = await getRouteById(id);
-        setRoute(response);
-        if (response?.deliveries) {
-            const routeDeliveries = response.deliveries.filter((delivery) => delivery !== null) as Delivery[];
-            if (route?.optimized) {
-                setDeliveries(routeDeliveries);
-            } else {
-                setUnoptimizedDeliveries(routeDeliveries.filter(delivery => !delivery.optimized));
-                setOptimizedDeliveries(routeDeliveries.filter(delivery => delivery.optimized));
+        try {
+            const response = await getRouteById(id);
+
+            if (response) {
+                setRoute(response);
+                const routeDeliveries = response.deliveries.filter((delivery) => delivery !== null) as Delivery[];
+
+                if (response?.optimized) {
+                    setDeliveries(routeDeliveries);
+                } else {
+                    setUnoptimizedDeliveries(routeDeliveries.filter(delivery => !delivery.optimized));
+                    setOptimizedDeliveries(routeDeliveries.filter(delivery => delivery.optimized));
+                }
             }
 
+            setRouteName(response?.route_name ?? '');
+        } catch (error) {
+            console.error('Error getting route by id:', error);
         }
-        setRouteName(response?.route_name ?? '')
     };
 
 
@@ -50,9 +57,9 @@ const RoutePage: React.FC = () => {
     function handleShowPendingOnly(): void {
         setShowPendingOnly(!showPendingOnly);
         if (showPendingOnly) {
-            setDeliveries(optimizedDeliveries);
+            setDeliveries(deliveries);
         } else {
-            setDeliveries(optimizedDeliveries.filter(delivery => delivery.status === "pending"));
+            setDeliveries(deliveries.filter(delivery => delivery.status === "pending"));
         }
     }
 
@@ -62,9 +69,24 @@ const RoutePage: React.FC = () => {
     }
 
 
-    function handleOptimize(): void {
-        //TODO: Optimize route
-        console.log("Function not implemented. handleOptimize");
+    async function handleOptimize(): Promise<void> {
+        try {
+            if (!route?.id) return;
+
+            const optimizedRoute = await optimizeRoute(route.id);
+
+            if (!optimizedRoute) {
+
+                throw new Error("Error optimizing route", optimizedRoute);
+
+            }
+            if (optimizedRoute) {
+                handleGetRouteById(route.id)
+            }
+
+        } catch (error) {
+            console.error("Error optimizing route:", error);
+        }
     }
 
 
