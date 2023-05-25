@@ -1,23 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Delivery } from '../../API';
 import { useNavigate } from 'react-router-dom';
-import { setDeliveryStatusHelper } from '../../helpers/routesHelper';
+import { deleteDeliveryById, setDeliveryToDeliveredHelper } from '../../helpers/routesHelper';
 
 type Props = {
-    deliveries: Delivery[];
+    propDeliveries: Delivery[];
     bgColor?: string;
     routeId?: string;
 };
 
 const DeliveryList: React.FC<Props> = ({
-    deliveries,
+    propDeliveries,
     bgColor = 'bg-primary',
     routeId = '',
 }) => {
 
-
+    const [deliveries, setDeliveries] = React.useState<Delivery[]>([]);
     const [openCollapseId, setOpenCollapseId] = React.useState<string | null>(null);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        setDeliveries(propDeliveries);
+    }, [propDeliveries]);
 
     // Closes previous collapsibl and opens the one that was clicked
     const handleCollapseClick = React.useCallback((id: string) => {
@@ -31,15 +35,28 @@ const DeliveryList: React.FC<Props> = ({
 
     async function handleDelivered(deliveryId: string): Promise<void> {
         try {
-            await setDeliveryStatusHelper(routeId, deliveryId,"DELIVERED");
+            const response = await setDeliveryToDeliveredHelper(deliveryId, routeId);
+            if (response) {
+                setDeliveries((prevDeliveries) =>
+                    prevDeliveries.map((delivery) =>
+                        delivery.id === deliveryId ? { ...delivery, status: 'DELIVERED' } : delivery
+                    ))
+            }
         } catch (error) {
             console.error(error);
         }
     }
 
-    function handleDelete(deliveryId: string): void {
-        // TODO: Delete delivery
-        console.log(`Delete delivery with ID: ${deliveryId}`);
+    async function handleDelete(deliveryId: string): Promise<void> {
+        try {
+            const response = await deleteDeliveryById(deliveryId, routeId);
+            if (response) {
+                setDeliveries((prevDeliveries) =>
+                    prevDeliveries.filter((delivery) => delivery.id !== deliveryId))
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     function handleEdit(delivery: Delivery): void {
@@ -84,8 +101,8 @@ const DeliveryList: React.FC<Props> = ({
                             ) : (
                                 <>
                                     {delivery?.status === 'pending' && 'Pending'}
-                                    {delivery?.status === 'completed' && 'Complete'}
-                                    {delivery?.status === 'undelivered' && 'Undelivered'}
+                                    {delivery?.status === 'DELIVERED' && 'Delivered'}
+                                    {delivery?.status === 'UNDELIVERED' && 'Undelivered'}
                                 </>
                             )}
 

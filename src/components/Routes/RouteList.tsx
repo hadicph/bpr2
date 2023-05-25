@@ -14,21 +14,27 @@ const RouteList: React.FC<RouteListProps> = () => {
   const [showActiveOnly, setShowActiveOnly] = React.useState(false);
   const [userPreferences, setUserPreferences] = React.useState<UserPreference>();
   const [showPopup, setShowPopup] = React.useState(false);
-  const [future, setFuture] = React.useState(true);
+  const [pastRoutesOnly, setPastRoutesOnly] = React.useState(false);
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    handleGetRoutes(!future);
+    handleGetRoutes(pastRoutesOnly);
     handleListUserPreferences();
-  }, [future]);
+  }, [pastRoutesOnly]);
 
   // Filter routes based on active status
   const filteredRoutesList: Route[] = showActiveOnly ? routesList.filter(route => route.status === "active") : routesList;
 
-  const handleGetRoutes = async (future:Boolean) => {
-    const response = await getRoutes(future);
-    if(response)
-    setRoutesList(response);
+  const handleGetRoutes = async (pastRoutesOnly: Boolean) => {
+    try {
+      // getRoutes - True: Today and Future, False: Past
+      const response = await getRoutes(!pastRoutesOnly);
+      if (response) {
+        setRoutesList(response);
+      }
+    } catch (error) {
+      console.error("Error getting routes:", error);
+    }
   };
 
   const handleDeleteRoute = async (id: string) => {
@@ -99,20 +105,22 @@ const RouteList: React.FC<RouteListProps> = () => {
         <label className="flex items-center space-x-2">
           <input
             type="checkbox"
+            checked={pastRoutesOnly}
+            onChange={() => setPastRoutesOnly(!pastRoutesOnly)}
+            className="toggle"
+          />
+          <span>Past Only</span>
+        </label>
+
+        {/* Toggle */}
+        <label className="flex items-center space-x-2">
+          <input
+            type="checkbox"
             checked={showActiveOnly}
             onChange={() => setShowActiveOnly(!showActiveOnly)}
             className="toggle"
           />
           <span>Active Only</span>
-        </label>
-        <label className="flex items-center space-x-2">
-          <input
-            type="checkbox"
-            checked={future}
-            onChange={() => setFuture(!future)}
-            className="toggle"
-          />
-          <span>Past</span>
         </label>
       </div>
 

@@ -9,7 +9,6 @@ import DeliveryList from '../Delivery/DeliveryList';
 import AddressItem from "../Delivery/AddressItem";
 
 
-
 const RoutePage: React.FC = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -19,14 +18,13 @@ const RoutePage: React.FC = () => {
     const [routeName, setRouteName] = React.useState<string>('');
     const [editingRouteName, setEditingRouteName] = React.useState(false);
     const [unoptimizedDeliveries, setUnoptimizedDeliveries] = React.useState<Delivery[]>([]);
-    const [optimizedDeliveries, setOptimizedDeliveries] = React.useState<Delivery[]>([]);
-    //const [pendingDeliveries, setPendingDeliveries] = React.useState<Delivery[]>([]);
+    const [inMemoryDeliveries, setInMemoryDeliveries] = React.useState<Delivery[]>([]);
 
     React.useEffect(() => {
         if (id) {
             handleGetRouteById(id);
         }
-    }, []);
+    });
 
 
     // Get route by id and set state for route and delivery list
@@ -40,9 +38,11 @@ const RoutePage: React.FC = () => {
 
                 if (response?.optimized) {
                     setDeliveries(routeDeliveries);
+                    setInMemoryDeliveries(routeDeliveries);
                 } else {
                     setUnoptimizedDeliveries(routeDeliveries.filter(delivery => !delivery.optimized));
-                    setOptimizedDeliveries(routeDeliveries.filter(delivery => delivery.optimized));
+                    setDeliveries(routeDeliveries.filter(delivery => delivery.optimized));
+                    setInMemoryDeliveries(routeDeliveries.filter(delivery => delivery.optimized));
                 }
             }
 
@@ -57,7 +57,7 @@ const RoutePage: React.FC = () => {
     function handleShowPendingOnly(): void {
         setShowPendingOnly(!showPendingOnly);
         if (showPendingOnly) {
-            setDeliveries(deliveries);
+            setDeliveries(inMemoryDeliveries);
         } else {
             setDeliveries(deliveries.filter(delivery => delivery.status === "pending"));
         }
@@ -74,6 +74,7 @@ const RoutePage: React.FC = () => {
             if (!route?.id) return;
 
             const optimizedRoute = await optimizeRoute(route.id);
+            setUnoptimizedDeliveries([]);
 
             if (!optimizedRoute) {
 
@@ -190,7 +191,7 @@ const RoutePage: React.FC = () => {
                         </div>
 
                         <DeliveryList
-                            deliveries={unoptimizedDeliveries}
+                            propDeliveries={unoptimizedDeliveries}
                             bgColor="bg-secondary"
                             routeId={route?.id}
                         />
@@ -213,7 +214,7 @@ const RoutePage: React.FC = () => {
 
                 {/* Statistics */}
                 <div className=" flex justify-between pl-4 pr-4 ">
-                    <div className="flex justify-start">{optimizedDeliveries.length} stops</div>
+                    <div className="flex justify-start">{deliveries.length} stops</div>
                     <div className="flex justify-center">{route?.estimated_time} h</div>
                     <div className="flex justify-end">{route?.estimated_distance} km</div>
                 </div>
@@ -227,7 +228,7 @@ const RoutePage: React.FC = () => {
 
                 {/* Optimized deliveries */}
                 <DeliveryList
-                    deliveries={deliveries}
+                    propDeliveries={deliveries}
                     routeId={route?.id}
                 />
 

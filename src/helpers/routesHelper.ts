@@ -238,6 +238,7 @@ const updateRouteDeliveries = async (
       const variables: UpdateRouteMutationVariables = {
         input: {
           id: id,
+          optimized: false,
           deliveries: deliveries,
           optimized: false,
         },

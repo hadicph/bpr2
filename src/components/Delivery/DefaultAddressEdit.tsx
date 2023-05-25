@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { ReactElement } from "react";
-import { CoordinatesInput, UserPreference } from "../../API";
+import { CoordinatesInput } from "../../API";
 import AddressInput from "../Delivery/AddressInput";
 import { useLocation, useNavigate } from "react-router-dom";
 import NavBar from "../App/NavBar";
-import { listUserPreference, setDefaultOptions, setStartAndEndAddress } from "../../helpers/routesHelper";
+import { setStartAndEndAddress } from "../../helpers/routesHelper";
 import { toast } from "react-toastify";
 
 type RouteStartEndAddressProps = {
