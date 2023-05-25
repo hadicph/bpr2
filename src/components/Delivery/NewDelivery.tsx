@@ -40,9 +40,13 @@ const NewDelivery: React.FC<NewDeliveryProps> = () => {
       let updatedRoute = { ...route };
       updatedRoute.deliveries.push(newDelivery);
 
-      await updateRouteDeliveries(updatedRoute.id, { deliveries: updatedRoute.deliveries });
-      toast.success("Delivery added successfully");
-      navigate(-1);
+      if (coordinate.address) {
+        await updateRouteDeliveries(updatedRoute.id, { deliveries: updatedRoute.deliveries });
+        toast.success("Delivery added successfully");
+        navigate(-1);
+      } else {
+        toast.error("Please select a valid address");
+      }
 
     } catch (error) {
       toast.error("Error adding delivery");

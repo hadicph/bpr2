@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ReactElement } from "react";
 import { CoordinatesInput, UserPreference } from "../../API";
 import AddressInput from "../Delivery/AddressInput";

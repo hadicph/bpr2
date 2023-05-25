@@ -26,7 +26,7 @@ const AddressInput: React.FC<AddressInputProps> = ({
             setSelectedCoordinate(initialCoordinate);
             setAddress(initialCoordinate.address || "");
         }
-    }, [addressText]);
+    }, [addressText, initialCoordinate]);
 
     const handleSearch = async () => {
         const suggestions: Place[] = await getSuggestions(address);
