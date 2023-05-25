@@ -24,7 +24,7 @@ const RoutePage: React.FC = () => {
         if (id) {
             handleGetRouteById(id);
         }
-    });
+    },[]);
 
 
     // Get route by id and set state for route and delivery list

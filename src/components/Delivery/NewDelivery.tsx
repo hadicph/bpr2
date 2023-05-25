@@ -28,9 +28,9 @@ const NewDelivery: React.FC<NewDeliveryProps> = () => {
 
     const newDelivery: DeliveryInput = {
       id: uuidv4(),
-      phone_number: phoneNumber || null,
-      package_number: packageNumber || null,
-      name: name || null,
+      phone_number: phoneNumber || "",
+      package_number: packageNumber || "",
+      name: name || "",
       point: coordinate,
       optimized: false,
       status: "pending",

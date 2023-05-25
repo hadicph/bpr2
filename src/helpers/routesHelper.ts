@@ -240,7 +240,6 @@ const updateRouteDeliveries = async (
           id: id,
           optimized: false,
           deliveries: deliveries,
-          optimized: false,
         },
       };
       //update the route

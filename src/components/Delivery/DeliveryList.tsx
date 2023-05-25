@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Delivery } from '../../API';
 import { useNavigate } from 'react-router-dom';
-import { deleteDeliveryById, setDeliveryToDeliveredHelper } from '../../helpers/routesHelper';
+import { deleteDeliveryById, setDeliveryStatusHelper } from '../../helpers/routesHelper';
 
 type Props = {
     propDeliveries: Delivery[];
@@ -35,7 +35,7 @@ const DeliveryList: React.FC<Props> = ({
 
     async function handleDelivered(deliveryId: string): Promise<void> {
         try {
-            const response = await setDeliveryToDeliveredHelper(deliveryId, routeId);
+            const response = await setDeliveryStatusHelper(deliveryId, routeId,"DELIVERED");
             if (response) {
                 setDeliveries((prevDeliveries) =>
                     prevDeliveries.map((delivery) =>
