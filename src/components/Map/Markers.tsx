@@ -1,23 +1,25 @@
 
 import { Button } from "@aws-amplify/ui-react";
-import { ReactElement, useState } from "react";
-import {Marker as MapViewMarker, Popup} from "react-map-gl";
+import React from "react";
+import { ReactElement } from "react";
+import { Marker as MapViewMarker, Popup } from "react-map-gl";
 
 type MarkersProps = {
-    children?: ReactElement;
-    longitude: number;
-    latitude: number;
-    color?: string;
-    address?: string|undefined|null;
-  };
+  children?: ReactElement;
+  longitude: number;
+  latitude: number;
+  color?: string;
+  address?: string | undefined | null;
+};
 
-  
-const Markers: React.FC<MarkersProps> = ({ children,longitude,latitude,color,address}) => {
-  const [showPopup, setShowPopup] = useState(false);
+
+const Markers: React.FC<MarkersProps> = ({ children, longitude, latitude, color, address }) => {
+  const [showPopup, setShowPopup] = React.useState(false);
 
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
+
   const handleMapRedirect = () => {
     try {
       window.open(
@@ -25,14 +27,15 @@ const Markers: React.FC<MarkersProps> = ({ children,longitude,latitude,color,add
         "_blank"
       );
     }
-    catch(error)
-    {
+    catch (error) {
       console.log(error);
     }
   };
-    return(
-        <>
-        <MapViewMarker
+
+
+  return (
+    <>
+      <MapViewMarker
         longitude={longitude}
         latitude={latitude}
         color={color}
@@ -45,6 +48,7 @@ const Markers: React.FC<MarkersProps> = ({ children,longitude,latitude,color,add
           latitude={latitude}
           closeButton={false}
           closeOnClick={false}
+          closeOnMove={true}
           anchor="top"
           className="marker-popup"
         >

@@ -14,8 +14,15 @@ const AddressItem: React.FC<Props> = ({ coordinate, bgColor = 'bg-primary', star
     const navigate = useNavigate();
 
     function handleShowMapDelivery(): void {
-        // TODO: Show map with delivery
-        console.log('Function not implemented. handleShowMapDelivery');
+        try {
+            window.open(
+                `https://www.google.com/maps/search/?api=1&query=${coordinate.latitude},${coordinate.longitude}`,
+                "_blank"
+            );
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
 
     function handleEdit(coordinate: Coordinates): void {

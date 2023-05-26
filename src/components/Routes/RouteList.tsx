@@ -95,7 +95,7 @@ const RouteList: React.FC<RouteListProps> = () => {
     <div className="p-2">
       <h1 className="text-2xl font-bold mb-4 text-center">Route List</h1>
 
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-between mb-4 space-x-2">
         {/* Button to create new route */}
         <button className="btn btn-primary" onClick={handleCreateRoute}>
           Create route

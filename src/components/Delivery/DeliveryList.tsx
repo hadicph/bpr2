@@ -29,13 +29,20 @@ const DeliveryList: React.FC<Props> = ({
     }, []);
 
     function handleShowMapDelivery(delivery: Delivery): void {
-        //TODO: Show map with delivery
-        console.log("Function not implemented. handleShowMapDelivery");
+        try {
+            window.open(
+                `https://www.google.com/maps/search/?api=1&query=${delivery.point.latitude},${delivery.point.longitude}`,
+                "_blank"
+            );
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
 
     async function handleDelivered(deliveryId: string): Promise<void> {
         try {
-            const response = await setDeliveryStatusHelper(deliveryId, routeId,"DELIVERED");
+            const response = await setDeliveryStatusHelper(deliveryId, routeId, "DELIVERED");
             if (response) {
                 setDeliveries((prevDeliveries) =>
                     prevDeliveries.map((delivery) =>

@@ -24,7 +24,7 @@ const RoutePage: React.FC = () => {
         if (id) {
             handleGetRouteById(id);
         }
-    },[]);
+    }, []);
 
 
     // Get route by id and set state for route and delivery list
@@ -92,8 +92,7 @@ const RoutePage: React.FC = () => {
 
 
     function handleShowMapRoute(): void {
-        //TODO: Show map with route
-        console.log("Function not implemented. handleShowMapRoute");
+        navigate(`/${id}/map`, { state: { route } });
     }
 
 
