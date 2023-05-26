@@ -1,7 +1,7 @@
 
 import { ReactElement} from "react";
 import Markers from "./Markers";
-import { Coordinates, Delivery, Route } from "../../API";
+import { Coordinates, Delivery} from "../../API";
 import React from "react";
 import { getRouteById } from "../../helpers/routesHelper";
 import { useMap } from "react-map-gl";
@@ -13,7 +13,6 @@ type MarkersControllerProps = {
   };
 
 const MarkersController: React.FC<MarkersControllerProps> = ({ children ,routeId}) => {
-    const [route, setRoute] = React.useState<Route>();
     const [deliveries, setDeliveries] = React.useState<Delivery[]>([]);
     const [start_address, setStart_address] = React.useState<Coordinates>();
     const [end_address, setEnd_address] = React.useState<Coordinates>();
@@ -21,8 +20,6 @@ const MarkersController: React.FC<MarkersControllerProps> = ({ children ,routeId
     const handleGetRouteById = async (id: string) => {
         try {
             const response = await getRouteById(id);
-            if(response)
-            setRoute(response);
             if (response?.start_address)
             setStart_address(response?.start_address);
             if (response?.end_address)

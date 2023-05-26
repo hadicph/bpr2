@@ -2,7 +2,6 @@ import React from "react";
 import { DeliveryInput, CoordinatesInput, Delivery } from '../../API';
 import { useNavigate, useLocation } from "react-router-dom";
 import AddressInput from "./AddressInput";
-import { updateRouteDeliveries } from "../../helpers/routesHelper";
 
 type EditDeliveryProps = {};
 

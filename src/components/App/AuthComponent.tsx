@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import {Authenticator, Text} from '@aws-amplify/ui-react';
+import {Authenticator} from '@aws-amplify/ui-react';
 import React from "react";
 import { Auth, Hub } from "aws-amplify";
 import Header from "./Header";
@@ -17,12 +17,6 @@ type AuthProps = {
 const AuthComponent: React.FC<AuthProps> = ({ children }) => {
   const [user, setUser] = React.useState<User | null>(null);
   const [authenticated, setAuthenticated] = React.useState<boolean>(false);
-  /*React.useEffect(() => {
-    Auth.currentAuthenticatedUser()
-      .then(user => setUser(user as User))
-      .catch(() => console.log('Not signed in'));
-  }, []);
-*/
 
 React.useEffect(() => {
   checkUser();
