@@ -25,6 +25,8 @@ const Map: React.FC<MapProps> = ({ children }) => {
   return (
     <>
       <MapView initialViewState={initialViewState}>
+
+        <NavigationControl position="top-left" />
         <MarkersController routeId={id} />
       </MapView>
 
