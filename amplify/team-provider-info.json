@@ -36,7 +36,59 @@
         "setDeliveryStatusFunction": {
           "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
           "s3Key": "amplify-builds/setDeliveryStatusFunction-394e7a74447041415868-build.zip"
-        }
+        },
+        "bpr2": {},
+        "bpr2503ff6eb503ff6eb": {}
+      },
+      "api": {
+        "bpr2": {}
+      },
+      "geo": {
+        "mapc2ed672c": {},
+        "placeIndexbf27a83e": {}
+      }
+    }
+  },
+  "master": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-bpr2-master-00540-authRole",
+      "UnauthRoleArn": "arn:aws:iam::343061278635:role/amplify-bpr2-master-00540-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::343061278635:role/amplify-bpr2-master-00540-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-bpr2-master-00540-deployment",
+      "UnauthRoleName": "amplify-bpr2-master-00540-unauthRole",
+      "StackName": "amplify-bpr2-master-00540",
+      "StackId": "arn:aws:cloudformation:eu-north-1:343061278635:stack/amplify-bpr2-master-00540/f3de2b20-fe6c-11ed-afbc-0ae14bdf017a",
+      "AmplifyAppId": "d3t35jh09ulopa",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-bpr2-master-00540-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "bpr2503ff6eb503ff6eb": {}
+      },
+      "function": {
+        "bpr2503ff6eb503ff6ebPostConfirmation": {
+          "deploymentBucketName": "amplify-bpr2-master-00540-deployment",
+          "s3Key": "amplify-builds/bpr2503ff6eb503ff6ebPostConfirmation-4d41464b72592f4c4442-build.zip"
+        },
+        "deleteDeliveryFunction": {
+          "deploymentBucketName": "amplify-bpr2-master-00540-deployment",
+          "s3Key": "amplify-builds/deleteDeliveryFunction-74585270417270336169-build.zip"
+        },
+        "editDeliveryFunction": {
+          "deploymentBucketName": "amplify-bpr2-master-00540-deployment",
+          "s3Key": "amplify-builds/editDeliveryFunction-747344612b553552692b-build.zip"
+        },
+        "routeOptimizationFunction": {
+          "deploymentBucketName": "amplify-bpr2-master-00540-deployment",
+          "s3Key": "amplify-builds/routeOptimizationFunction-2b474d2f5562322f644b-build.zip"
+        },
+        "setDeliveryStatusFunction": {
+          "deploymentBucketName": "amplify-bpr2-master-00540-deployment",
+          "s3Key": "amplify-builds/setDeliveryStatusFunction-394e7a74447041415868-build.zip"
+        },
+        "bpr2": {},
+        "bpr2503ff6eb503ff6eb": {}
       },
       "api": {
         "bpr2": {}
