@@ -65,6 +65,15 @@
   "function": {
     "bpr2503ff6eb503ff6ebPostConfirmation": {
       "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput"
+          ],
+          "category": "api",
+          "resourceName": "bpr2"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },

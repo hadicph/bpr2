@@ -1,4 +1,10 @@
-/**
+/* Amplify Params - DO NOT EDIT
+	API_BPR2_GRAPHQLAPIIDOUTPUT
+	API_BPR2_USERPREFERENCETABLE_ARN
+	API_BPR2_USERPREFERENCETABLE_NAME
+	ENV
+	REGION
+Amplify Params - DO NOT EDIT *//**
  * @fileoverview
  *
  * This CloudFormation Trigger creates a handler which awaits the other handlers

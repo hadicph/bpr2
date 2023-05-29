@@ -1,3 +1,11 @@
+/* Amplify Params - DO NOT EDIT
+	API_BPR2_GRAPHQLAPIIDOUTPUT
+	API_BPR2_USERPREFERENCETABLE_ARN
+	API_BPR2_USERPREFERENCETABLE_NAME
+	ENV
+	REGION
+Amplify Params - DO NOT EDIT *//**
+
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
@@ -34,7 +42,7 @@ exports.handler = async (event, context) => {
     };
 
     const params = {
-      TableName: 'UserPreference-hpi5bhpsu5gobkntneedlwykp4-dev',
+      TableName: process.env.API_BPR2_USERPREFERENCETABLE_NAME,
       Item: userPreference,
     };
     // Save the user preference record to DynamoDB

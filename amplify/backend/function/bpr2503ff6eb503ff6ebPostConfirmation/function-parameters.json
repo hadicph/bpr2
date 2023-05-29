@@ -12,5 +12,14 @@
   "triggerTemplate": "PostConfirmation.json.ejs",
   "triggerEventPath": "PostConfirmation.event.json",
   "roleName": "bpr2503ff6eb503ff6ebPostConfirmation",
-  "skipEdit": true
+  "skipEdit": true,
+  "permissions": {
+    "storage": {
+      "UserPreference:@model(appsync)": [
+        "create",
+        "read",
+        "update"
+      ]
+    }
+  }
 }

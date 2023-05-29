@@ -69,7 +69,7 @@
       "function": {
         "bpr2503ff6eb503ff6ebPostConfirmation": {
           "deploymentBucketName": "amplify-bpr2-master-00540-deployment",
-          "s3Key": "amplify-builds/bpr2503ff6eb503ff6ebPostConfirmation-4d41464b72592f4c4442-build.zip"
+          "s3Key": "amplify-builds/bpr2503ff6eb503ff6ebPostConfirmation-6c786b30752b52742b49-build.zip"
         },
         "deleteDeliveryFunction": {
           "deploymentBucketName": "amplify-bpr2-master-00540-deployment",
