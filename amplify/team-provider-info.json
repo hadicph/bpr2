@@ -9,11 +9,41 @@
       "UnauthRoleName": "amplify-bpr2-dev-125123-unauthRole",
       "StackName": "amplify-bpr2-dev-125123",
       "StackId": "arn:aws:cloudformation:eu-north-1:343061278635:stack/amplify-bpr2-dev-125123/a474b660-d2d6-11ed-8afc-0e6cb06eafe6",
-      "AmplifyAppId": "d3t35jh09ulopa"
+      "AmplifyAppId": "d3t35jh09ulopa",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-bpr2-dev-125123-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
         "bpr2503ff6eb503ff6eb": {}
+      },
+      "function": {
+        "bpr2503ff6eb503ff6ebPostConfirmation": {
+          "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
+          "s3Key": "amplify-builds/bpr2503ff6eb503ff6ebPostConfirmation-4d41464b72592f4c4442-build.zip"
+        },
+        "routeOptimizationFunction": {
+          "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
+          "s3Key": "amplify-builds/routeOptimizationFunction-2b474d2f5562322f644b-build.zip"
+        },
+        "deleteDeliveryFunction": {
+          "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
+          "s3Key": "amplify-builds/deleteDeliveryFunction-74585270417270336169-build.zip"
+        },
+        "editDeliveryFunction": {
+          "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
+          "s3Key": "amplify-builds/editDeliveryFunction-747344612b553552692b-build.zip"
+        },
+        "setDeliveryStatusFunction": {
+          "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
+          "s3Key": "amplify-builds/setDeliveryStatusFunction-546e665239776b554a69-build.zip"
+        }
+      },
+      "api": {
+        "bpr2": {}
+      },
+      "geo": {
+        "mapc2ed672c": {},
+        "placeIndexbf27a83e": {}
       }
     }
   }

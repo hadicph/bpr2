@@ -1,8 +1,44 @@
 {
+  "api": {
+    "bpr2": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "bpr2503ff6eb503ff6eb"
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authbpr2503ff6eb503ff6eb"
+            }
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
   "auth": {
     "bpr2503ff6eb503ff6eb": {
       "customAuth": false,
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "bpr2503ff6eb503ff6ebPostConfirmation",
+          "triggerProvider": "Cognito"
+        }
+      ],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
         "mfaTypes": [
@@ -25,5 +61,186 @@
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
     }
-  }
+  },
+  "function": {
+    "bpr2503ff6eb503ff6ebPostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "deleteDeliveryFunction": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput"
+          ],
+          "category": "api",
+          "resourceName": "bpr2"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "editDeliveryFunction": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput"
+          ],
+          "category": "api",
+          "resourceName": "bpr2"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "routeOptimizationFunction": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput"
+          ],
+          "category": "api",
+          "resourceName": "bpr2"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "setDeliveryStatusFunction": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput"
+          ],
+          "category": "api",
+          "resourceName": "bpr2"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "geo": {
+    "mapc2ed672c": {
+      "accessType": "AuthorizedUsers",
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "bpr2503ff6eb503ff6eb"
+        }
+      ],
+      "isDefault": true,
+      "mapStyle": "VectorOpenDataStandardLight",
+      "providerPlugin": "awscloudformation",
+      "service": "Map"
+    },
+    "placeIndexbf27a83e": {
+      "accessType": "AuthorizedUsers",
+      "dataProvider": "Here",
+      "dataSourceIntendedUse": "Storage",
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "bpr2503ff6eb503ff6eb"
+        }
+      ],
+      "isDefault": true,
+      "providerPlugin": "awscloudformation",
+      "service": "PlaceIndex"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_bpr2503ff6eb503ff6ebPostConfirmation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "bpr2503ff6eb503ff6ebPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_bpr2503ff6eb503ff6ebPostConfirmation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "bpr2503ff6eb503ff6ebPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteDeliveryFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteDeliveryFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteDeliveryFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteDeliveryFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_editDeliveryFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "editDeliveryFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_editDeliveryFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "editDeliveryFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_routeOptimizationFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "routeOptimizationFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_routeOptimizationFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "routeOptimizationFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_setDeliveryStatusFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "setDeliveryStatusFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_setDeliveryStatusFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "setDeliveryStatusFunction"
+        }
+      ]
+    }
+  },
+  "storage": {}
 }

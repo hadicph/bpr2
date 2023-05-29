@@ -1,0 +1,7 @@
+[{
+  "Action": ["dynamodb:GetItem",
+    "dynamodb:Query",
+    "dynamodb:Scan", "dynamodb:UpdateItem"
+  ],
+  "Resource": ["arn:aws:dynamodb:eu-north-1:343061278635:table/Route-hpi5bhpsu5gobkntneedlwykp4-dev"]
+}]
