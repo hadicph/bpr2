@@ -35,7 +35,7 @@
         },
         "setDeliveryStatusFunction": {
           "deploymentBucketName": "amplify-bpr2-dev-125123-deployment",
-          "s3Key": "amplify-builds/setDeliveryStatusFunction-546e665239776b554a69-build.zip"
+          "s3Key": "amplify-builds/setDeliveryStatusFunction-394e7a74447041415868-build.zip"
         }
       },
       "api": {
