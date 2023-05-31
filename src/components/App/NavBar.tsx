@@ -24,7 +24,7 @@ const NavBar: React.FC = () => {
                 )}
             </div>
             <div className="flex-1">
-                <Link to="/" className="btn btn-ghost normal-case text-xl">Your Choice</Link> {/* Use Link instead of anchor tag */}
+                <Link to="/" className="btn btn-ghost normal-case text-xl">Main Page</Link> {/* Use Link instead of anchor tag */}
             </div>
 
         </div>

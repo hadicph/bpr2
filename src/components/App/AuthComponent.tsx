@@ -1,8 +1,9 @@
 import { ReactElement } from "react";
-import {Authenticator} from '@aws-amplify/ui-react';
+import {Authenticator, View, useTheme} from '@aws-amplify/ui-react';
 import React from "react";
 import { Auth, Hub } from "aws-amplify";
 import Header from "./Header";
+import { DefaultComponents } from "@aws-amplify/ui-react/dist/types/components/Authenticator/hooks/useCustomComponents/defaultComponents";
 
 type AuthProps = {
     children?: ReactElement;
@@ -54,14 +55,25 @@ React.useEffect(() => {
       console.log('error signing out: ', error);
     }
   }
-  /*
-  <main>
-          <Text>Hello {user?.username}</Text>
-          <button onClick={signOut}>Sign out</button>
-        </main>
-  */
+  const components = {
+  Header() {
+  const { tokens } = useTheme();
+
   return (
-    <Authenticator >
+  <View textAlign="center" padding={tokens.space.large}>
+    <div className="flex justify-center items-center p-8">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/1179/1179051.png?w=826&t=st=1685547937~exp=1685548537~hmac=05b47df3ec1b1c2121d7b4822cba5733dbc726c4e6ff5e7ad9b75f0e8d430a6a"
+        alt="start route" className="w-20 h-20" />
+      <h1 className="text-2xl font-bold">Transportation Optimization System</h1>
+    </div>
+
+  </View>
+  );
+  },
+  }
+  return (
+    <Authenticator components={components}>
         <Header username={user?.username} signOut={signOut}/>
         {children}
         </Authenticator>
