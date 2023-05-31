@@ -1,46 +1,40 @@
-# Getting Started with Create React App
+# Transportation Optimization System (TOS)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project contains a web application that enables users to create routes and optimize these routes for efficieny.
 
-## Available Scripts
+## Information:
 
-In the project directory, you can run:
+Below are all relevant information for this project.
 
-### `npm start`
+### Technologies Used:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Frontend: React Library - Typescript
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Backend: Serverless
 
-### `npm test`
+Database: DynamoDB
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Serverless Functions: Lambda Functions by AWS - Node js
 
-### `npm run build`
+API: GraphQL API
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+CloudWatch: Logging and analyzing resource data
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+External Services: Mapbox
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Installation
+This web application can be installed and deployed on your own AWS Amplify account.
 
-### `npm run eject`
+All resources in the application should be automatically deployed, please make sure to create a MapBox account and input the access key or the system will be unfunctional.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Features:
+Create Route
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Create Delivery
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Manage Route
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Manage Delivery
 
-## Learn More
+Optimize Route
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
